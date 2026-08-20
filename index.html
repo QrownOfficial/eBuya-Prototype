@@ -2563,6 +2563,9 @@
             window.goTo('consideringSummary');
         }
 
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  FIXED: CONSIDERING SUMMARY (Product line removed)
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function renderConsideringSummary() {
             var prioritiesText = state.selectedPriorities.length > 0 ? state.selectedPriorities.join(', ') : 'Not specified';
             var useCaseText = state.useCase.length > 0 ? state.useCase.join(', ') : 'Not specified';
@@ -2576,7 +2579,6 @@
                     <p class="microcopy">We'll use this to work out whether the product you're considering is actually the best fit for you.</p>
 
                     <div class="info-card">
-                        <p><strong style="color:var(--navy);">Product</strong><br>MacBook Pro 14-inch with M5 chip</p>
                         <p style="margin-top:12px;"><strong style="color:var(--navy);">Use case</strong><br>${useCaseText}</p>
                         <p style="margin-top:12px;"><strong style="color:var(--navy);">Priorities</strong><br>${prioritiesText}</p>
                         <p style="margin-top:12px;"><strong style="color:var(--navy);">Budget</strong><br>${budgetText}</p>
