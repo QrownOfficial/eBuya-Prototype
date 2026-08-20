@@ -2542,6 +2542,9 @@
             `;
         }
 
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  FIXED: CONSIDERING RECOMMENDATION (Centered & Wide on Mobile)
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function renderConsideringRecommendation() {
             var p = PRODUCTS.macbook;
 
@@ -2552,8 +2555,8 @@
                     <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Here's where we'd land.</h1>
                     <p class="microcopy">We've compared the product you're considering with the alternatives against the things you've told us matter most.</p>
 
-                    <div class="product-grid" style="max-width:400px;margin-left:auto;margin-right:auto;">
-                        <div class="product-card featured">
+                    <div class="product-grid" style="max-width:480px;margin-left:auto;margin-right:auto;display:flex;justify-content:center;">
+                        <div class="product-card featured" style="width:100%;max-width:400px;">
                             <div class="product-image"><img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='💻'"></div>
                             <div class="product-badge">Our top pick</div>
                             <div class="product-info">
