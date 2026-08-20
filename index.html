@@ -1362,6 +1362,7 @@
             else if (s === 'decisionFork') renderDecisionFork();
             else if (s === 'knowWhatIWant') renderKnowWhatIWant();
             else if (s === 'knowSummary') renderKnowSummary();
+            else if (s === 'knowAlternatives') renderKnowAlternatives();
             else if (s === 'stillConsidering') renderStillConsidering();
             else if (s === 'consideringUseCase') renderConsideringUseCase();
             else if (s === 'consideringPriorities') renderConsideringPriorities();
@@ -1408,6 +1409,7 @@
                 decisionFork: 'productConfirmation',
                 knowWhatIWant: 'decisionFork',
                 knowSummary: 'knowWhatIWant',
+                knowAlternatives: 'knowSummary',
                 stillConsidering: 'decisionFork',
                 consideringUseCase: 'stillConsidering',
                 consideringPriorities: 'consideringUseCase',
@@ -1654,7 +1656,7 @@
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        //  7. RECOMMENDATION (Top pick only)
+        //  7. RECOMMENDATION (Fixed: Centered & Responsive)
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function renderRecommendation() {
             var p = PRODUCTS.macbook;
@@ -1666,8 +1668,8 @@
                     <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Here's what we'd recommend.</h1>
                     <p class="microcopy">We looked at what you need, what matters to you and what you're comfortable spending before narrowing this down.</p>
 
-                    <div class="product-grid" style="max-width:400px;margin-left:auto;margin-right:auto;">
-                        <div class="product-card featured">
+                    <div class="product-grid" style="max-width:480px;margin-left:auto;margin-right:auto;display:flex;justify-content:center;">
+                        <div class="product-card featured" style="width:100%;max-width:400px;">
                             <div class="product-image">
                                 <img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='💻'">
                             </div>
@@ -2398,14 +2400,59 @@
                     </div>
 
                     <div class="button-row">
-                        <button class="btn-primary" onclick="startPurchaseFlow()">Find my best options →</button>
+                        <button class="btn-secondary" onclick="window.goTo('knowAlternatives')">See other options worth considering</button>
+                        <button class="btn-primary orange" onclick="startPurchaseFlow()">Proceed with my choice</button>
                     </div>
                 </div>
             `;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        //  28-35. I'M STILL CONSIDERING
+        //  28. KNOW ALTERNATIVES (NEW — "I know what I want" flow)
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        function renderKnowAlternatives() {
+            var allProducts = [PRODUCTS.macbook, PRODUCTS.lenovo, PRODUCTS.hp];
+
+            var cards = allProducts.map(function(p) {
+                var isFeatured = p.id === 'macbook';
+                var badgeClass = isFeatured ? '' : (p.id === 'lenovo' ? 'gold' : 'navy');
+                var badgeText = isFeatured ? 'Our top pick' : (p.id === 'lenovo' ? 'Best value' : 'Versatile');
+
+                return `
+                    <div class="product-card ${isFeatured ? 'featured' : ''}" onclick="goToProductBestSeller('${p.id}')">
+                        <div class="product-image">
+                            <img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='${p.name.split(' ')[0]}'">
+                        </div>
+                        <div class="product-badge ${badgeClass}">${badgeText}</div>
+                        <div class="product-info">
+                            <h3>${p.name}</h3>
+                            <div class="price">${p.price}</div>
+                            <div class="rating">★ ${p.rating} <span>(${p.reviews} reviews)</span></div>
+                            <p style="font-size:13px;color:var(--muted);margin-top:8px;"><strong>Why consider it</strong><br>${p.id === 'macbook' ? 'The strongest all-rounder for most users.' : p.id === 'lenovo' ? 'A strong choice if you want a lightweight Windows laptop with a business-focused design and extensive connectivity.' : 'A flexible choice if you value a 2-in-1 design, touch capability and a more versatile way to use your laptop.'}</p>
+                            <button class="btn-primary" style="width:100%;margin-top:12px;justify-content:center;" onclick="event.stopPropagation(); goToProductBestSeller('${p.id}')">See where to buy</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            screen.innerHTML = `
+                <div class="screen-content">
+                    <button class="back-button" onclick="goBack()">← Back</button>
+                    <div class="brand-mark"></div>
+                    <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Other options worth considering</h1>
+                    <p class="microcopy">Here are the other options worth considering. Click any to see where to get it.</p>
+
+                    <div class="product-grid">${cards}</div>
+
+                    <div class="button-row">
+                        <button class="btn-secondary" onclick="window.goTo('knowSummary')">← Back to summary</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  29-36. I'M STILL CONSIDERING
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function renderStillConsidering() {
             screen.innerHTML = `
@@ -2542,9 +2589,6 @@
             `;
         }
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        //  FIXED: CONSIDERING RECOMMENDATION (Centered & Wide on Mobile)
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function renderConsideringRecommendation() {
             var p = PRODUCTS.macbook;
 
