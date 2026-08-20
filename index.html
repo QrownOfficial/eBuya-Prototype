@@ -1,0 +1,2657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>eBuya — Spend with certainty.</title>
+
+    <style>
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           ROOT VARIABLES
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        :root {
+            --orange: #F9631C;
+            --navy: #123456;
+            --gold: #F4C430;
+            --cream: #FAF8F5;
+            --white: #FFFFFF;
+            --text: #17212B;
+            --muted: #66717D;
+            --line: rgba(18, 52, 86, 0.12);
+            --navy-soft: rgba(18, 52, 86, 0.07);
+            --orange-soft: rgba(249, 99, 28, 0.10);
+            --gold-soft: rgba(244, 196, 48, 0.18);
+            --shadow: 0 14px 40px rgba(18, 52, 86, 0.065);
+            --shadow-hover: 0 20px 48px rgba(18, 52, 86, 0.11);
+            --radius: 20px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            margin: 0;
+            min-height: 100%;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, system-ui, sans-serif;
+            color: var(--text);
+            background: var(--cream);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        button,
+        input,
+        textarea {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        #app {
+            position: relative;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .background {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .background::before {
+            content: "";
+            position: absolute;
+            width: 580px;
+            height: 580px;
+            top: -290px;
+            right: -170px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(244, 196, 48, 0.25) 0%, rgba(244, 196, 48, 0) 70%);
+        }
+
+        .background::after {
+            content: "";
+            position: absolute;
+            width: 680px;
+            height: 680px;
+            bottom: -400px;
+            left: -300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(249, 99, 28, 0.16) 0%, rgba(249, 99, 28, 0) 70%);
+        }
+
+        .background-grid {
+            position: absolute;
+            inset: 0;
+            opacity: 0.48;
+            background-image:
+                linear-gradient(rgba(18, 52, 86, 0.035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(18, 52, 86, 0.035) 1px, transparent 1px);
+            background-size: 48px 48px;
+        }
+
+        .app-shell {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .topbar {
+            width: 100%;
+            padding: 16px 34px 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .logo {
+            display: inline-flex;
+            align-items: baseline;
+            font-size: 30px;
+            line-height: 1;
+            font-weight: 800;
+            letter-spacing: -1.8px;
+            text-decoration: none;
+        }
+
+        .logo-e {
+            color: #F9631C;
+        }
+        .logo-bu {
+            color: #123456;
+        }
+        .logo-ya {
+            color: #F4C430;
+        }
+
+        .hamburger {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--navy);
+            cursor: pointer;
+            padding: 8px;
+            line-height: 1;
+        }
+
+        .hamburger:hover {
+            background: var(--navy-soft);
+            border-radius: 8px;
+        }
+
+        .hamburger-menu {
+            position: absolute;
+            top: 70px;
+            right: 20px;
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(18, 52, 86, 0.15);
+            border: 1px solid var(--line);
+            padding: 8px 0;
+            min-width: 200px;
+            z-index: 100;
+            display: none;
+        }
+
+        .hamburger-menu.open {
+            display: block;
+        }
+
+        .hamburger-menu button {
+            display: block;
+            width: 100%;
+            padding: 12px 20px;
+            background: none;
+            border: none;
+            text-align: left;
+            font-size: 14px;
+            color: var(--navy);
+            cursor: pointer;
+        }
+
+        .hamburger-menu button:hover {
+            background: var(--navy-soft);
+        }
+
+        .screen {
+            flex: 1;
+            padding: 20px 22px 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .screen-content {
+            width: min(900px, 100%);
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .brand-mark {
+            width: 74px;
+            height: 7px;
+            margin: 0 auto 28px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--orange) 0 33%, var(--navy) 33% 66%, var(--gold) 66% 100%);
+        }
+
+        .eyebrow {
+            margin-bottom: 13px;
+            color: var(--orange);
+            font-size: 11px;
+            line-height: 1.2;
+            font-weight: 800;
+            letter-spacing: 1.7px;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            max-width: 820px;
+            margin: 0 auto 20px;
+            color: var(--navy);
+            font-size: clamp(44px, 7vw, 78px);
+            line-height: 0.97;
+            letter-spacing: -4px;
+        }
+
+        h2 {
+            color: var(--navy);
+            font-size: 22px;
+            line-height: 1.2;
+        }
+
+        h3 {
+            color: var(--navy);
+            font-size: 18px;
+        }
+
+        .description {
+            max-width: 630px;
+            margin: 0 auto;
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        .microcopy {
+            max-width: 580px;
+            margin: 0 auto;
+            color: var(--muted);
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .text-muted {
+            color: var(--muted);
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .entry-grid {
+            width: min(780px, 100%);
+            margin: 47px auto 0;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .entry-card {
+            min-height: 148px;
+            padding: 24px;
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            background: rgba(255, 255, 255, 0.87);
+            box-shadow: var(--shadow);
+            text-align: left;
+            transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+            border: none;
+            font-family: inherit;
+            font-size: inherit;
+            width: 100%;
+            color: inherit;
+        }
+
+        .entry-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(249, 99, 28, 0.30);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .entry-icon {
+            width: 42px;
+            height: 42px;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 13px;
+            background: var(--navy-soft);
+            color: var(--navy);
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .entry-card:nth-child(2) .entry-icon {
+            background: var(--orange-soft);
+            color: var(--orange);
+        }
+        .entry-card:nth-child(3) .entry-icon {
+            background: var(--gold-soft);
+            color: var(--navy);
+        }
+        .entry-card:nth-child(4) .entry-icon {
+            background: var(--navy-soft);
+            color: var(--navy);
+        }
+
+        .entry-card h2 {
+            margin-bottom: 7px;
+            font-size: 19px;
+            line-height: 1.15;
+            letter-spacing: -0.5px;
+        }
+
+        .entry-card p {
+            margin-bottom: 0;
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.55;
+        }
+
+        .home-note {
+            margin-top: 34px;
+            color: var(--navy);
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            min-height: 38px;
+            margin-bottom: 30px;
+            padding: 0 15px;
+            border: 0;
+            border-radius: 999px;
+            background: transparent;
+            color: var(--navy);
+            font-size: 13px;
+            font-weight: 750;
+            cursor: pointer;
+        }
+
+        .back-button:hover {
+            background: var(--navy-soft);
+        }
+
+        .btn-primary {
+            min-height: 50px;
+            padding: 0 25px;
+            border: 0;
+            border-radius: 999px;
+            background: var(--navy);
+            color: var(--white);
+            font-weight: 750;
+            box-shadow: 0 10px 25px rgba(18, 52, 86, 0.16);
+            cursor: pointer;
+            transition: transform 150ms ease, box-shadow 150ms ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 32px rgba(18, 52, 86, 0.22);
+        }
+
+        .btn-primary.orange {
+            background: var(--orange);
+            box-shadow: 0 10px 25px rgba(249, 99, 28, 0.2);
+        }
+
+        .btn-primary.orange:hover {
+            background: #e0550f;
+        }
+
+        .btn-secondary {
+            min-height: 50px;
+            padding: 0 25px;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.8);
+            color: var(--navy);
+            font-weight: 750;
+            cursor: pointer;
+            transition: transform 150ms ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+        }
+
+        .button-row {
+            margin-top: 27px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 11px;
+            flex-wrap: wrap;
+        }
+
+        .button-row .btn-primary,
+        .button-row .btn-secondary {
+            min-width: 120px;
+        }
+
+        .input-card {
+            width: min(720px, 100%);
+            margin: 32px auto 0;
+            padding: 6px;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            background: var(--white);
+            box-shadow: 0 14px 40px rgba(18, 52, 86, 0.07);
+        }
+
+        .input-card.dashed {
+            padding: 30px;
+            text-align: center;
+            border-style: dashed;
+        }
+
+        .input-card .icon-large {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+
+        .input-card .label {
+            color: var(--muted);
+            margin-bottom: 12px;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 18px;
+            border: 0;
+            outline: 0;
+            color: var(--text);
+            background: transparent;
+            resize: vertical;
+            line-height: 1.6;
+            font-family: inherit;
+            font-size: 16px;
+        }
+
+        textarea::placeholder {
+            color: #9AA3AB;
+        }
+
+        input[type="text"],
+        input[type="url"],
+        input[type="number"] {
+            width: 100%;
+            min-height: 58px;
+            padding: 0 18px;
+            border: 0;
+            outline: 0;
+            color: var(--text);
+            background: transparent;
+            font-family: inherit;
+            font-size: 16px;
+        }
+
+        input[type="text"]::placeholder,
+        input[type="url"]::placeholder {
+            color: #9AA3AB;
+        }
+
+        input[type="file"] {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .upload-preview {
+            margin-top: 12px;
+            color: var(--orange);
+            font-weight: 700;
+        }
+
+        .info-card {
+            width: min(820px, 100%);
+            margin: 28px auto 0;
+            padding: 27px;
+            border: 1px solid var(--line);
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.88);
+            box-shadow: 0 20px 60px rgba(18, 52, 86, 0.08);
+            text-align: left;
+        }
+
+        .info-card .summary-text {
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--navy);
+        }
+
+        .info-card p {
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .chip-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            max-width: 820px;
+            margin: 20px auto 0;
+        }
+
+        .chip {
+            padding: 10px 20px;
+            border: 1.5px solid var(--line);
+            border-radius: 40px;
+            background: var(--white);
+            color: var(--navy);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            user-select: none;
+            font-family: inherit;
+        }
+
+        .chip:hover {
+            border-color: rgba(249, 99, 28, 0.3);
+        }
+
+        .chip.active {
+            border-color: var(--orange);
+            background: var(--orange-soft);
+            color: var(--orange);
+            box-shadow: 0 0 0 3px rgba(249, 99, 28, 0.08);
+        }
+
+        .chip-count {
+            margin-top: 12px;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .product-grid {
+            width: 100%;
+            margin: 35px auto 0;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .product-card {
+            overflow: hidden;
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            background: var(--white);
+            box-shadow: var(--shadow);
+            transition: transform 160ms ease, box-shadow 160ms ease;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .product-card.featured {
+            border-color: var(--orange);
+            box-shadow: 0 0 0 2px var(--orange), var(--shadow);
+        }
+
+        .product-card.featured:hover {
+            box-shadow: 0 0 0 2px var(--orange), var(--shadow-hover);
+        }
+
+        .product-image {
+            width: 100%;
+            aspect-ratio: 1.18 / 1;
+            overflow: hidden;
+            background: #F1EEE9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: #aaa;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-badge {
+            display: inline-block;
+            margin: 12px 20px 4px;
+            padding: 3px 12px;
+            border-radius: 999px;
+            background: var(--orange-soft);
+            color: var(--orange);
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .product-badge.gold {
+            background: var(--gold-soft);
+            color: var(--navy);
+        }
+
+        .product-badge.navy {
+            background: var(--navy-soft);
+            color: var(--navy);
+        }
+
+        .product-info {
+            padding: 4px 20px 20px;
+        }
+
+        .product-info h3 {
+            font-size: 18px;
+            color: var(--navy);
+            margin-bottom: 4px;
+        }
+
+        .product-info .price {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--navy);
+        }
+
+        .product-info .price small {
+            font-weight: 400;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .product-info .specs {
+            margin: 6px 0 0;
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .product-info .rating {
+            margin-top: 6px;
+            color: var(--gold);
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .product-info .rating span {
+            color: var(--muted);
+            font-weight: 400;
+        }
+
+        .product-info .strengths {
+            margin-top: 8px;
+            font-size: 13px;
+            color: var(--navy);
+        }
+
+        .product-info .strengths strong {
+            color: var(--orange);
+        }
+
+        .product-info .tradeoffs {
+            margin-top: 4px;
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .product-info .tradeoffs strong {
+            color: #b91c1c;
+        }
+
+        .product-card .click-hint {
+            display: block;
+            margin-top: 12px;
+            padding: 8px 16px;
+            background: var(--orange-soft);
+            color: var(--orange);
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .tradeoff-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 30px;
+            max-width: 720px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .tradeoff-card {
+            padding: 20px;
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            background: var(--white);
+            text-align: left;
+            box-shadow: var(--shadow);
+        }
+
+        .tradeoff-card h3 {
+            font-size: 16px;
+            color: var(--navy);
+            margin-bottom: 8px;
+        }
+
+        .tradeoff-card .strength-list {
+            color: var(--navy);
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .tradeoff-card .strength-list .check {
+            color: var(--orange);
+        }
+
+        .tradeoff-card .tradeoff-list {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.6;
+            margin-top: 8px;
+        }
+
+        .tradeoff-card .tradeoff-list .cross {
+            color: #b91c1c;
+        }
+
+        .tradeoff-card .divider {
+            border: none;
+            border-top: 1px solid var(--line);
+            margin: 12px 0;
+        }
+
+        .seller-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .seller-card {
+            padding: 20px;
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            background: var(--white);
+            text-align: left;
+            box-shadow: var(--shadow);
+            transition: transform 160ms ease, border-color 160ms ease;
+            cursor: pointer;
+        }
+
+        .seller-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--orange);
+        }
+
+        .seller-card .seller-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--navy);
+        }
+
+        .seller-card .seller-price {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--navy);
+            margin: 4px 0;
+        }
+
+        .seller-card .seller-rating {
+            color: var(--gold);
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .seller-card .seller-rating span {
+            color: var(--muted);
+            font-weight: 400;
+        }
+
+        .seller-card .seller-reputation {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 40px;
+            background: var(--navy-soft);
+            color: var(--navy);
+            font-size: 12px;
+            font-weight: 600;
+            margin: 4px 0;
+        }
+
+        .seller-card .seller-reputation.excellent {
+            background: rgba(249, 99, 28, 0.08);
+            color: var(--orange);
+        }
+
+        .seller-card .seller-detail {
+            font-size: 13px;
+            color: var(--muted);
+            margin: 2px 0;
+        }
+
+        .seller-card .seller-detail strong {
+            color: var(--navy);
+        }
+
+        .seller-card .btn-primary {
+            width: 100%;
+            margin-top: 12px;
+            justify-content: center;
+        }
+
+        .seller-card .click-hint {
+            display: block;
+            margin-top: 8px;
+            padding: 6px 12px;
+            background: var(--navy-soft);
+            color: var(--navy);
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .location-box {
+            background: rgba(18, 52, 86, 0.02);
+            border-radius: 16px;
+            padding: 20px 24px;
+            border: 1px dashed rgba(18, 52, 86, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 20px;
+            max-width: 720px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .location-box .location-label {
+            font-size: 15px;
+            color: var(--navy);
+            font-weight: 500;
+        }
+
+        .location-box .location-value {
+            font-size: 15px;
+            color: var(--orange);
+            font-weight: 700;
+        }
+
+        .final-card {
+            max-width: 720px;
+            margin: 30px auto 0;
+            padding: 30px;
+            border: 2px solid var(--orange);
+            border-radius: 24px;
+            background: var(--white);
+            box-shadow: 0 20px 60px rgba(18, 52, 86, 0.08);
+            text-align: left;
+        }
+
+        .final-card .pick-label {
+            color: var(--orange);
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .final-card .pick-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--navy);
+            margin: 4px 0;
+        }
+
+        .final-card .pick-reason {
+            color: var(--muted);
+            font-size: 15px;
+            line-height: 1.6;
+            margin: 8px 0 16px;
+        }
+
+        .final-card .detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px 20px;
+            margin: 16px 0;
+        }
+
+        .final-card .detail-item {
+            font-size: 14px;
+        }
+
+        .final-card .detail-item strong {
+            color: var(--navy);
+        }
+
+        .final-card .detail-item .value {
+            color: var(--text);
+        }
+
+        .final-card .btn-primary {
+            width: 100%;
+            justify-content: center;
+            margin-top: 16px;
+        }
+
+        .fork-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 30px;
+            max-width: 720px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .fork-card {
+            padding: 24px;
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            background: var(--white);
+            box-shadow: var(--shadow);
+            text-align: left;
+            cursor: pointer;
+            transition: transform 160ms ease, border-color 160ms ease;
+        }
+
+        .fork-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--orange);
+        }
+
+        .fork-card h3 {
+            font-size: 18px;
+            color: var(--navy);
+            margin-bottom: 4px;
+        }
+
+        .fork-card p {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .loading-states {
+            margin-top: 20px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .loading-states .state {
+            padding: 6px 0;
+            opacity: 0.4;
+            transition: opacity 0.3s ease;
+        }
+
+        .loading-states .state.active {
+            opacity: 1;
+            color: var(--navy);
+            font-weight: 500;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .mt-8 {
+            margin-top: 8px;
+        }
+        .mt-12 {
+            margin-top: 12px;
+        }
+        .mt-16 {
+            margin-top: 16px;
+        }
+        .mt-20 {
+            margin-top: 20px;
+        }
+        .mt-24 {
+            margin-top: 24px;
+        }
+        .mt-32 {
+            margin-top: 32px;
+        }
+
+        .w-full {
+            width: 100%;
+        }
+
+        .text-left {
+            text-align: left;
+        }
+
+        @media (max-width: 720px) {
+            .topbar {
+                padding: 22px 19px 8px;
+            }
+
+            .screen {
+                padding: 20px 17px 55px;
+            }
+
+            h1 {
+                font-size: clamp(42px, 13vw, 60px);
+                letter-spacing: -2.8px;
+            }
+
+            .entry-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .entry-card {
+                min-height: 125px;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tradeoff-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .seller-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .fork-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .button-row {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .button-row .btn-primary,
+            .button-row .btn-secondary {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .final-card .detail-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .location-box {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .chip-grid {
+                gap: 6px;
+            }
+
+            .chip {
+                font-size: 12px;
+                padding: 8px 14px;
+            }
+
+            .info-card {
+                padding: 18px;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .topbar {
+                padding: 18px 16px 6px;
+            }
+
+            .screen {
+                padding: 16px 14px 40px;
+            }
+
+            .product-info h3 {
+                font-size: 16px;
+            }
+
+            .final-card {
+                padding: 20px;
+            }
+
+            .final-card .pick-name {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="app">
+
+        <div class="background">
+            <div class="background-grid"></div>
+        </div>
+
+        <div class="app-shell">
+
+            <header class="topbar">
+                <div class="logo" aria-label="eBuya">
+                    <span class="logo-e">e</span><span class="logo-bu">Bu</span><span class="logo-ya">ya</span>
+                </div>
+                <button class="hamburger" id="hamburgerBtn" aria-label="Menu">☰</button>
+                <div class="hamburger-menu" id="hamburgerMenu">
+                    <button onclick="resetApp()">Start a new decision</button>
+                    <button onclick="resetApp()">About eBuya</button>
+                </div>
+            </header>
+
+            <main id="screen" class="screen">
+                <!-- Dynamic content rendered by JavaScript -->
+            </main>
+
+        </div>
+
+    </div>
+
+    <script>
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  HAMBURGER MENU
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        document.getElementById('hamburgerBtn').addEventListener('click', function(e) {
+            e.stopPropagation();
+            document.getElementById('hamburgerMenu').classList.toggle('open');
+        });
+
+        document.addEventListener('click', function() {
+            document.getElementById('hamburgerMenu').classList.remove('open');
+        });
+
+        function resetApp() {
+            document.getElementById('hamburgerMenu').classList.remove('open');
+            state.currentStage = 'home';
+            state.entryMethod = null;
+            state.userQuestion = '';
+            state.uploadedImage = null;
+            state.pastedUrl = '';
+            state.scannedCode = '';
+            state.selectedPriorities = [];
+            state.useCase = [];
+            state.budget = null;
+            state.location = null;
+            state.selectedSeller = null;
+            state.productConfirmed = false;
+            state.decisionFork = null;
+            state.identifiedProduct = null;
+            state.returnToStage = null;
+            render();
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  STATE
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        var state = {
+            currentStage: 'home',
+            entryMethod: null,
+            userQuestion: '',
+            uploadedImage: null,
+            pastedUrl: '',
+            scannedCode: '',
+            selectedPriorities: [],
+            useCase: [],
+            budget: null,
+            location: null,
+            selectedSeller: null,
+            productConfirmed: false,
+            decisionFork: null,
+            identifiedProduct: null,
+            returnToStage: null
+        };
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  PRODUCT DATA
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        var PRODUCTS = {
+            macbook: {
+                id: 'macbook',
+                name: 'MacBook Pro 14-inch with M5 chip',
+                price: '₦2,850,000',
+                image: 'https://placehold.co/400x300/123456/FFFFFF?text=MacBook+Pro+M5',
+                rating: 4.8,
+                reviews: '2,100+',
+                specs: 'M5 chip, 16GB RAM, 512GB SSD, 14-inch Liquid Retina',
+                strengths: ['Strong performance', 'Long battery life', 'High-quality display', 'Portable 14-inch design'],
+                tradeoffs: ['Higher cost than some Windows alternatives', 'macOS may require adjustment if you\'re coming from Windows'],
+                bestSeller: 'Konga'
+            },
+            lenovo: {
+                id: 'lenovo',
+                name: 'Lenovo ThinkPad X1 Carbon Gen 13 Aura Edition',
+                price: '₦2,150,000',
+                image: 'https://placehold.co/400x300/F4C430/123456?text=Lenovo+X1+Carbon',
+                rating: 4.5,
+                reviews: '1,800+',
+                specs: 'Intel Core Ultra 7, 16GB RAM, 512GB SSD, 14-inch WUXGA',
+                strengths: ['Lightweight Windows laptop', 'Business-focused design', 'Extensive connectivity', 'Durable build'],
+                tradeoffs: ['Slightly less performance than MacBook', 'Battery life not as long'],
+                bestSeller: 'Jumia'
+            },
+            hp: {
+                id: 'hp',
+                name: 'HP Elite x360 1040 G11',
+                price: '₦2,650,000',
+                image: 'https://placehold.co/400x300/F9631C/FFFFFF?text=HP+Elite+x360',
+                rating: 4.6,
+                reviews: '1,500+',
+                specs: 'Intel Core Ultra 7, 16GB RAM, 512GB SSD, 14-inch Touchscreen',
+                strengths: ['Flexible 2-in-1 design', 'Touch capability', 'Versatile way to use your laptop', 'Good build quality'],
+                tradeoffs: ['Price', 'Battery life not as good as MacBook', 'Heavier than some alternatives'],
+                bestSeller: 'Slot'
+            }
+        };
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  SELLER DATA
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        var SELLERS = [{
+            name: 'Konga',
+            price: '₦2,450,000',
+            rating: 4.8,
+            reviews: '2,400+',
+            reputation: 'Excellent',
+            delivery: '1–2 days',
+            returns: '14-day',
+            warranty: '1-year',
+            stock: 'In stock',
+            badge: 'Best overall'
+        }, {
+            name: 'Jumia',
+            price: '₦2,350,000',
+            rating: 4.5,
+            reviews: '3,100+',
+            reputation: 'Very good',
+            delivery: '3–5 days',
+            returns: '7-day',
+            warranty: '1-year',
+            stock: 'In stock',
+            badge: 'Lowest price'
+        }, {
+            name: 'Slot',
+            price: '₦2,520,000',
+            rating: 4.9,
+            reviews: '890+',
+            reputation: 'Excellent',
+            delivery: '1–3 days',
+            returns: '14-day',
+            warranty: '2-year',
+            stock: 'Limited',
+            badge: 'Highest rated'
+        }];
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  PRIORITIES DATA
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        var PRIORITIES_ALL = [
+            'Price', 'Performance', 'Battery life', 'Portability', 'Durability',
+            'Storage', 'Display', 'Build quality', 'Reviews', 'Brand',
+            'Warranty', 'Seller reputation', 'Delivery', 'Return policy',
+            'Long-term value'
+        ];
+
+        var PRIORITIES_BUY = [
+            'Price', 'Seller reputation', 'Delivery speed', 'Delivery cost',
+            'Warranty', 'Return policy', 'Availability', 'Authenticity',
+            'Convenience', 'Overall value'
+        ];
+
+        var USE_CASES = [
+            'Work', 'School', 'Business', 'Creative work',
+            'Gaming', 'Everyday use', 'Travel', 'Something else'
+        ];
+
+        var BUDGET_OPTIONS = [
+            'Under ₦500,000',
+            '₦500,000 to ₦1,000,000',
+            '₦1,000,000 to ₦2,000,000',
+            '₦2,000,000 to ₦3,000,000',
+            '₦3,000,000+',
+            'Set a specific range',
+            'I don\'t have a budget'
+        ];
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  RENDER ENGINE
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        var screen = document.getElementById('screen');
+
+        function render() {
+            var s = state.currentStage;
+            if (s === 'home') renderHome();
+            else if (s === 'ask') renderAsk();
+            else if (s === 'understandingRequest') renderUnderstandingRequest();
+            else if (s === 'priorities') renderPriorities();
+            else if (s === 'budget') renderBudget();
+            else if (s === 'understandingSummary') renderUnderstandingSummary();
+            else if (s === 'recommendation') renderRecommendation();
+            else if (s === 'tradeoffs') renderTradeoffs();
+            else if (s === 'alternatives') renderAlternatives();
+            else if (s === 'gettingIt') renderGettingIt();
+            else if (s === 'location') renderLocation();
+            else if (s === 'locationManual') renderLocationManual();
+            else if (s === 'sellerMatching') renderSellerMatching();
+            else if (s === 'recommendedSeller') renderRecommendedSeller();
+            else if (s === 'sellerComparison') renderSellerComparison();
+            else if (s === 'finalPurchase') renderFinalPurchase();
+            else if (s === 'pasteUrl') renderPasteUrl();
+            else if (s === 'urlProcessing') renderUrlProcessing();
+            else if (s === 'uploadImage') renderUploadImage();
+            else if (s === 'imagePreview') renderImagePreview();
+            else if (s === 'imageProcessing') renderImageProcessing();
+            else if (s === 'scanCode') renderScanCode();
+            else if (s === 'codeProcessing') renderCodeProcessing();
+            else if (s === 'productRecognition') renderProductRecognition();
+            else if (s === 'productConfirmation') renderProductConfirmation();
+            else if (s === 'wrongProduct') renderWrongProduct();
+            else if (s === 'decisionFork') renderDecisionFork();
+            else if (s === 'knowWhatIWant') renderKnowWhatIWant();
+            else if (s === 'knowSummary') renderKnowSummary();
+            else if (s === 'stillConsidering') renderStillConsidering();
+            else if (s === 'consideringUseCase') renderConsideringUseCase();
+            else if (s === 'consideringPriorities') renderConsideringPriorities();
+            else if (s === 'consideringBudget') renderConsideringBudget();
+            else if (s === 'consideringSummary') renderConsideringSummary();
+            else if (s === 'consideringRecommendation') renderConsideringRecommendation();
+            else if (s === 'consideringTradeoffs') renderConsideringTradeoffs();
+            else if (s === 'consideringAlternatives') renderConsideringAlternatives();
+            else screen.innerHTML = '<div class="screen-content"><p>Something went wrong.</p></div>';
+        }
+
+        window.goTo = function(page) {
+            state.currentStage = page;
+            render();
+        };
+
+        function goBack() {
+            var map = {
+                ask: 'home',
+                understandingRequest: 'ask',
+                priorities: 'understandingRequest',
+                budget: 'priorities',
+                understandingSummary: 'budget',
+                recommendation: 'understandingSummary',
+                tradeoffs: 'recommendation',
+                alternatives: 'tradeoffs',
+                gettingIt: 'alternatives',
+                location: 'gettingIt',
+                locationManual: 'location',
+                sellerMatching: 'location',
+                recommendedSeller: 'sellerMatching',
+                sellerComparison: 'recommendedSeller',
+                finalPurchase: 'sellerComparison',
+                pasteUrl: 'home',
+                urlProcessing: 'pasteUrl',
+                uploadImage: 'home',
+                imagePreview: 'uploadImage',
+                imageProcessing: 'imagePreview',
+                scanCode: 'home',
+                codeProcessing: 'scanCode',
+                productRecognition: 'home',
+                productConfirmation: 'productRecognition',
+                wrongProduct: 'productConfirmation',
+                decisionFork: 'productConfirmation',
+                knowWhatIWant: 'decisionFork',
+                knowSummary: 'knowWhatIWant',
+                stillConsidering: 'decisionFork',
+                consideringUseCase: 'stillConsidering',
+                consideringPriorities: 'consideringUseCase',
+                consideringBudget: 'consideringPriorities',
+                consideringSummary: 'consideringBudget',
+                consideringRecommendation: 'consideringSummary',
+                consideringTradeoffs: 'consideringRecommendation',
+                consideringAlternatives: 'consideringTradeoffs'
+            };
+            window.goTo(map[state.currentStage] || 'home');
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  1. HOME
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        function renderHome() {
+            screen.innerHTML = `
+                <div class="screen-content">
+                    <div class="brand-mark"></div>
+                    <div class="eyebrow">Spend with certainty.</div>
+                    <h1>What are you considering?</h1>
+                    <p class="description">Tell us what you're looking for and we'll help you figure out what matters.</p>
+
+                    <div class="entry-grid">
+                        <button class="entry-card" type="button" onclick="state.entryMethod='question'; window.goTo('ask')">
+                            <div class="entry-icon">?</div>
+                            <h2>Ask a Question</h2>
+                            <p>Tell us what you're looking for and we'll help you work out what matters.</p>
+                        </button>
+                        <button class="entry-card" type="button" onclick="state.entryMethod='image'; window.goTo('uploadImage')">
+                            <div class="entry-icon">↑</div>
+                            <h2>Upload an Image</h2>
+                            <p>Show us the product you're considering.</p>
+                        </button>
+                        <button class="entry-card" type="button" onclick="state.entryMethod='url'; window.goTo('pasteUrl')">
+                            <div class="entry-icon">↗</div>
+                            <h2>Paste a URL</h2>
+                            <p>Share a product link and we'll take a closer look.</p>
+                        </button>
+                        <button class="entry-card" type="button" onclick="state.entryMethod='code'; window.goTo('scanCode')">
+                            <div class="entry-icon">⌁</div>
+                            <h2>Scan a Code</h2>
+                            <p>Scan a product code and we'll identify what you're looking at.</p>
+                        </button>
+                    </div>
+
+                    <div class="home-note">Spend with certainty.</div>
+                </div>
+            `;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  2. ASK A QUESTION
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        function renderAsk() {
+            screen.innerHTML = `
+                <div class="screen-content">
+                    <button class="back-button" onclick="goBack()">← Back</button>
+                    <div class="brand-mark"></div>
+                    <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">What are you considering?</h1>
+                    <p class="microcopy">Tell us what you're looking for in your own words and we'll take it from there.</p>
+
+                    <div class="input-card">
+                        <textarea id="questionInput" placeholder="I need a laptop for work and school">${state.userQuestion}</textarea>
+                    </div>
+
+                    <div class="button-row">
+                        <button class="btn-primary" onclick="submitQuestion()">Continue</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function submitQuestion() {
+            var input = document.getElementById('questionInput');
+            if (input.value.trim().length < 3) {
+                input.style.border = '2px solid var(--orange)';
+                input.focus();
+                return;
+            }
+            state.userQuestion = input.value.trim();
+            window.goTo('understandingRequest');
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  3. UNDERSTANDING THE REQUEST
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        function renderUnderstandingRequest() {
+            var chips = USE_CASES.map(function(c) {
+                var active = state.useCase.indexOf(c) !== -1 ? 'active' : '';
+                return `<button class="chip ${active}" onclick="toggleUseCase('${c}')">${c}</button>`;
+            }).join('');
+
+            screen.innerHTML = `
+                <div class="screen-content">
+                    <button class="back-button" onclick="goBack()">← Back</button>
+                    <div class="brand-mark"></div>
+                    <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Let's narrow it down.</h1>
+                    <p class="microcopy">A little more context will help us focus on the options that actually make sense for you.</p>
+                    <p style="color:var(--navy);font-weight:600;margin-top:12px;">What do you need it for?</p>
+
+                    <div class="chip-grid">${chips}</div>
+                    <p class="chip-count">Selected: ${state.useCase.length || 'none'}</p>
+
+                    <div class="button-row">
+                        <button class="btn-primary" onclick="submitUseCase()">Continue</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function toggleUseCase(uc) {
+            var index = state.useCase.indexOf(uc);
+            if (index === -1) {
+                state.useCase.push(uc);
+            } else {
+                state.useCase.splice(index, 1);
+            }
+            render();
+        }
+
+        function submitUseCase() {
+            if (state.useCase.length === 0) {
+                alert('Please select at least one use case.');
+                return;
+            }
+            window.goTo('priorities');
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  4. WHAT MATTERS
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        function renderPriorities() {
+            var chips = PRIORITIES_ALL.map(function(p) {
+                var active = state.selectedPriorities.indexOf(p) !== -1 ? 'active' : '';
+                return `<button class="chip ${active}" onclick="togglePriority('${p}')">${p}</button>`;
+            }).join('');
+
+            screen.innerHTML = `
+                <div class="screen-content">
+                    <button class="back-button" onclick="goBack()">← Back</button>
+                    <div class="brand-mark"></div>
+                    <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">What matters to you?</h1>
+                    <p class="microcopy">Pick the things you'd want us to weigh most when helping you decide.</p>
+
+                    <div class="chip-grid">${chips}</div>
+                    <p class="chip-count">Selected: ${state.selectedPriorities.length || 'none'}</p>
+
+                    <div class="button-row">
+                        <button class="btn-primary" onclick="submitPriorities()">Continue</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function togglePriority(p) {
+            var index = state.selectedPriorities.indexOf(p);
+            if (index === -1) {
+                state.selectedPriorities.push(p);
+            } else {
+                state.selectedPriorities.splice(index, 1);
+            }
+            render();
+        }
+
+        function submitPriorities() {
+            if (state.selectedPriorities.length === 0) {
+                alert('Please select at least one priority.');
+                return;
+            }
+            window.goTo('budget');
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  5. BUDGET
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        function renderBudget() {
+            var selected = state.budget;
+
+            var options = BUDGET_OPTIONS.map(function(b) {
+                var active = (selected === b) ? 'active' : '';
+                return `<button class="chip ${active}" onclick="setBudget('${b}')">${b}</button>`;
+            }).join('');
+
+            screen.innerHTML = `
+                <div class="screen-content">
+                    <button class="back-button" onclick="goBack()">← Back</button>
+                    <div class="brand-mark"></div>
+                    <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">What's your budget?</h1>
+                    <p class="microcopy">Give us a range you're comfortable with, or tell us you don't have one and we'll work around it.</p>
+
+                    <div class="chip-grid">${options}</div>
+
+                    <div class="button-row">
+                        <button class="btn-primary" onclick="submitBudget()">Continue</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function setBudget(b) {
+            state.budget = b;
+            render();
+        }
+
+        function submitBudget() {
+            if (!state.budget) {
+                alert('Please select a budget option.');
+                return;
+            }
+            window.goTo('understandingSummary');
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  6. UNDERSTANDING SUMMARY
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        function renderUnderstandingSummary() {
+            var prioritiesText = state.selectedPriorities.length > 0 ? state.selectedPriorities.join(', ') : 'Not specified';
+            var useCaseText = state.useCase.length > 0 ? state.useCase.join(', ') : 'Not specified';
+            var budgetText = state.budget || 'Not specified';
+
+            screen.innerHTML = `
+                <div class="screen-content">
+                    <button class="back-button" onclick="goBack()">← Back</button>
+                    <div class="brand-mark"></div>
+                    <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Here's what we understand.</h1>
+                    <p class="microcopy">We've pulled together what you've told us so far so you can make sure we're looking at the decision the same way you are.</p>
+
+                    <div class="info-card">
+                        <p><strong style="color:var(--navy);">You're looking for</strong><br>A laptop</p>
+                        <p style="margin-top:12px;"><strong style="color:var(--navy);">You'll use it for</strong><br>${useCaseText}</p>
+                        <p style="margin-top:12px;"><strong style="color:var(--navy);">What matters most</strong><br>${prioritiesText}</p>
+                        <p style="margin-top:12px;"><strong style="color:var(--navy);">Budget</strong><br>${budgetText}</p>
+                    </div>
+
+                    <p class="text-muted mt-16">Does that sound right?</p>
+
+                    <div class="button-row">
+                        <button class="btn-secondary" onclick="window.goTo('budget')">Go back and change something</button>
+                        <button class="btn-primary orange" onclick="window.goTo('recommendation')">Yes, continue</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  7. RECOMMENDATION (Top pick only)
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        function renderRecommendation() {
+            var p = PRODUCTS.macbook;
+
+            screen.innerHTML = `
+                <div class="screen-content">
+                    <button class="back-button" onclick="goBack()">← Back</button>
+                    <div class="brand-mark"></div>
+                    <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Here's what we'd recommend.</h1>
+                    <p class="microcopy">We looked at what you need, what matters to you and what you're comfortable spending before narrowing this down.</p>
+
+                    <div class="product-grid" style="max-width:400px;margin-left:auto;margin-right:auto;">
+                        <div class="product-card featured">
+                            <div class="product-image">
+                                <img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='💻'">
+                            </div>
+                            <div class="product-badge">Our top pick</div>
+                            <div class="product-info">
+                                <h3>${p.name}</h3>
+                                <div class="price">${p.price}</div>
+                                <div class="rating">★ ${p.rating} <span>(${p.reviews} reviews)</span></div>
+                                <div class="strengths"><strong>✓</strong> ${p.strengths.slice(0,2).join(' • ')}</div>
+                                <div class="tradeoffs"><strong>✗</strong> ${p.tradeoffs.slice(0,1).join(' • ')}</div>
+                                <p style="margin-top:12px;font-size:14px;color:var(--navy);font-weight:500;">Why we chose it</p>
+                                <p style="font-size:13px;color:var(--muted);">It gives you a strong balance of performance, battery life and portability for demanding work and everyday use.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="button-row">
+                        <button class="btn-primary orange" onclick="window.goTo('tradeoffs')">See trade-offs →</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  8. TRADE-OFFS (Before you decide)
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        function renderTradeoffs() {
+            var p = PRODUCTS.macbook;
+
+            screen.innerHTML = `
+                <div class="screen-content">
+                    <button class="back-button" onclick="goBack()">← Back</button>
+                    <div class="brand-mark"></div>
+                    <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Before you decide</h1>
+                    <p class="microcopy">Every option gives you something and asks you to give something up, so here's what we'd want you to know before choosing this one.</p>
+
+                    <div class="tradeoff-grid">
+                        <div class="tradeoff-card" style="border-color:var(--orange);">
+                            <h3>What you'll like</h3>
+                            <div class="strength-list">
+                                ${p.strengths.map(function(s) { return '<div><span class="check">✓</span> ' + s + '</div>'; }).join('')}
+                            </div>
+                        </div>
+                        <div class="tradeoff-card" style="border-color:#b91c1c;">
+                            <h3>What to consider</h3>
+                            <div class="tradeoff-list">
+                                ${p.tradeoffs.map(function(t) { return '<div><span class="cross">✗</span> ' + t + '</div>'; }).join('')}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="button-row">
+                        <button class="btn-secondary" onclick="window.goTo('alternatives')">See alternatives</button>
+                        <button class="btn-primary orange" onclick="startPurchaseFlow()">Make a purchase</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function startPurchaseFlow() {
+            if (state.location) {
+                window.goTo('recommendedSeller');
+            } else {
+                state.returnToStage = 'recommendedSeller';
+                window.goTo('location');
+            }
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  9. ALTERNATIVES (Other products with "Where to buy from" CTA)
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        function renderAlternatives() {
+            var allProducts = [PRODUCTS.macbook, PRODUCTS.lenovo, PRODUCTS.hp];
+
+            var cards = allProducts.map(function(p) {
+                var isFeatured = p.id === 'macbook';
+                var badgeClass = isFeatured ? '' : (p.id === 'lenovo' ? 'gold' : 'navy');
+                var badgeText = isFeatured ? 'Our top pick' : (p.id === 'lenovo' ? 'Best value' : 'Versatile');
+
+                return `
+                    <div class="product-card ${isFeatured ? 'featured' : ''}">
+                        <div class="product-image">
+                            <img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='${p.name.split(' ')[0]}'">
+                        </div>
+                        <div class="product-badge ${badgeClass}">${badgeText}</div>
+                        <div class="product-info">
+                            <h3>${p.name}</h3>
+                            <div class="price">${p.price}</div>
+                            <div class="rating">★ ${p.rating} <span>(${p.reviews} reviews)</span></div>
+                            <p style="font-size:13px;color:var(--muted);margin-top:8px;"><strong>Why consider it</strong><br>${p.id === 'macbook' ? 'The strongest all-rounder for most users.' : p.id === 'lenovo' ? 'A strong choice if you want a lightweight Windows laptop with a business-focused design and extensive connectivity.' : 'A flexible choice if you value a 2-in-1 design, touch capability and a more versatile way to use your laptop.'}</p>
+                            <button class="btn-primary" style="width:100%;margin-top:12px;justify-content:center;" onclick="goToProductBestSeller('${p.id}')">Where to buy from</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            screen.innerHTML = `
+                <div class="screen-content">
+                    <button class="back-button" onclick="goBack()">← Back</button>
+                    <div class="brand-mark"></div>
+                    <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Other options worth considering</h1>
+                    <p class="microcopy">These may suit you better if your priorities lean in a different direction.</p>
+
+                    <div class="product-grid">${cards}</div>
+
+                    <div class="button-row">
+                        <button class="btn-secondary" onclick="window.goTo('tradeoffs')">← Back to trade-offs</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function goToProductBestSeller(productId) {
+            var p = PRODUCTS[productId];
+            if (!p) return;
+            state.selectedSeller = p.bestSeller;
+            if (state.location) {
+                window.goTo('recommendedSeller');
+            } else {
+                state.returnToStage = 'recommendedSeller';
+                window.goTo('location');
+            }
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  10. GETTING IT
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        function renderGettingIt() {
+            screen.innerHTML = `
+                <div class="screen-content">
+                    <button class="back-button" onclick="goBack()">← Back</button>
+                    <div class="brand-mark"></div>
+                    <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Ready to get it?</h1>
+                    <p class="microcopy">Now that we've narrowed down what fits, let's find the best place to get it.</p>
+
+                    <div class="button-row">
+                        <button class="btn-primary orange" onclick="startPurchaseFlow()">Find where to buy →</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  11. LOCATION
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        function renderLocation() {
+            screen.innerHTML = `
+                <div class="screen-content">
+                    <button class="back-button" onclick="goBack()">← Back</button>
+                    <div class="brand-mark"></div>
+                    <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Where should we look?</h1>
+                    <p class="microcopy">Your location helps us find sellers that can actually serve you and compare the options available nearby.</p>
+
+                    <div class="button-row">
+                        <button class="btn-primary" onclick="setLocationAndContinue('Abuja')">Use my location</button>
+                    </div>
+                    <div class="button-row" style="margin-top:12px;">
+                        <button class="btn-secondary" onclick="window.goTo('locationManual')">Enter location manually</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function setLocationAndContinue(loc) {
+            state.location = loc;
+            var next = state.returnToStage || 'recommendedSeller';
+            state.returnToStage = null;
+            window.goTo(next);
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  12. LOCATION MANUAL ENTRY
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        function renderLocationManual() {
+            screen.innerHTML = `
+                <div class="screen-content">
+                    <button class="back-button" onclick="goBack()">← Back</button>
+                    <div class="brand-mark"></div>
+                    <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Where are you?</h1>
+                    <p class="microcopy">Enter your city or area and we'll use it to narrow down the sellers available to you.</p>
+
+                    <div class="input-card">
+                        <input type="text" id="manualLocation" placeholder="City, area or postcode">
+                    </div>
+
+                    <div class="button-row">
+                        <button class="btn-primary" onclick="submitManualLocation()">Continue</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function submitManualLocation() {
+            var input = document.getElementById('manualLocation');
+            if (input.value.trim().length < 2) {
+                input.style.border = '2px solid var(--orange)';
+                input.focus();
+                return;
+            }
+            state.location = input.value.trim();
+            var next = state.returnToStage || 'recommendedSeller';
+            state.returnToStage = null;
+            window.goTo(next);
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  13. SELLER MATCHING
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        function renderSellerMatching() {
+            var states = [
+                'Checking availability',
+                'Comparing sellers',
+                'Weighing price and delivery',
+                'Finding the strongest fit'
+            ];
+
+            var stateHtml = states.map(function(s, i) {
+                var active = i === 0 ? 'active' : '';
+                return `<div class="state ${active}">${s}</div>`;
+            }).join('');
+
+            screen.innerHTML = `
+                <div class="screen-content">
+                    <div class="brand-mark"></div>
+                    <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Finding the best place to get it.</h1>
+                    <p class="microcopy">We're comparing the sellers available in your area against the things you've told us matter most.</p>
+
+                    <div class="loading-states">${stateHtml}</div>
+
+                    <div class="button-row" style="margin-top:32px;">
+                        <button class="btn-primary" onclick="window.goTo('recommendedSeller')">Show me →</button>
+                    </div>
+                </div>
+            `;
+
+            animateLoading();
+        }
+
+        function animateLoading() {
+            var states = document.querySelectorAll('.loading-states .state');
+            var idx = 0;
+            var interval = setInterval(function() {
+                if (states[idx]) {
+                    states[idx].classList.remove('active');
+                }
+                idx++;
+                if (idx < states.length && states[idx]) {
+                    states[idx].classList.add('active');
+                } else {
+                    clearInterval(interval);
+                }
+            }, 700);
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  14. RECOMMENDED SELLER
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        function renderRecommendedSeller() {
+            var seller = SELLERS[0];
+
+            if (state.selectedSeller) {
+                var found = SELLERS.filter(function(s) { return s.name === state.selectedSeller; });
+                if (found.length > 0) seller = found[0];
+            }
+
+            screen.innerHTML = `
+                <div class="screen-content">
+                    <button class="back-button" onclick="goBack()">← Back</button>
+                    <div class="brand-mark"></div>
+                    <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Our pick for you</h1>
+                    <p class="microcopy">Based on your priorities and what's available in your area, this seller gives you the strongest overall fit.</p>
+
+                    <div class="final-card" style="border-color:var(--navy);">
+                        <div class="pick-label">🏆 Our pick</div>
+                        <div class="pick-name">${seller.name}</div>
+
+                        <div style="margin:12px 0;display:flex;gap:12px;flex-wrap:wrap;">
+                            <span style="font-size:18px;font-weight:700;color:var(--navy);">${seller.price}</span>
+                            <span style="color:var(--gold);font-weight:600;">★ ${seller.rating} (${seller.reviews})</span>
+                            <span class="seller-reputation excellent">${seller.reputation}</span>
+                        </div>
+
+                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 16px;font-size:14px;color:var(--muted);">
+                            <div><strong style="color:var(--navy);">Delivery:</strong> ${seller.delivery}</div>
+                            <div><strong style="color:var(--navy);">Returns:</strong> ${seller.returns}</div>
+                            <div><strong style="color:var(--navy);">Warranty:</strong> ${seller.warranty}</div>
+                            <div><strong style="color:var(--navy);">Stock:</strong> ${seller.stock}</div>
+                        </div>
+
+                        <hr style="border:none;border-top:1px solid var(--line);margin:16px 0;">
+
+                        <h3 style="font-size:16px;color:var(--navy);">Why we picked them</h3>
+                        <p style="color:var(--muted);font-size:14px;line-height:1.6;">This option came out ahead because it matches the things you told us matter most.</p>
+                        <ul style="margin-top:8px;list-style:none;padding:0;font-size:14px;color:var(--navy);">
+                            <li style="padding:4px 0;"><strong style="color:var(--orange);">✓</strong> <strong>Strong on price</strong> — It stays within the range you gave us.</li>
+                            <li style="padding:4px 0;"><strong style="color:var(--orange);">✓</strong> <strong>Strong on delivery</strong> — It offers the delivery option that best matches your preference.</li>
+                            <li style="padding:4px 0;"><strong style="color:var(--orange);">✓</strong> <strong>Strong on trust</strong> — Its seller reputation and policies give you more confidence in the purchase.</li>
+                        </ul>
+                    </div>
+
+                    <div class="button-row">
+                        <button class="btn-secondary" onclick="window.goTo('sellerComparison')">Compare sellers</button>
+                        <button class="btn-primary orange" onclick="window.goTo('finalPurchase')">Make a purchase →</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  15. SELLER COMPARISON
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        function renderSellerComparison() {
+            var cards = SELLERS.map(function(s) {
+                var repClass = s.reputation === 'Excellent' ? 'excellent' : '';
+                var isRecommended = s.name === (state.selectedSeller || SELLERS[0].name);
+                return `
+                    <div class="seller-card" style="${isRecommended ? 'border-color:var(--orange);border-width:2px;' : ''}" onclick="selectSeller('${s.name}')">
+                        <div class="seller-name">${s.name}</div>
+                        ${isRecommended ? '<span style="color:var(--orange);font-size:11px;font-weight:700;">★ Our pick</span>' : ''}
+                        <div class="seller-price">${s.price}</div>
+                        <div class="seller-rating">★ ${s.rating} <span>(${s.reviews} reviews)</span></div>
+                        <div class="seller-reputation ${repClass}">${s.reputation}</div>
+                        <div class="seller-detail"><strong>Delivery:</strong> ${s.delivery}</div>
+                        <div class="seller-detail"><strong>Returns:</strong> ${s.returns}</div>
+                        <div class="seller-detail"><strong>Warranty:</strong> ${s.warranty}</div>
+                        <div class="seller-detail"><strong>Stock:</strong> ${s.stock}</div>
+                        <span class="click-hint">Click to purchase →</span>
+                    </div>
+                `;
+            }).join('');
+
+            screen.innerHTML = `
+                <div class="screen-content">
+                    <button class="back-button" onclick="goBack()">← Back</button>
+                    <div class="brand-mark"></div>
+                    <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Other places you can get it</h1>
+                    <p class="microcopy">These sellers are worth considering if you're willing to trade one advantage for another.</p>
+
+                    <div class="seller-grid">${cards}</div>
+
+                    <div class="button-row">
+                        <button class="btn-secondary" onclick="window.goTo('recommendedSeller')">← Back to our pick</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function selectSeller(name) {
+            state.selectedSeller = name;
+            window.goTo('finalPurchase');
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  16. FINAL PURCHASE
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        function renderFinalPurchase() {
+            var seller = SELLERS[0];
+            if (state.selectedSeller) {
+                var found = SELLERS.filter(function(s) { return s.name === state.selectedSeller; });
+                if (found.length > 0) seller = found[0];
+            }
+            var p = PRODUCTS.macbook;
+
+            screen.innerHTML = `
+                <div class="screen-content">
+                    <button class="back-button" onclick="goBack()">← Back</button>
+                    <div class="brand-mark"></div>
+                    <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Ready to get it?</h1>
+                    <p class="microcopy">Everything we've considered points here as the strongest option for you.</p>
+
+                    <div class="final-card">
+                        <div class="pick-label">🏆 Our pick</div>
+                        <div class="pick-name">${seller.name}</div>
+                        <div class="pick-reason">${seller.name} gives you the strongest balance based on what you've told us.</div>
+
+                        <div style="display:flex;gap:16px;align-items:center;padding:12px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+                            <div style="font-size:48px;width:60px;height:60px;display:flex;align-items:center;justify-content:center;background:#F1EEE9;border-radius:12px;flex-shrink:0;">💻</div>
+                            <div>
+                                <div style="font-weight:700;color:var(--navy);font-size:18px;">${p.name}</div>
+                                <div style="color:var(--muted);font-size:13px;">${p.specs}</div>
+                            </div>
+                        </div>
+
+                        <div class="detail-grid">
+                            <div class="detail-item"><strong>Price:</strong> <span class="value">${seller.price}</span></div>
+                            <div class="detail-item"><strong>Seller:</strong> <span class="value">${seller.name}</span></div>
+                            <div class="detail-item"><strong>Rating:</strong> <span class="value">★ ${seller.rating}</span></div>
+                            <div class="detail-item"><strong>Delivery:</strong> <span class="value">${seller.delivery}</span></div>
+                            <div class="detail-item"><strong>Returns:</strong> <span class="value">${seller.returns}</span></div>
+                            <div class="detail-item"><strong>Warranty:</strong> <span class="value">${seller.warranty}</span></div>
+                            <div class="detail-item"><strong>Stock:</strong> <span class="value">${seller.stock}</span></div>
+                            <div class="detail-item"><strong>Location:</strong> <span class="value">${state.location || 'Abuja'}</span></div>
+                        </div>
+
+                        <button class="btn-primary orange" onclick="alert('🎉 Redirecting to ${seller.name} to complete your purchase...')">Make a purchase →</button>
+                    </div>
+
+                    <div class="button-row" style="margin-top:12px;">
+                        <button class="btn-secondary" onclick="window.goTo('sellerComparison')">Compare sellers again</button>
+                    </div>
+
+                    <div class="home-note">Spend with certainty.</div>
+                </div>
+            `;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  17-24. NON-QUESTION FLOWS
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        function renderPasteUrl() {
+            screen.innerHTML = `
+                <div class="screen-content">
+                    <button class="back-button" onclick="goBack()">← Back</button>
+                    <div class="brand-mark"></div>
+                    <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Paste the product link</h1>
+                    <p class="microcopy">Share the link to the product you're considering and we'll take a closer look.</p>
+
+                    <div class="input-card">
+                        <input type="url" id="urlInput" placeholder="Paste a product URL" value="${state.pastedUrl}">
+                    </div>
+
+                    <div class="button-row">
+                        <button class="btn-primary" onclick="submitUrl()">Continue</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function submitUrl() {
+            var input = document.getElementById('urlInput');
+            if (!input.value.trim().startsWith('http')) {
+                input.style.border = '2px solid var(--orange)';
+                input.focus();
+                return;
+            }
+            state.pastedUrl = input.value.trim();
+            window.goTo('urlProcessing');
+        }
+
+        function renderUrlProcessing() {
+            var states = ['Reading the product page', 'Identifying the product', 'Checking the details'];
+            var stateHtml = states.map(function(s, i) {
+                var active = i === 0 ? 'active' : '';
+                return `<div class="state ${active}">${s}</div>`;
+            }).join('');
+
+            screen.innerHTML = `
+                <div class="screen-content">
+                    <div class="brand-mark"></div>
+                    <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Taking a look.</h1>
+                    <p class="microcopy">We're reading the page to work out exactly which product you're looking at.</p>
+                    <div class="loading-states">${stateHtml}</div>
+                    <div class="button-row" style="margin-top:32px;">
+                        <button class="btn-primary" onclick="window.goTo('productRecognition')">Show me →</button>
+                    </div>
+                </div>
+            `;
+            animateLoading();
+        }
+
+        function renderUploadImage() {
+            screen.innerHTML = `
+                <div class="screen-content">
+                    <button class="back-button" onclick="goBack()">← Back</button>
+                    <div class="brand-mark"></div>
+                    <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Show us what you're considering.</h1>
+                    <p class="microcopy">Upload a clear photo of the product and we'll see what we can identify.</p>
+
+                    <div class="input-card dashed">
+                        <div class="icon-large">🖼️</div>
+                        <p class="label">Upload a clear photo of the product</p>
+                        <input type="file" accept="image/*" id="imageUpload" onchange="handleImageUpload(event)" style="max-width:100%;">
+                        <div id="uploadPreview" class="upload-preview"></div>
+                    </div>
+
+                    <div class="button-row">
+                        <button class="btn-primary" onclick="submitImageUpload()">Continue</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function handleImageUpload(e) {
+            var file = e.target.files[0];
+            if (file) {
+                state.uploadedImage = URL.createObjectURL(file);
+                document.getElementById('uploadPreview').innerHTML = '✅ Image uploaded!';
+            }
+        }
+
+        function submitImageUpload() {
+            if (!state.uploadedImage) {
+                alert('Please upload an image first.');
+                return;
+            }
+            window.goTo('imagePreview');
+        }
+
+        function renderImagePreview() {
+            screen.innerHTML = `
+                <div class="screen-content">
+                    <button class="back-button" onclick="goBack()">← Back</button>
+                    <div class="brand-mark"></div>
+                    <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Is this the image you want to use?</h1>
+
+                    <div style="max-width:400px;margin:20px auto;border-radius:16px;overflow:hidden;border:1px solid var(--line);">
+                        <img src="${state.uploadedImage}" alt="Uploaded product" style="width:100%;display:block;">
+                    </div>
+
+                    <div class="button-row">
+                        <button class="btn-secondary" onclick="window.goTo('uploadImage')">Choose another image</button>
+                        <button class="btn-primary" onclick="window.goTo('imageProcessing')">Continue</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderImageProcessing() {
+            var states = ['Identifying the product', 'Reading visible details', 'Matching the product'];
+            var stateHtml = states.map(function(s, i) {
+                var active = i === 0 ? 'active' : '';
+                return `<div class="state ${active}">${s}</div>`;
+            }).join('');
+
+            screen.innerHTML = `
+                <div class="screen-content">
+                    <div class="brand-mark"></div>
+                    <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Taking a closer look.</h1>
+                    <p class="microcopy">We're checking the image for the details that can help us identify the product.</p>
+                    <div class="loading-states">${stateHtml}</div>
+                    <div class="button-row" style="margin-top:32px;">
+                        <button class="btn-primary" onclick="window.goTo('productRecognition')">Show me →</button>
+                    </div>
+                </div>
+            `;
+            animateLoading();
+        }
+
+        function renderScanCode() {
+            screen.innerHTML = `
+                <div class="screen-content">
+                    <button class="back-button" onclick="goBack()">← Back</button>
+                    <div class="brand-mark"></div>
+                    <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Scan the product code</h1>
+                    <p class="microcopy">Place the barcode or QR code inside the frame and we'll use it to identify the product.</p>
+
+                    <div class="input-card dashed" style="padding:40px 30px;">
+                        <div class="icon-large">📷</div>
+                        <p class="label">Place the code inside the frame.</p>
+                        <div style="width:200px;height:200px;margin:12px auto;border:2px dashed var(--line);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:64px;color:var(--muted);">◻</div>
+                        <input type="text" id="manualCodeInput" placeholder="Or enter code manually" value="${state.scannedCode}" style="width:100%;min-height:48px;padding:0 12px;border:1px solid var(--line);border-radius:12px;background:var(--white);font-size:14px;text-align:center;margin-top:12px;">
+                    </div>
+
+                    <div class="button-row">
+                        <button class="btn-primary" onclick="submitScanCode()">Continue</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function submitScanCode() {
+            var input = document.getElementById('manualCodeInput');
+            if (input.value.trim().length < 2) {
+                input.style.border = '2px solid var(--orange)';
+                input.focus();
+                return;
+            }
+            state.scannedCode = input.value.trim();
+            window.goTo('codeProcessing');
+        }
+
+        function renderCodeProcessing() {
+            screen.innerHTML = `
+                <div class="screen-content">
+                    <div class="brand-mark"></div>
+                    <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Identifying the product.</h1>
+                    <p class="microcopy">We're matching the code to the product it belongs to.</p>
+                    <div class="loading-states" style="margin-top:20px;">
+                        <div class="state active">Matching the code</div>
+                    </div>
+                    <div class="button-row" style="margin-top:32px;">
+                        <button class="btn-primary" onclick="window.goTo('productRecognition')">Show me →</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderProductRecognition() {
+            var p = PRODUCTS.macbook;
+
+            screen.innerHTML = `
+                <div class="screen-content">
+                    <button class="back-button" onclick="goBack()">← Back</button>
+                    <div class="brand-mark"></div>
+                    <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">We found this product.</h1>
+                    <p class="microcopy">Here's what we believe you're looking at.</p>
+
+                    <div style="max-width:400px;margin:24px auto;border:1px solid var(--line);border-radius:20px;overflow:hidden;background:var(--white);box-shadow:var(--shadow);">
+                        <div style="aspect-ratio:1.18/1;background:#F1EEE9;display:flex;align-items:center;justify-content:center;font-size:64px;">💻</div>
+                        <div style="padding:20px;">
+                            <h3 style="color:var(--navy);">${p.name}</h3>
+                            <p style="color:var(--muted);font-size:14px;">Apple • Laptop • 14-inch</p>
+                        </div>
+                    </div>
+
+                    <div class="button-row">
+                        <button class="btn-primary" onclick="window.goTo('productConfirmation')">Continue</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderProductConfirmation() {
+            screen.innerHTML = `
+                <div class="screen-content">
+                    <button class="back-button" onclick="goBack()">← Back</button>
+                    <div class="brand-mark"></div>
+                    <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Is this the product you're looking at?</h1>
+                    <p class="microcopy">If we've got it right, we'll use this product as the starting point for the next step.</p>
+
+                    <div class="button-row">
+                        <button class="btn-secondary" onclick="window.goTo('wrongProduct')">That's not it</button>
+                        <button class="btn-primary orange" onclick="window.goTo('decisionFork')">Yes, continue</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderWrongProduct() {
+            screen.innerHTML = `
+                <div class="screen-content">
+                    <button class="back-button" onclick="goBack()">← Back</button>
+                    <div class="brand-mark"></div>
+                    <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Let's try that again.</h1>
+                    <p class="microcopy">We may have identified the wrong product, so give us another image, link or code and we'll take another look.</p>
+
+                    <div class="button-row">
+                        <button class="btn-primary" onclick="resetApp()">Try again</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  25. DECISION FORK
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        function renderDecisionFork() {
+            screen.innerHTML = `
+                <div class="screen-content">
+                    <button class="back-button" onclick="goBack()">← Back</button>
+                    <div class="brand-mark"></div>
+                    <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">What would you like help with?</h1>
+                    <p class="microcopy">You can either focus on finding the best place to buy this product or let us help you decide whether it's actually the right one for you.</p>
+
+                    <div class="fork-grid">
+                        <div class="fork-card" onclick="state.decisionFork='know'; window.goTo('knowWhatIWant')">
+                            <h3>I know what I want.</h3>
+                            <p>Help me find the best place to get it from.</p>
+                        </div>
+                        <div class="fork-card" onclick="state.decisionFork='consider'; window.goTo('stillConsidering')">
+                            <h3>I'm still considering.</h3>
+                            <p>Help me get it right.</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  26. I KNOW WHAT I WANT
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        function renderKnowWhatIWant() {
+            var chips = PRIORITIES_BUY.map(function(p) {
+                var active = state.selectedPriorities.indexOf(p) !== -1 ? 'active' : '';
+                return `<button class="chip ${active}" onclick="togglePriorityBuy('${p}')">${p}</button>`;
+            }).join('');
+
+            screen.innerHTML = `
+                <div class="screen-content">
+                    <button class="back-button" onclick="goBack()">← Back</button>
+                    <div class="brand-mark"></div>
+                    <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">What matters when you buy it?</h1>
+                    <p class="microcopy">Since you've already settled on the product, we'll focus on what makes one place to buy it better for you than another.</p>
+
+                    <div class="chip-grid">${chips}</div>
+                    <p class="chip-count">Selected: ${state.selectedPriorities.length || 'none'}</p>
+
+                    <div class="button-row">
+                        <button class="btn-primary" onclick="submitKnowWhatIWant()">Continue</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function togglePriorityBuy(p) {
+            var index = state.selectedPriorities.indexOf(p);
+            if (index === -1) {
+                state.selectedPriorities.push(p);
+            } else {
+                state.selectedPriorities.splice(index, 1);
+            }
+            render();
+        }
+
+        function submitKnowWhatIWant() {
+            if (state.selectedPriorities.length === 0) {
+                alert('Please select at least one priority.');
+                return;
+            }
+            window.goTo('knowSummary');
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  27. KNOW SUMMARY (No budget shown)
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        function renderKnowSummary() {
+            var prioritiesText = state.selectedPriorities.length > 0 ? state.selectedPriorities.join(', ') : 'Not specified';
+
+            screen.innerHTML = `
+                <div class="screen-content">
+                    <button class="back-button" onclick="goBack()">← Back</button>
+                    <div class="brand-mark"></div>
+                    <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Here's what matters most.</h1>
+                    <p class="microcopy">We'll use these priorities when we compare where you can get the product.</p>
+
+                    <div class="info-card">
+                        <p><strong style="color:var(--navy);">You care most about</strong><br>${prioritiesText}</p>
+                    </div>
+
+                    <div class="button-row">
+                        <button class="btn-primary" onclick="startPurchaseFlow()">Find my best options →</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  28-35. I'M STILL CONSIDERING
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        function renderStillConsidering() {
+            screen.innerHTML = `
+                <div class="screen-content">
+                    <button class="back-button" onclick="goBack()">← Back</button>
+                    <div class="brand-mark"></div>
+                    <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Let's make sure it's right for you.</h1>
+                    <p class="microcopy">A product can look good on paper and still be the wrong fit, so let's see how well it matches what you actually need.</p>
+
+                    <div class="button-row">
+                        <button class="btn-primary" onclick="window.goTo('consideringUseCase')">Continue →</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderConsideringUseCase() {
+            var chips = USE_CASES.map(function(c) {
+                var active = state.useCase.indexOf(c) !== -1 ? 'active' : '';
+                return `<button class="chip ${active}" onclick="toggleUseCase('${c}')">${c}</button>`;
+            }).join('');
+
+            screen.innerHTML = `
+                <div class="screen-content">
+                    <button class="back-button" onclick="goBack()">← Back</button>
+                    <div class="brand-mark"></div>
+                    <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">What do you need it for?</h1>
+                    <p class="microcopy">Tell us how you'll actually use it and we'll know what to prioritize.</p>
+
+                    <div class="chip-grid">${chips}</div>
+                    <p class="chip-count">Selected: ${state.useCase.length || 'none'}</p>
+
+                    <div class="button-row">
+                        <button class="btn-primary" onclick="submitConsideringUseCase()">Continue</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function submitConsideringUseCase() {
+            if (state.useCase.length === 0) {
+                alert('Please select at least one use case.');
+                return;
+            }
+            window.goTo('consideringPriorities');
+        }
+
+        function renderConsideringPriorities() {
+            var chips = PRIORITIES_ALL.map(function(p) {
+                var active = state.selectedPriorities.indexOf(p) !== -1 ? 'active' : '';
+                return `<button class="chip ${active}" onclick="togglePriority('${p}')">${p}</button>`;
+            }).join('');
+
+            screen.innerHTML = `
+                <div class="screen-content">
+                    <button class="back-button" onclick="goBack()">← Back</button>
+                    <div class="brand-mark"></div>
+                    <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">What matters to you?</h1>
+                    <p class="microcopy">Choose the things you'd care about most if you were comparing this with other options.</p>
+
+                    <div class="chip-grid">${chips}</div>
+                    <p class="chip-count">Selected: ${state.selectedPriorities.length || 'none'}</p>
+
+                    <div class="button-row">
+                        <button class="btn-primary" onclick="submitConsideringPriorities()">Continue</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function submitConsideringPriorities() {
+            if (state.selectedPriorities.length === 0) {
+                alert('Please select at least one priority.');
+                return;
+            }
+            window.goTo('consideringBudget');
+        }
+
+        function renderConsideringBudget() {
+            var selected = state.budget;
+
+            var options = BUDGET_OPTIONS.map(function(b) {
+                var active = (selected === b) ? 'active' : '';
+                return `<button class="chip ${active}" onclick="setBudget('${b}')">${b}</button>`;
+            }).join('');
+
+            screen.innerHTML = `
+                <div class="screen-content">
+                    <button class="back-button" onclick="goBack()">← Back</button>
+                    <div class="brand-mark"></div>
+                    <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">What's your budget?</h1>
+                    <p class="microcopy">Tell us what you're comfortable spending, or choose that you don't have a fixed budget and we'll keep the decision focused on fit and value.</p>
+
+                    <div class="chip-grid">${options}</div>
+
+                    <div class="button-row">
+                        <button class="btn-primary" onclick="submitConsideringBudget()">Continue</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function submitConsideringBudget() {
+            if (!state.budget) {
+                alert('Please select a budget option.');
+                return;
+            }
+            window.goTo('consideringSummary');
+        }
+
+        function renderConsideringSummary() {
+            var prioritiesText = state.selectedPriorities.length > 0 ? state.selectedPriorities.join(', ') : 'Not specified';
+            var useCaseText = state.useCase.length > 0 ? state.useCase.join(', ') : 'Not specified';
+            var budgetText = state.budget || 'Not specified';
+
+            screen.innerHTML = `
+                <div class="screen-content">
+                    <button class="back-button" onclick="goBack()">← Back</button>
+                    <div class="brand-mark"></div>
+                    <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Here's what we understand.</h1>
+                    <p class="microcopy">We'll use this to work out whether the product you're considering is actually the best fit for you.</p>
+
+                    <div class="info-card">
+                        <p><strong style="color:var(--navy);">Product</strong><br>MacBook Pro 14-inch with M5 chip</p>
+                        <p style="margin-top:12px;"><strong style="color:var(--navy);">Use case</strong><br>${useCaseText}</p>
+                        <p style="margin-top:12px;"><strong style="color:var(--navy);">Priorities</strong><br>${prioritiesText}</p>
+                        <p style="margin-top:12px;"><strong style="color:var(--navy);">Budget</strong><br>${budgetText}</p>
+                    </div>
+
+                    <div class="button-row">
+                        <button class="btn-primary orange" onclick="window.goTo('consideringRecommendation')">Show me what fits →</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderConsideringRecommendation() {
+            var p = PRODUCTS.macbook;
+
+            screen.innerHTML = `
+                <div class="screen-content">
+                    <button class="back-button" onclick="goBack()">← Back</button>
+                    <div class="brand-mark"></div>
+                    <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Here's where we'd land.</h1>
+                    <p class="microcopy">We've compared the product you're considering with the alternatives against the things you've told us matter most.</p>
+
+                    <div class="product-grid" style="max-width:400px;margin-left:auto;margin-right:auto;">
+                        <div class="product-card featured">
+                            <div class="product-image"><img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='💻'"></div>
+                            <div class="product-badge">Our top pick</div>
+                            <div class="product-info">
+                                <h3>${p.name}</h3>
+                                <div class="price">${p.price}</div>
+                                <div class="rating">★ ${p.rating} <span>(${p.reviews} reviews)</span></div>
+                                <p style="margin-top:12px;font-size:14px;color:var(--orange);font-weight:600;">★ It looks like a good fit.</p>
+                                <p style="font-size:13px;color:var(--muted);">It comes closest to giving you what you need without asking you to compromise on the things you've told us matter most.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="button-row">
+                        <button class="btn-primary orange" onclick="window.goTo('consideringTradeoffs')">See trade-offs →</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderConsideringTradeoffs() {
+            var p = PRODUCTS.macbook;
+
+            screen.innerHTML = `
+                <div class="screen-content">
+                    <button class="back-button" onclick="goBack()">← Back</button>
+                    <div class="brand-mark"></div>
+                    <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Before you decide</h1>
+                    <p class="microcopy">Every option gives you something and asks you to give something up, so here's what we'd want you to know before choosing this one.</p>
+
+                    <div class="tradeoff-grid">
+                        <div class="tradeoff-card" style="border-color:var(--orange);">
+                            <h3>What you'll like</h3>
+                            <div class="strength-list">
+                                ${p.strengths.map(function(s) { return '<div><span class="check">✓</span> ' + s + '</div>'; }).join('')}
+                            </div>
+                        </div>
+                        <div class="tradeoff-card" style="border-color:#b91c1c;">
+                            <h3>What to consider</h3>
+                            <div class="tradeoff-list">
+                                ${p.tradeoffs.map(function(t) { return '<div><span class="cross">✗</span> ' + t + '</div>'; }).join('')}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="button-row">
+                        <button class="btn-secondary" onclick="window.goTo('consideringAlternatives')">See alternatives</button>
+                        <button class="btn-primary orange" onclick="startPurchaseFlow()">Make a purchase</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderConsideringAlternatives() {
+            var allProducts = [PRODUCTS.macbook, PRODUCTS.lenovo, PRODUCTS.hp];
+
+            var cards = allProducts.map(function(p) {
+                var isFeatured = p.id === 'macbook';
+                var badgeClass = isFeatured ? '' : (p.id === 'lenovo' ? 'gold' : 'navy');
+                var badgeText = isFeatured ? 'Our top pick' : (p.id === 'lenovo' ? 'Best value' : 'Versatile');
+
+                return `
+                    <div class="product-card ${isFeatured ? 'featured' : ''}">
+                        <div class="product-image">
+                            <img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='${p.name.split(' ')[0]}'">
+                        </div>
+                        <div class="product-badge ${badgeClass}">${badgeText}</div>
+                        <div class="product-info">
+                            <h3>${p.name}</h3>
+                            <div class="price">${p.price}</div>
+                            <div class="rating">★ ${p.rating} <span>(${p.reviews} reviews)</span></div>
+                            <p style="font-size:13px;color:var(--muted);margin-top:8px;"><strong>Why consider it</strong><br>${p.id === 'macbook' ? 'The strongest all-rounder for most users.' : p.id === 'lenovo' ? 'A strong choice if you want a lightweight Windows laptop with a business-focused design and extensive connectivity.' : 'A flexible choice if you value a 2-in-1 design, touch capability and a more versatile way to use your laptop.'}</p>
+                            <button class="btn-primary" style="width:100%;margin-top:12px;justify-content:center;" onclick="goToProductBestSeller('${p.id}')">Where to buy from</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            screen.innerHTML = `
+                <div class="screen-content">
+                    <button class="back-button" onclick="goBack()">← Back</button>
+                    <div class="brand-mark"></div>
+                    <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">What else could work?</h1>
+                    <p class="microcopy">These are the alternatives we'd keep on the table if you want to trade one priority for another.</p>
+
+                    <div class="product-grid">${cards}</div>
+
+                    <div class="button-row">
+                        <button class="btn-secondary" onclick="window.goTo('consideringTradeoffs')">← Back to trade-offs</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  START
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        render();
+    </script>
+
+</body>
+</html>
