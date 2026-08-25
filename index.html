@@ -1212,7 +1212,8 @@
             productConfirmed: false,
             decisionFork: null,
             identifiedProduct: null,
-            returnToStage: null
+            returnToStage: null,
+            locationProcessing: false
         };
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -1345,6 +1346,7 @@
             else if (s === 'gettingIt') renderGettingIt();
             else if (s === 'location') renderLocation();
             else if (s === 'locationManual') renderLocationManual();
+            else if (s === 'locationProcessing') renderLocationProcessing();
             else if (s === 'sellerMatching') renderSellerMatching();
             else if (s === 'recommendedSeller') renderRecommendedSeller();
             else if (s === 'sellerComparison') renderSellerComparison();
@@ -1392,7 +1394,8 @@
                 gettingIt: 'alternatives',
                 location: 'gettingIt',
                 locationManual: 'location',
-                sellerMatching: 'location',
+                locationProcessing: 'location',
+                sellerMatching: 'locationProcessing',
                 recommendedSeller: 'sellerMatching',
                 sellerComparison: 'recommendedSeller',
                 finalPurchase: 'sellerComparison',
@@ -1656,7 +1659,7 @@
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        //  7. RECOMMENDATION (Fixed: Centered & Responsive)
+        //  7. RECOMMENDATION
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function renderRecommendation() {
             var p = PRODUCTS.macbook;
@@ -1694,7 +1697,7 @@
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        //  8. TRADE-OFFS (Before you decide)
+        //  8. TRADE-OFFS
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function renderTradeoffs() {
             var p = PRODUCTS.macbook;
@@ -1739,7 +1742,7 @@
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        //  9. ALTERNATIVES (Other products with "Where to buy from" CTA)
+        //  9. ALTERNATIVES
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function renderAlternatives() {
             var allProducts = [PRODUCTS.macbook, PRODUCTS.lenovo, PRODUCTS.hp];
@@ -1835,9 +1838,8 @@
 
         function setLocationAndContinue(loc) {
             state.location = loc;
-            var next = state.returnToStage || 'recommendedSeller';
-            state.returnToStage = null;
-            window.goTo(next);
+            // Go to location processing screen first
+            window.goTo('locationProcessing');
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -1870,6 +1872,59 @@
                 return;
             }
             state.location = input.value.trim();
+            window.goTo('locationProcessing');
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  LOCATION PROCESSING SCREEN (NEW)
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        function renderLocationProcessing() {
+            var states = [
+                'Checking availability in your area',
+                'Comparing sellers near you',
+                'Weighing price and delivery',
+                'Finding the strongest fit for your needs'
+            ];
+
+            var stateHtml = states.map(function(s, i) {
+                var active = i === 0 ? 'active' : '';
+                return `<div class="state ${active}">${s}</div>`;
+            }).join('');
+
+            screen.innerHTML = `
+                <div class="screen-content">
+                    <div class="brand-mark"></div>
+                    <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Finding the best place to get it.</h1>
+                    <p class="microcopy">We're checking sellers in your area and comparing them against what matters most to you.</p>
+
+                    <div class="loading-states">${stateHtml}</div>
+
+                    <div class="button-row" style="margin-top:32px;">
+                        <button class="btn-primary" onclick="finishLocationProcessing()">Show me →</button>
+                    </div>
+                </div>
+            `;
+
+            animateLocationLoading();
+        }
+
+        function animateLocationLoading() {
+            var states = document.querySelectorAll('.loading-states .state');
+            var idx = 0;
+            var interval = setInterval(function() {
+                if (states[idx]) {
+                    states[idx].classList.remove('active');
+                }
+                idx++;
+                if (idx < states.length && states[idx]) {
+                    states[idx].classList.add('active');
+                } else {
+                    clearInterval(interval);
+                }
+            }, 700);
+        }
+
+        function finishLocationProcessing() {
             var next = state.returnToStage || 'recommendedSeller';
             state.returnToStage = null;
             window.goTo(next);
@@ -2383,7 +2438,7 @@
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        //  27. KNOW SUMMARY (No budget shown)
+        //  27. KNOW SUMMARY
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function renderKnowSummary() {
             var prioritiesText = state.selectedPriorities.length > 0 ? state.selectedPriorities.join(', ') : 'Not specified';
@@ -2408,7 +2463,7 @@
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        //  28. KNOW ALTERNATIVES (NEW — "I know what I want" flow)
+        //  28. KNOW ALTERNATIVES
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function renderKnowAlternatives() {
             var allProducts = [PRODUCTS.macbook, PRODUCTS.lenovo, PRODUCTS.hp];
@@ -2563,9 +2618,6 @@
             window.goTo('consideringSummary');
         }
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        //  FIXED: CONSIDERING SUMMARY (Product line removed)
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function renderConsideringSummary() {
             var prioritiesText = state.selectedPriorities.length > 0 ? state.selectedPriorities.join(', ') : 'Not specified';
             var useCaseText = state.useCase.length > 0 ? state.useCase.join(', ') : 'Not specified';
