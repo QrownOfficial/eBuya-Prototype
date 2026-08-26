@@ -1249,6 +1249,7 @@
             state.decisionFork = null;
             state.identifiedProduct = null;
             state.returnToStage = null;
+            state.selectedProductId = null;
             state.history = [];
             render();
         }
@@ -1291,7 +1292,8 @@
                 specs: 'M5 chip, 16GB RAM, 512GB SSD, 14-inch Liquid Retina',
                 strengths: ['Strong performance', 'Long battery life', 'High-quality display', 'Portable 14-inch design'],
                 tradeoffs: ['Higher cost than some Windows alternatives', 'macOS may require adjustment if you\'re coming from Windows'],
-                bestSeller: 'Konga'
+                bestSeller: 'Konga',
+                emoji: '💻'
             },
             lenovo: {
                 id: 'lenovo',
@@ -1303,7 +1305,8 @@
                 specs: 'Intel Core Ultra 7, 16GB RAM, 512GB SSD, 14-inch WUXGA',
                 strengths: ['Lightweight Windows laptop', 'Business-focused design', 'Extensive connectivity', 'Durable build'],
                 tradeoffs: ['Slightly less performance than MacBook', 'Battery life not as long'],
-                bestSeller: 'Jumia'
+                bestSeller: 'Jumia',
+                emoji: '💻'
             },
             hp: {
                 id: 'hp',
@@ -1315,7 +1318,8 @@
                 specs: 'Intel Core Ultra 7, 16GB RAM, 512GB SSD, 14-inch Touchscreen',
                 strengths: ['Flexible 2-in-1 design', 'Touch capability', 'Versatile way to use your laptop', 'Good build quality'],
                 tradeoffs: ['Price', 'Battery life not as good as MacBook', 'Heavier than some alternatives'],
-                bestSeller: 'Slot'
+                bestSeller: 'Slot',
+                emoji: '💻'
             }
         };
 
@@ -1730,7 +1734,7 @@
                     <div class="product-grid" style="max-width:480px;margin-left:auto;margin-right:auto;display:flex;justify-content:center;">
                         <div class="product-card featured" style="width:100%;max-width:400px;">
                             <div class="product-image">
-                                <img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='💻'">
+                                <img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='${p.emoji}'">
                             </div>
                             <div class="product-badge">Our top pick</div>
                             <div class="product-info">
@@ -1789,6 +1793,10 @@
         }
 
         function startPurchaseFlow() {
+            // If no product is selected, default to macbook
+            if (!state.selectedProductId) {
+                state.selectedProductId = 'macbook';
+            }
             if (state.location) {
                 window.goTo('recommendedSeller');
             } else {
@@ -1814,7 +1822,7 @@
                 return `
                     <div class="product-card ${isFeatured ? 'featured' : ''}">
                         <div class="product-image">
-                            <img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='${p.name.split(' ')[0]}'">
+                            <img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='${p.emoji}'">
                         </div>
                         <div class="product-badge ${badgeClass}">${badgeText}</div>
                         <div class="product-info">
@@ -1869,7 +1877,7 @@
 
                     <div class="detail-product-card">
                         <div class="product-image">
-                            <img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='💻'">
+                            <img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='${p.emoji}'">
                         </div>
                         <div class="detail-body">
                             <h3>${p.name}</h3>
@@ -1907,6 +1915,7 @@
         function goToProductBestSeller(productId) {
             var p = PRODUCTS[productId];
             if (!p) return;
+            state.selectedProductId = productId;
             state.selectedSeller = p.bestSeller;
             if (state.location) {
                 window.goTo('recommendedSeller');
@@ -2046,7 +2055,6 @@
         function finishLocationProcessing() {
             var next = state.returnToStage || 'recommendedSeller';
             state.returnToStage = null;
-            // Push current page to history so back button goes to locationProcessing
             state.history.push(state.currentStage);
             state.currentStage = next;
             render();
@@ -2113,6 +2121,10 @@
                 if (found.length > 0) seller = found[0];
             }
 
+            // Get the selected product
+            var productId = state.selectedProductId || 'macbook';
+            var p = PRODUCTS[productId] || PRODUCTS.macbook;
+
             screen.innerHTML = `
                 <div class="screen-content">
                     <button class="back-button" onclick="goBack()">← Back</button>
@@ -2128,6 +2140,16 @@
                             <span style="font-size:18px;font-weight:700;color:var(--navy);">${seller.price}</span>
                             <span style="color:var(--gold);font-weight:600;">★ ${seller.rating} (${seller.reviews})</span>
                             <span class="seller-reputation excellent">${seller.reputation}</span>
+                        </div>
+
+                        <div style="display:flex;gap:16px;align-items:center;padding:12px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:12px;">
+                            <div style="width:60px;height:60px;display:flex;align-items:center;justify-content:center;background:#F1EEE9;border-radius:12px;flex-shrink:0;overflow:hidden;">
+                                <img src="${p.image}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.innerHTML='${p.emoji}'">
+                            </div>
+                            <div style="text-align:left;">
+                                <div style="font-weight:700;color:var(--navy);font-size:16px;">${p.name}</div>
+                                <div style="color:var(--muted);font-size:13px;">${p.specs}</div>
+                            </div>
                         </div>
 
                         <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 16px;font-size:14px;color:var(--muted);">
@@ -2209,7 +2231,10 @@
                 var found = SELLERS.filter(function(s) { return s.name === state.selectedSeller; });
                 if (found.length > 0) seller = found[0];
             }
-            var p = PRODUCTS.macbook;
+
+            // Get the selected product
+            var productId = state.selectedProductId || 'macbook';
+            var p = PRODUCTS[productId] || PRODUCTS.macbook;
 
             screen.innerHTML = `
                 <div class="screen-content">
@@ -2224,8 +2249,10 @@
                         <div class="pick-reason">${seller.name} gives you the strongest balance based on what you've told us.</div>
 
                         <div style="display:flex;gap:16px;align-items:center;padding:12px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
-                            <div style="font-size:48px;width:60px;height:60px;display:flex;align-items:center;justify-content:center;background:#F1EEE9;border-radius:12px;flex-shrink:0;">💻</div>
-                            <div>
+                            <div style="width:60px;height:60px;display:flex;align-items:center;justify-content:center;background:#F1EEE9;border-radius:12px;flex-shrink:0;overflow:hidden;">
+                                <img src="${p.image}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.innerHTML='${p.emoji}'">
+                            </div>
+                            <div style="text-align:left;">
                                 <div style="font-weight:700;color:var(--navy);font-size:18px;">${p.name}</div>
                                 <div style="color:var(--muted);font-size:13px;">${p.specs}</div>
                             </div>
@@ -2607,7 +2634,7 @@
                 return `
                     <div class="product-card ${isFeatured ? 'featured' : ''}">
                         <div class="product-image">
-                            <img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='${p.name.split(' ')[0]}'">
+                            <img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='${p.emoji}'">
                         </div>
                         <div class="product-badge ${badgeClass}">${badgeText}</div>
                         <div class="product-info">
@@ -2662,7 +2689,7 @@
 
                     <div class="detail-product-card">
                         <div class="product-image">
-                            <img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='💻'">
+                            <img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='${p.emoji}'">
                         </div>
                         <div class="detail-body">
                             <h3>${p.name}</h3>
@@ -2845,7 +2872,7 @@
 
                     <div class="product-grid" style="max-width:480px;margin-left:auto;margin-right:auto;display:flex;justify-content:center;">
                         <div class="product-card featured" style="width:100%;max-width:400px;">
-                            <div class="product-image"><img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='💻'"></div>
+                            <div class="product-image"><img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='${p.emoji}'"></div>
                             <div class="product-badge">Our top pick</div>
                             <div class="product-info">
                                 <h3>${p.name}</h3>
@@ -2911,7 +2938,7 @@
                 return `
                     <div class="product-card ${isFeatured ? 'featured' : ''}">
                         <div class="product-image">
-                            <img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='${p.name.split(' ')[0]}'">
+                            <img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='${p.emoji}'">
                         </div>
                         <div class="product-badge ${badgeClass}">${badgeText}</div>
                         <div class="product-info">
@@ -2966,7 +2993,7 @@
 
                     <div class="detail-product-card">
                         <div class="product-image">
-                            <img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='💻'">
+                            <img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='${p.emoji}'">
                         </div>
                         <div class="detail-body">
                             <h3>${p.name}</h3>
