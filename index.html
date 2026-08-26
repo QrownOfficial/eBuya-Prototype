@@ -1063,6 +1063,83 @@
             font-weight: 400;
         }
 
+        .location-hint {
+            margin-top: 14px;
+            padding: 10px 20px;
+            background: rgba(18, 52, 86, 0.04);
+            border-radius: 12px;
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.5;
+            max-width: 480px;
+            margin-left: auto;
+            margin-right: auto;
+            border: 1px solid var(--line);
+        }
+
+        .marketplace-badge {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 40px;
+            background: var(--navy-soft);
+            color: var(--navy);
+            font-size: 11px;
+            font-weight: 600;
+            margin: 2px 0;
+        }
+
+        .delivery-free {
+            color: #008000;
+            font-weight: 600;
+        }
+
+        .delivery-fee {
+            color: var(--orange);
+            font-weight: 600;
+        }
+
+        .controversial-expand {
+            margin-top: 16px;
+            padding: 20px;
+            border: 1px solid var(--orange);
+            border-radius: 16px;
+            background: var(--orange-soft);
+            max-width: 480px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .controversial-expand label {
+            font-size: 13px;
+            color: var(--navy);
+            font-weight: 600;
+            display: block;
+            text-align: left;
+        }
+
+        .controversial-expand input {
+            width: 100%;
+            min-height: 48px;
+            padding: 0 12px;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            background: var(--white);
+            font-size: 16px;
+            margin-top: 6px;
+        }
+
+        .controversial-expand .hint {
+            font-size: 12px;
+            color: var(--muted);
+            margin-top: 8px;
+        }
+
+        .range-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
         .hidden {
             display: none !important;
         }
@@ -1164,6 +1241,10 @@
             .info-card {
                 padding: 18px;
             }
+
+            .range-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-width: 420px) {
@@ -1243,6 +1324,9 @@
             state.selectedPriorities = [];
             state.useCase = [];
             state.budget = null;
+            state.budgetMin = null;
+            state.budgetMax = null;
+            state.customUseCase = '';
             state.location = null;
             state.selectedSeller = null;
             state.productConfirmed = false;
@@ -1267,6 +1351,9 @@
             selectedPriorities: [],
             useCase: [],
             budget: null,
+            budgetMin: null,
+            budgetMax: null,
+            customUseCase: '',
             location: null,
             selectedSeller: null,
             productConfirmed: false,
@@ -1292,7 +1379,7 @@
                 specs: 'M5 chip, 16GB RAM, 512GB SSD, 14-inch Liquid Retina',
                 strengths: ['Strong performance', 'Long battery life', 'High-quality display', 'Portable 14-inch design'],
                 tradeoffs: ['Higher cost than some Windows alternatives', 'macOS may require adjustment if you\'re coming from Windows'],
-                bestSeller: 'Konga',
+                bestSeller: 'TechWorld Ng',
                 emoji: '💻'
             },
             lenovo: {
@@ -1305,7 +1392,7 @@
                 specs: 'Intel Core Ultra 7, 16GB RAM, 512GB SSD, 14-inch WUXGA',
                 strengths: ['Lightweight Windows laptop', 'Business-focused design', 'Extensive connectivity', 'Durable build'],
                 tradeoffs: ['Slightly less performance than MacBook', 'Battery life not as long'],
-                bestSeller: 'Jumia',
+                bestSeller: 'GadgetHub',
                 emoji: '💻'
             },
             hp: {
@@ -1318,48 +1405,112 @@
                 specs: 'Intel Core Ultra 7, 16GB RAM, 512GB SSD, 14-inch Touchscreen',
                 strengths: ['Flexible 2-in-1 design', 'Touch capability', 'Versatile way to use your laptop', 'Good build quality'],
                 tradeoffs: ['Price', 'Battery life not as good as MacBook', 'Heavier than some alternatives'],
-                bestSeller: 'Slot',
+                bestSeller: 'MegaStore NG',
                 emoji: '💻'
             }
         };
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        //  SELLER DATA
+        //  SELLER DATA — Two sets
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        var SELLERS = [{
-            name: 'Konga',
+
+        // WITH LOCATION — Local/regional sellers
+        var SELLERS_WITH_LOCATION = [{
+            name: 'TechWorld Ng',
+            marketplace: 'Jumia',
             price: '₦2,450,000',
-            rating: 4.8,
-            reviews: '2,400+',
+            rating: 4.5,
+            reviews: '1,200+',
             reputation: 'Excellent',
             delivery: '1–2 days',
+            deliveryFee: 'Free',
             returns: '14-day',
             warranty: '1-year',
             stock: 'In stock',
+            location: 'Lagos, Nigeria',
             badge: 'Best overall'
         }, {
-            name: 'Jumia',
+            name: 'GadgetHub',
+            marketplace: 'Konga',
             price: '₦2,350,000',
-            rating: 4.5,
-            reviews: '3,100+',
+            rating: 4.2,
+            reviews: '800+',
             reputation: 'Very good',
             delivery: '3–5 days',
+            deliveryFee: '₦750',
             returns: '7-day',
             warranty: '1-year',
             stock: 'In stock',
+            location: 'Lagos, Nigeria',
             badge: 'Lowest price'
         }, {
-            name: 'Slot',
+            name: 'MegaStore NG',
+            marketplace: 'Pointek',
             price: '₦2,520,000',
-            rating: 4.9,
-            reviews: '890+',
+            rating: 4.8,
+            reviews: '2,100+',
             reputation: 'Excellent',
             delivery: '1–3 days',
+            deliveryFee: 'Free',
             returns: '14-day',
             warranty: '2-year',
-            stock: 'Limited',
+            stock: 'In stock',
+            location: 'Abuja, Nigeria',
             badge: 'Highest rated'
         }];
+
+        // WITHOUT LOCATION — National/fallback sellers
+        var SELLERS_WITHOUT_LOCATION = [{
+            name: 'Jumia Express',
+            marketplace: 'Jumia',
+            price: '₦2,550,000',
+            rating: 4.6,
+            reviews: '5,000+',
+            reputation: 'Excellent',
+            delivery: '3–5 days',
+            deliveryFee: '₦2,500',
+            returns: '14-day',
+            warranty: '1-year',
+            stock: 'In stock',
+            location: 'Nationwide',
+            badge: 'Trusted'
+        }, {
+            name: 'Konga Direct',
+            marketplace: 'Konga',
+            price: '₦2,450,000',
+            rating: 4.4,
+            reviews: '3,800+',
+            reputation: 'Very good',
+            delivery: '4–6 days',
+            deliveryFee: '₦3,000',
+            returns: '7-day',
+            warranty: '1-year',
+            stock: 'In stock',
+            location: 'Nationwide',
+            badge: 'Best value'
+        }, {
+            name: 'Pointek Online',
+            marketplace: 'Pointek',
+            price: '₦2,600,000',
+            rating: 4.7,
+            reviews: '2,500+',
+            reputation: 'Excellent',
+            delivery: '3–5 days',
+            deliveryFee: '₦2,000',
+            returns: '14-day',
+            warranty: '2-year',
+            stock: 'In stock',
+            location: 'Nationwide',
+            badge: 'Premium'
+        }];
+
+        function getSellers() {
+            if (state.location) {
+                return SELLERS_WITH_LOCATION;
+            } else {
+                return SELLERS_WITHOUT_LOCATION;
+            }
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         //  PRIORITIES DATA
@@ -1391,6 +1542,26 @@
             'Set a specific range',
             'I don\'t have a budget'
         ];
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  HELPER FUNCTIONS
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        function getDeliveryFee(seller) {
+            if (state.location) {
+                return seller.deliveryFee;
+            } else {
+                return seller.deliveryFee;
+            }
+        }
+
+        function getDeliveryDisplay(seller) {
+            var fee = getDeliveryFee(seller);
+            if (fee === 'Free') {
+                return '<span class="delivery-free">Free delivery</span>';
+            } else {
+                return '<span class="delivery-fee">' + fee + ' delivery</span>';
+            }
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         //  RENDER ENGINE
@@ -1474,6 +1645,9 @@
             state.selectedPriorities = [];
             state.useCase = [];
             state.budget = null;
+            state.budgetMin = null;
+            state.budgetMax = null;
+            state.customUseCase = '';
             state.location = null;
             state.selectedSeller = null;
             state.productConfirmed = false;
@@ -1558,9 +1732,11 @@
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        //  3. UNDERSTANDING THE REQUEST
+        //  3. UNDERSTANDING THE REQUEST — with "Something else" expand
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function renderUnderstandingRequest() {
+            var showSomethingElse = state.useCase.indexOf('Something else') !== -1;
+
             var chips = USE_CASES.map(function(c) {
                 var active = state.useCase.indexOf(c) !== -1 ? 'active' : '';
                 return `<button class="chip ${active}" onclick="toggleUseCase('${c}')">${c}</button>`;
@@ -1577,11 +1753,24 @@
                     <div class="chip-grid">${chips}</div>
                     <p class="chip-count">Selected: ${state.useCase.length || 'none'}</p>
 
+                    ${showSomethingElse ? `
+                        <div class="controversial-expand">
+                            <label>Tell us what you need it for:</label>
+                            <input type="text" id="customUseCase" placeholder="e.g., Video editing, programming, etc." value="${state.customUseCase || ''}">
+                            <div class="hint">This helps us recommend the right options for your specific needs.</div>
+                        </div>
+                    ` : ''}
+
                     <div class="button-row">
                         <button class="btn-primary" onclick="submitUseCase()">Continue</button>
                     </div>
                 </div>
             `;
+
+            if (showSomethingElse) {
+                var input = document.getElementById('customUseCase');
+                if (input) input.focus();
+            }
         }
 
         function toggleUseCase(uc) {
@@ -1590,6 +1779,9 @@
                 state.useCase.push(uc);
             } else {
                 state.useCase.splice(index, 1);
+                if (uc === 'Something else') {
+                    state.customUseCase = '';
+                }
             }
             render();
         }
@@ -1599,6 +1791,23 @@
                 alert('Please select at least one use case.');
                 return;
             }
+
+            // If "Something else" is selected, capture the custom input
+            if (state.useCase.indexOf('Something else') !== -1) {
+                var input = document.getElementById('customUseCase');
+                if (input && input.value.trim().length > 0) {
+                    state.customUseCase = input.value.trim();
+                    // Replace "Something else" with the custom value for display
+                    var index = state.useCase.indexOf('Something else');
+                    if (index !== -1) {
+                        state.useCase[index] = state.customUseCase;
+                    }
+                } else {
+                    alert('Please tell us what you need it for.');
+                    return;
+                }
+            }
+
             window.goTo('priorities');
         }
 
@@ -1647,14 +1856,15 @@
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        //  5. BUDGET
+        //  5. BUDGET — with "Set a specific range" expand — FIXED
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function renderBudget() {
             var selected = state.budget;
+            var showSpecificRange = (selected === 'Set a specific range');
 
-            var options = BUDGET_OPTIONS.map(function(b) {
+            var options = BUDGET_OPTIONS.map(function(b, index) {
                 var active = (selected === b) ? 'active' : '';
-                return `<button class="chip ${active}" onclick="setBudget('${b}')">${b}</button>`;
+                return `<button class="chip ${active}" onclick="setBudgetByIndex(${index})">${b}</button>`;
             }).join('');
 
             screen.innerHTML = `
@@ -1662,19 +1872,58 @@
                     <button class="back-button" onclick="goBack()">← Back</button>
                     <div class="brand-mark"></div>
                     <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">What's your budget?</h1>
-                    <p class="microcopy">Give us a range you're comfortable with, or tell us you don't have one and we'll work around it.</p>
+                    <p class="microcopy">Tell us what you're comfortable spending, or choose that you don't have a fixed budget and we'll keep the decision focused on fit and value.</p>
 
                     <div class="chip-grid">${options}</div>
+
+                    ${showSpecificRange ? `
+                        <div class="controversial-expand">
+                            <div class="range-grid">
+                                <div>
+                                    <label>Minimum (₦)</label>
+                                    <input type="number" id="budgetMin" placeholder="0">
+                                </div>
+                                <div>
+                                    <label>Maximum (₦)</label>
+                                    <input type="number" id="budgetMax" placeholder="0">
+                                </div>
+                            </div>
+                            <div class="hint">Enter your preferred price range in Naira.</div>
+                        </div>
+                    ` : ''}
 
                     <div class="button-row">
                         <button class="btn-primary" onclick="submitBudget()">Continue</button>
                     </div>
                 </div>
             `;
+
+            if (showSpecificRange) {
+                var minInput = document.getElementById('budgetMin');
+                var maxInput = document.getElementById('budgetMax');
+                if (minInput) minInput.value = state.budgetMin || '';
+                if (maxInput) maxInput.value = state.budgetMax || '';
+                if (minInput) minInput.focus();
+            }
+        }
+
+        function setBudgetByIndex(index) {
+            var b = BUDGET_OPTIONS[index];
+            state.budget = b;
+            if (b !== 'Set a specific range') {
+                state.budgetMin = null;
+                state.budgetMax = null;
+            }
+            render();
         }
 
         function setBudget(b) {
+            // Kept for compatibility with other calls
             state.budget = b;
+            if (b !== 'Set a specific range') {
+                state.budgetMin = null;
+                state.budgetMax = null;
+            }
             render();
         }
 
@@ -1683,6 +1932,27 @@
                 alert('Please select a budget option.');
                 return;
             }
+
+            if (state.budget === 'Set a specific range') {
+                var minInput = document.getElementById('budgetMin');
+                var maxInput = document.getElementById('budgetMax');
+                if (minInput && maxInput) {
+                    var min = parseInt(minInput.value);
+                    var max = parseInt(maxInput.value);
+                    if (isNaN(min) || isNaN(max)) {
+                        alert('Please enter both a minimum and maximum amount.');
+                        return;
+                    }
+                    if (min > max) {
+                        alert('Minimum cannot be greater than maximum.');
+                        return;
+                    }
+                    state.budgetMin = min;
+                    state.budgetMax = max;
+                    state.budget = '₦' + min.toLocaleString() + ' to ₦' + max.toLocaleString();
+                }
+            }
+
             window.goTo('understandingSummary');
         }
 
@@ -1693,6 +1963,10 @@
             var prioritiesText = state.selectedPriorities.length > 0 ? state.selectedPriorities.join(', ') : 'Not specified';
             var useCaseText = state.useCase.length > 0 ? state.useCase.join(', ') : 'Not specified';
             var budgetText = state.budget || 'Not specified';
+
+            if (budgetText === "I don't have a budget") {
+                budgetText = "No fixed budget, we'll focus on finding the strongest fit and value for you.";
+            }
 
             screen.innerHTML = `
                 <div class="screen-content">
@@ -1793,7 +2067,6 @@
         }
 
         function startPurchaseFlow() {
-            // If no product is selected, default to macbook
             if (!state.selectedProductId) {
                 state.selectedProductId = 'macbook';
             }
@@ -1944,7 +2217,7 @@
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        //  11. LOCATION
+        //  11. LOCATION — Optional & Lightweight
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function renderLocation() {
             screen.innerHTML = `
@@ -1955,10 +2228,16 @@
                     <p class="microcopy">Your location helps us find sellers that can actually serve you and compare the options available nearby.</p>
 
                     <div class="button-row">
-                        <button class="btn-primary" onclick="setLocationAndContinue('Abuja')">Use my location</button>
+                        <button class="btn-primary" onclick="setLocationAndContinue('Lagos')">📍 Use my location</button>
                     </div>
                     <div class="button-row" style="margin-top:12px;">
-                        <button class="btn-secondary" onclick="window.goTo('locationManual')">Enter location manually</button>
+                        <button class="btn-secondary" onclick="skipLocation()">⏭️ Skip for now</button>
+                    </div>
+
+                    <div class="location-hint">💡 Your location helps us recommend the best sellers for you, with faster delivery, better prices, and what's actually available near you.</div>
+
+                    <div class="button-row" style="margin-top:16px;">
+                        <button class="btn-secondary" style="background:transparent;border:none;color:var(--muted);font-size:14px;" onclick="window.goTo('locationManual')">Enter location manually →</button>
                     </div>
                 </div>
             `;
@@ -1967,6 +2246,13 @@
         function setLocationAndContinue(loc) {
             state.location = loc;
             window.goTo('locationProcessing');
+        }
+
+        function skipLocation() {
+            state.location = null;
+            var next = state.returnToStage || 'recommendedSeller';
+            state.returnToStage = null;
+            window.goTo(next);
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -2114,27 +2400,41 @@
         //  14. RECOMMENDED SELLER
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function renderRecommendedSeller() {
-            var seller = SELLERS[0];
+            var sellers = getSellers();
+            var seller = sellers[0];
 
             if (state.selectedSeller) {
-                var found = SELLERS.filter(function(s) { return s.name === state.selectedSeller; });
+                var found = sellers.filter(function(s) { return s.name === state.selectedSeller; });
                 if (found.length > 0) seller = found[0];
             }
 
-            // Get the selected product
             var productId = state.selectedProductId || 'macbook';
             var p = PRODUCTS[productId] || PRODUCTS.macbook;
+
+            var deliveryText = seller.delivery;
+            if (state.location) {
+                if (state.location === 'Lagos' && seller.location.includes('Lagos')) {
+                    deliveryText = '1–2 days';
+                } else if (state.location === 'Abuja' && seller.location.includes('Abuja')) {
+                    deliveryText = '1–3 days';
+                } else {
+                    deliveryText = '2–5 days';
+                }
+            }
+
+            var deliveryFeeDisplay = getDeliveryDisplay(seller);
 
             screen.innerHTML = `
                 <div class="screen-content">
                     <button class="back-button" onclick="goBack()">← Back</button>
                     <div class="brand-mark"></div>
                     <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Our pick for you</h1>
-                    <p class="microcopy">Based on your priorities and what's available in your area, this seller gives you the strongest overall fit.</p>
+                    <p class="microcopy">Based on your priorities and what's available, this seller gives you the strongest overall fit.</p>
 
                     <div class="final-card" style="border-color:var(--navy);">
                         <div class="pick-label">🏆 Our pick</div>
                         <div class="pick-name">${seller.name}</div>
+                        <div class="marketplace-badge">on ${seller.marketplace}</div>
 
                         <div style="margin:12px 0;display:flex;gap:12px;flex-wrap:wrap;">
                             <span style="font-size:18px;font-weight:700;color:var(--navy);">${seller.price}</span>
@@ -2153,10 +2453,11 @@
                         </div>
 
                         <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 16px;font-size:14px;color:var(--muted);">
-                            <div><strong style="color:var(--navy);">Delivery:</strong> ${seller.delivery}</div>
-                            <div><strong style="color:var(--navy);">Returns:</strong> ${seller.returns}</div>
-                            <div><strong style="color:var(--navy);">Warranty:</strong> ${seller.warranty}</div>
-                            <div><strong style="color:var(--navy);">Stock:</strong> ${seller.stock}</div>
+                            <div><strong style="color:var(--navy);">📍 Location:</strong> ${seller.location}</div>
+                            <div><strong style="color:var(--navy);">🚚 Delivery:</strong> ${deliveryText} · ${deliveryFeeDisplay}</div>
+                            <div><strong style="color:var(--navy);">🔄 Returns:</strong> ${seller.returns}</div>
+                            <div><strong style="color:var(--navy);">🛡️ Warranty:</strong> ${seller.warranty}</div>
+                            <div><strong style="color:var(--navy);">📦 Stock:</strong> ${seller.stock}</div>
                         </div>
 
                         <hr style="border:none;border-top:1px solid var(--line);margin:16px 0;">
@@ -2182,20 +2483,38 @@
         //  15. SELLER COMPARISON
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function renderSellerComparison() {
-            var cards = SELLERS.map(function(s) {
+            var sellers = getSellers();
+
+            var cards = sellers.map(function(s) {
                 var repClass = s.reputation === 'Excellent' ? 'excellent' : '';
-                var isRecommended = s.name === (state.selectedSeller || SELLERS[0].name);
+                var isRecommended = s.name === (state.selectedSeller || sellers[0].name);
+
+                var deliveryText = s.delivery;
+                if (state.location) {
+                    if (state.location === 'Lagos' && s.location.includes('Lagos')) {
+                        deliveryText = '1–2 days';
+                    } else if (state.location === 'Abuja' && s.location.includes('Abuja')) {
+                        deliveryText = '1–3 days';
+                    } else {
+                        deliveryText = '2–5 days';
+                    }
+                }
+
+                var deliveryFeeDisplay = getDeliveryDisplay(s);
+
                 return `
                     <div class="seller-card" style="${isRecommended ? 'border-color:var(--orange);border-width:2px;' : ''}" onclick="selectSeller('${s.name}')">
                         <div class="seller-name">${s.name}</div>
+                        <div class="marketplace-badge">on ${s.marketplace}</div>
                         ${isRecommended ? '<span style="color:var(--orange);font-size:11px;font-weight:700;">★ Our pick</span>' : ''}
                         <div class="seller-price">${s.price}</div>
                         <div class="seller-rating">★ ${s.rating} <span>(${s.reviews} reviews)</span></div>
                         <div class="seller-reputation ${repClass}">${s.reputation}</div>
-                        <div class="seller-detail"><strong>Delivery:</strong> ${s.delivery}</div>
-                        <div class="seller-detail"><strong>Returns:</strong> ${s.returns}</div>
-                        <div class="seller-detail"><strong>Warranty:</strong> ${s.warranty}</div>
-                        <div class="seller-detail"><strong>Stock:</strong> ${s.stock}</div>
+                        <div class="seller-detail"><strong>📍 Location:</strong> ${s.location}</div>
+                        <div class="seller-detail"><strong>🚚 Delivery:</strong> ${deliveryText} · ${deliveryFeeDisplay}</div>
+                        <div class="seller-detail"><strong>🔄 Returns:</strong> ${s.returns}</div>
+                        <div class="seller-detail"><strong>🛡️ Warranty:</strong> ${s.warranty}</div>
+                        <div class="seller-detail"><strong>📦 Stock:</strong> ${s.stock}</div>
                         <span class="click-hint">Click to purchase →</span>
                     </div>
                 `;
@@ -2226,15 +2545,29 @@
         //  16. FINAL PURCHASE
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function renderFinalPurchase() {
-            var seller = SELLERS[0];
+            var sellers = getSellers();
+            var seller = sellers[0];
+
             if (state.selectedSeller) {
-                var found = SELLERS.filter(function(s) { return s.name === state.selectedSeller; });
+                var found = sellers.filter(function(s) { return s.name === state.selectedSeller; });
                 if (found.length > 0) seller = found[0];
             }
 
-            // Get the selected product
             var productId = state.selectedProductId || 'macbook';
             var p = PRODUCTS[productId] || PRODUCTS.macbook;
+
+            var deliveryText = seller.delivery;
+            if (state.location) {
+                if (state.location === 'Lagos' && seller.location.includes('Lagos')) {
+                    deliveryText = '1–2 days';
+                } else if (state.location === 'Abuja' && seller.location.includes('Abuja')) {
+                    deliveryText = '1–3 days';
+                } else {
+                    deliveryText = '2–5 days';
+                }
+            }
+
+            var deliveryFeeDisplay = getDeliveryDisplay(seller);
 
             screen.innerHTML = `
                 <div class="screen-content">
@@ -2246,6 +2579,7 @@
                     <div class="final-card">
                         <div class="pick-label">🏆 Our pick</div>
                         <div class="pick-name">${seller.name}</div>
+                        <div class="marketplace-badge">on ${seller.marketplace}</div>
                         <div class="pick-reason">${seller.name} gives you the strongest balance based on what you've told us.</div>
 
                         <div style="display:flex;gap:16px;align-items:center;padding:12px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
@@ -2261,15 +2595,17 @@
                         <div class="detail-grid">
                             <div class="detail-item"><strong>Price:</strong> <span class="value">${seller.price}</span></div>
                             <div class="detail-item"><strong>Seller:</strong> <span class="value">${seller.name}</span></div>
+                            <div class="detail-item"><strong>Marketplace:</strong> <span class="value">${seller.marketplace}</span></div>
                             <div class="detail-item"><strong>Rating:</strong> <span class="value">★ ${seller.rating}</span></div>
-                            <div class="detail-item"><strong>Delivery:</strong> <span class="value">${seller.delivery}</span></div>
-                            <div class="detail-item"><strong>Returns:</strong> <span class="value">${seller.returns}</span></div>
-                            <div class="detail-item"><strong>Warranty:</strong> <span class="value">${seller.warranty}</span></div>
-                            <div class="detail-item"><strong>Stock:</strong> <span class="value">${seller.stock}</span></div>
-                            <div class="detail-item"><strong>Location:</strong> <span class="value">${state.location || 'Abuja'}</span></div>
+                            <div class="detail-item"><strong>📍 Location:</strong> <span class="value">${seller.location}</span></div>
+                            <div class="detail-item"><strong>🚚 Delivery:</strong> <span class="value">${deliveryText} · ${deliveryFeeDisplay}</span></div>
+                            <div class="detail-item"><strong>🔄 Returns:</strong> <span class="value">${seller.returns}</span></div>
+                            <div class="detail-item"><strong>🛡️ Warranty:</strong> <span class="value">${seller.warranty}</span></div>
+                            <div class="detail-item"><strong>📦 Stock:</strong> <span class="value">${seller.stock}</span></div>
+                            ${state.location ? `<div class="detail-item"><strong>Your location:</strong> <span class="value">${state.location}</span></div>` : `<div class="detail-item"><strong>Delivery:</strong> <span class="value">Standard shipping</span></div>`}
                         </div>
 
-                        <button class="btn-primary orange" onclick="alert('🎉 Redirecting to ${seller.name} to complete your purchase...')">Make a purchase →</button>
+                        <button class="btn-primary orange" onclick="alert('🎉 Redirecting to ${seller.name} on ${seller.marketplace} to complete your purchase...')">Make a purchase →</button>
                     </div>
 
                     <div class="button-row" style="margin-top:12px;">
@@ -2742,6 +3078,8 @@
         }
 
         function renderConsideringUseCase() {
+            var showSomethingElse = state.useCase.indexOf('Something else') !== -1;
+
             var chips = USE_CASES.map(function(c) {
                 var active = state.useCase.indexOf(c) !== -1 ? 'active' : '';
                 return `<button class="chip ${active}" onclick="toggleUseCase('${c}')">${c}</button>`;
@@ -2757,11 +3095,24 @@
                     <div class="chip-grid">${chips}</div>
                     <p class="chip-count">Selected: ${state.useCase.length || 'none'}</p>
 
+                    ${showSomethingElse ? `
+                        <div class="controversial-expand">
+                            <label>Tell us what you need it for:</label>
+                            <input type="text" id="customUseCase" placeholder="e.g., Video editing, programming, etc." value="${state.customUseCase || ''}">
+                            <div class="hint">This helps us recommend the right options for your specific needs.</div>
+                        </div>
+                    ` : ''}
+
                     <div class="button-row">
                         <button class="btn-primary" onclick="submitConsideringUseCase()">Continue</button>
                     </div>
                 </div>
             `;
+
+            if (showSomethingElse) {
+                var input = document.getElementById('customUseCase');
+                if (input) input.focus();
+            }
         }
 
         function submitConsideringUseCase() {
@@ -2769,6 +3120,21 @@
                 alert('Please select at least one use case.');
                 return;
             }
+
+            if (state.useCase.indexOf('Something else') !== -1) {
+                var input = document.getElementById('customUseCase');
+                if (input && input.value.trim().length > 0) {
+                    state.customUseCase = input.value.trim();
+                    var index = state.useCase.indexOf('Something else');
+                    if (index !== -1) {
+                        state.useCase[index] = state.customUseCase;
+                    }
+                } else {
+                    alert('Please tell us what you need it for.');
+                    return;
+                }
+            }
+
             window.goTo('consideringPriorities');
         }
 
@@ -2803,12 +3169,16 @@
             window.goTo('consideringBudget');
         }
 
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  CONSIDERING BUDGET — FIXED
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function renderConsideringBudget() {
             var selected = state.budget;
+            var showSpecificRange = (selected === 'Set a specific range');
 
-            var options = BUDGET_OPTIONS.map(function(b) {
+            var options = BUDGET_OPTIONS.map(function(b, index) {
                 var active = (selected === b) ? 'active' : '';
-                return `<button class="chip ${active}" onclick="setBudget('${b}')">${b}</button>`;
+                return `<button class="chip ${active}" onclick="setBudgetByIndex(${index})">${b}</button>`;
             }).join('');
 
             screen.innerHTML = `
@@ -2820,11 +3190,34 @@
 
                     <div class="chip-grid">${options}</div>
 
+                    ${showSpecificRange ? `
+                        <div class="controversial-expand">
+                            <div class="range-grid">
+                                <div>
+                                    <label>Minimum (₦)</label>
+                                    <input type="number" id="budgetMin" placeholder="0">
+                                </div>
+                                <div>
+                                    <label>Maximum (₦)</label>
+                                    <input type="number" id="budgetMax" placeholder="0">
+                                </div>
+                            </div>
+                            <div class="hint">Enter your preferred price range in Naira.</div>
+                        </div>
+                    ` : ''}
+
                     <div class="button-row">
                         <button class="btn-primary" onclick="submitConsideringBudget()">Continue</button>
                     </div>
                 </div>
             `;
+
+            if (showSpecificRange) {
+                var minInput = document.getElementById('budgetMin');
+                var maxInput = document.getElementById('budgetMax');
+                if (minInput) minInput.value = state.budgetMin || '';
+                if (maxInput) maxInput.value = state.budgetMax || '';
+            }
         }
 
         function submitConsideringBudget() {
@@ -2832,13 +3225,41 @@
                 alert('Please select a budget option.');
                 return;
             }
+
+            if (state.budget === 'Set a specific range') {
+                var minInput = document.getElementById('budgetMin');
+                var maxInput = document.getElementById('budgetMax');
+                if (minInput && maxInput) {
+                    var min = parseInt(minInput.value);
+                    var max = parseInt(maxInput.value);
+                    if (isNaN(min) || isNaN(max)) {
+                        alert('Please enter both a minimum and maximum amount.');
+                        return;
+                    }
+                    if (min > max) {
+                        alert('Minimum cannot be greater than maximum.');
+                        return;
+                    }
+                    state.budgetMin = min;
+                    state.budgetMax = max;
+                    state.budget = '₦' + min.toLocaleString() + ' to ₦' + max.toLocaleString();
+                }
+            }
+
             window.goTo('consideringSummary');
         }
 
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  CONSIDERING SUMMARY
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function renderConsideringSummary() {
             var prioritiesText = state.selectedPriorities.length > 0 ? state.selectedPriorities.join(', ') : 'Not specified';
             var useCaseText = state.useCase.length > 0 ? state.useCase.join(', ') : 'Not specified';
             var budgetText = state.budget || 'Not specified';
+
+            if (budgetText === "I don't have a budget") {
+                budgetText = "No fixed budget, we'll focus on finding the strongest fit and value for you.";
+            }
 
             screen.innerHTML = `
                 <div class="screen-content">
