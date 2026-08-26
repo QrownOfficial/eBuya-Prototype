@@ -1005,6 +1005,64 @@
             font-weight: 500;
         }
 
+        .detail-product-card {
+            max-width: 480px;
+            margin: 24px auto;
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            overflow: hidden;
+            background: var(--white);
+            box-shadow: var(--shadow);
+            text-align: left;
+        }
+
+        .detail-product-card .product-image {
+            aspect-ratio: 1.18/1;
+            background: #F1EEE9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .detail-product-card .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .detail-product-card .detail-body {
+            padding: 20px;
+        }
+
+        .detail-product-card .detail-body h3 {
+            font-size: 20px;
+            color: var(--navy);
+            margin-bottom: 2px;
+        }
+
+        .detail-product-card .detail-body .price {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--navy);
+        }
+
+        .detail-product-card .detail-body .specs {
+            color: var(--muted);
+            font-size: 14px;
+            margin: 6px 0;
+        }
+
+        .detail-product-card .detail-body .rating {
+            color: var(--gold);
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .detail-product-card .detail-body .rating span {
+            color: var(--muted);
+            font-weight: 400;
+        }
+
         .hidden {
             display: none !important;
         }
@@ -1191,6 +1249,7 @@
             state.decisionFork = null;
             state.identifiedProduct = null;
             state.returnToStage = null;
+            state.history = [];
             render();
         }
 
@@ -1213,7 +1272,9 @@
             decisionFork: null,
             identifiedProduct: null,
             returnToStage: null,
-            locationProcessing: false
+            locationProcessing: false,
+            selectedProductId: null,
+            history: []
         };
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -1259,7 +1320,8 @@
         };
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        //  SELLER DATA        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  SELLER DATA
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         var SELLERS = [{
             name: 'Konga',
             price: '₦2,450,000',
@@ -1342,6 +1404,7 @@
             else if (s === 'recommendation') renderRecommendation();
             else if (s === 'tradeoffs') renderTradeoffs();
             else if (s === 'alternatives') renderAlternatives();
+            else if (s === 'productDetail') renderProductDetail();
             else if (s === 'gettingIt') renderGettingIt();
             else if (s === 'location') renderLocation();
             else if (s === 'locationManual') renderLocationManual();
@@ -1364,6 +1427,7 @@
             else if (s === 'knowWhatIWant') renderKnowWhatIWant();
             else if (s === 'knowSummary') renderKnowSummary();
             else if (s === 'knowAlternatives') renderKnowAlternatives();
+            else if (s === 'knowProductDetail') renderKnowProductDetail();
             else if (s === 'stillConsidering') renderStillConsidering();
             else if (s === 'consideringUseCase') renderConsideringUseCase();
             else if (s === 'consideringPriorities') renderConsideringPriorities();
@@ -1372,56 +1436,49 @@
             else if (s === 'consideringRecommendation') renderConsideringRecommendation();
             else if (s === 'consideringTradeoffs') renderConsideringTradeoffs();
             else if (s === 'consideringAlternatives') renderConsideringAlternatives();
+            else if (s === 'consideringProductDetail') renderConsideringProductDetail();
             else screen.innerHTML = '<div class="screen-content"><p>Something went wrong.</p></div>';
         }
 
         window.goTo = function(page) {
+            if (state.currentStage !== page) {
+                state.history.push(state.currentStage);
+            }
             state.currentStage = page;
             render();
         };
 
         function goBack() {
-            var map = {
-                ask: 'home',
-                understandingRequest: 'ask',
-                priorities: 'understandingRequest',
-                budget: 'priorities',
-                understandingSummary: 'budget',
-                recommendation: 'understandingSummary',
-                tradeoffs: 'recommendation',
-                alternatives: 'tradeoffs',
-                gettingIt: 'alternatives',
-                location: 'gettingIt',
-                locationManual: 'location',
-                locationProcessing: 'location',
-                sellerMatching: 'locationProcessing',
-                recommendedSeller: 'sellerMatching',
-                sellerComparison: 'recommendedSeller',
-                finalPurchase: 'sellerComparison',
-                pasteUrl: 'home',
-                urlProcessing: 'pasteUrl',
-                uploadImage: 'home',
-                imagePreview: 'uploadImage',
-                imageProcessing: 'imagePreview',
-                scanCode: 'home',
-                codeProcessing: 'scanCode',
-                productRecognition: 'home',
-                productConfirmation: 'productRecognition',
-                wrongProduct: 'productConfirmation',
-                decisionFork: 'productConfirmation',
-                knowWhatIWant: 'decisionFork',
-                knowSummary: 'knowWhatIWant',
-                knowAlternatives: 'knowSummary',
-                stillConsidering: 'decisionFork',
-                consideringUseCase: 'stillConsidering',
-                consideringPriorities: 'consideringUseCase',
-                consideringBudget: 'consideringPriorities',
-                consideringSummary: 'consideringBudget',
-                consideringRecommendation: 'consideringSummary',
-                consideringTradeoffs: 'consideringRecommendation',
-                consideringAlternatives: 'consideringTradeoffs'
-            };
-            window.goTo(map[state.currentStage] || 'home');
+            if (state.history.length > 0) {
+                var prev = state.history.pop();
+                state.currentStage = prev;
+                render();
+            } else {
+                state.currentStage = 'home';
+                render();
+            }
+        }
+
+        function resetApp() {
+            document.getElementById('hamburgerMenu').classList.remove('open');
+            state.currentStage = 'home';
+            state.entryMethod = null;
+            state.userQuestion = '';
+            state.uploadedImage = null;
+            state.pastedUrl = '';
+            state.scannedCode = '';
+            state.selectedPriorities = [];
+            state.useCase = [];
+            state.budget = null;
+            state.location = null;
+            state.selectedSeller = null;
+            state.productConfirmed = false;
+            state.decisionFork = null;
+            state.identifiedProduct = null;
+            state.returnToStage = null;
+            state.selectedProductId = null;
+            state.history = [];
+            render();
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -1751,6 +1808,9 @@
                 var badgeClass = isFeatured ? '' : (p.id === 'lenovo' ? 'gold' : 'navy');
                 var badgeText = isFeatured ? 'Our top pick' : (p.id === 'lenovo' ? 'Best value' : 'Versatile');
 
+                var ctaText = isFeatured ? 'Where to buy from' : 'See more details';
+                var ctaAction = isFeatured ? `goToProductBestSeller('${p.id}')` : `goToProductDetail('${p.id}', 'alternatives')`;
+
                 return `
                     <div class="product-card ${isFeatured ? 'featured' : ''}">
                         <div class="product-image">
@@ -1762,7 +1822,7 @@
                             <div class="price">${p.price}</div>
                             <div class="rating">★ ${p.rating} <span>(${p.reviews} reviews)</span></div>
                             <p style="font-size:13px;color:var(--muted);margin-top:8px;"><strong>Why consider it</strong><br>${p.id === 'macbook' ? 'The strongest all-rounder for most users.' : p.id === 'lenovo' ? 'A strong choice if you want a lightweight Windows laptop with a business-focused design and extensive connectivity.' : 'A flexible choice if you value a 2-in-1 design, touch capability and a more versatile way to use your laptop.'}</p>
-                            <button class="btn-primary" style="width:100%;margin-top:12px;justify-content:center;" onclick="goToProductBestSeller('${p.id}')">Where to buy from</button>
+                            <button class="btn-primary" style="width:100%;margin-top:12px;justify-content:center;" onclick="${ctaAction}">${ctaText}</button>
                         </div>
                     </div>
                 `;
@@ -1782,6 +1842,66 @@
                     </div>
                 </div>
             `;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  9b. PRODUCT DETAIL (from Alternatives)
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        function renderProductDetail() {
+            var productId = state.selectedProductId || 'lenovo';
+            var p = PRODUCTS[productId];
+            if (!p) p = PRODUCTS.lenovo;
+
+            var strengthsHtml = p.strengths.map(function(s) {
+                return '<div><span class="check">✓</span> ' + s + '</div>';
+            }).join('');
+
+            var tradeoffsHtml = p.tradeoffs.map(function(t) {
+                return '<div><span class="cross">✗</span> ' + t + '</div>';
+            }).join('');
+
+            screen.innerHTML = `
+                <div class="screen-content">
+                    <button class="back-button" onclick="goBack()">← Back</button>
+                    <div class="brand-mark"></div>
+                    <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">${p.name}</h1>
+                    <p class="microcopy">Here's a closer look at what this option offers and what you'd be giving up.</p>
+
+                    <div class="detail-product-card">
+                        <div class="product-image">
+                            <img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='💻'">
+                        </div>
+                        <div class="detail-body">
+                            <h3>${p.name}</h3>
+                            <div class="price">${p.price}</div>
+                            <div class="specs">${p.specs}</div>
+                            <div class="rating">★ ${p.rating} <span>(${p.reviews} reviews)</span></div>
+                        </div>
+                    </div>
+
+                    <div class="tradeoff-grid">
+                        <div class="tradeoff-card" style="border-color:var(--orange);">
+                            <h3>What you'll like</h3>
+                            <div class="strength-list">${strengthsHtml}</div>
+                        </div>
+                        <div class="tradeoff-card" style="border-color:#b91c1c;">
+                            <h3>What to consider</h3>
+                            <div class="tradeoff-list">${tradeoffsHtml}</div>
+                        </div>
+                    </div>
+
+                    <div class="button-row">
+                        <button class="btn-secondary" onclick="goBack()">← Back to summary</button>
+                        <button class="btn-primary orange" onclick="goToProductBestSeller('${p.id}')">Where to buy from →</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function goToProductDetail(productId, returnStage) {
+            state.selectedProductId = productId;
+            state.returnToStage = returnStage || 'alternatives';
+            window.goTo('productDetail');
         }
 
         function goToProductBestSeller(productId) {
@@ -1891,6 +2011,7 @@
 
             screen.innerHTML = `
                 <div class="screen-content">
+                    <button class="back-button" onclick="goBack()">← Back</button>
                     <div class="brand-mark"></div>
                     <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Finding the best place to get it.</h1>
                     <p class="microcopy">We're checking sellers in your area and comparing them against what matters most to you.</p>
@@ -1925,7 +2046,10 @@
         function finishLocationProcessing() {
             var next = state.returnToStage || 'recommendedSeller';
             state.returnToStage = null;
-            window.goTo(next);
+            // Push current page to history so back button goes to locationProcessing
+            state.history.push(state.currentStage);
+            state.currentStage = next;
+            render();
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -1946,6 +2070,7 @@
 
             screen.innerHTML = `
                 <div class="screen-content">
+                    <button class="back-button" onclick="goBack()">← Back</button>
                     <div class="brand-mark"></div>
                     <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Finding the best place to get it.</h1>
                     <p class="microcopy">We're comparing the sellers available in your area against the things you've told us matter most.</p>
@@ -2171,6 +2296,7 @@
 
             screen.innerHTML = `
                 <div class="screen-content">
+                    <button class="back-button" onclick="goBack()">← Back</button>
                     <div class="brand-mark"></div>
                     <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Taking a look.</h1>
                     <p class="microcopy">We're reading the page to work out exactly which product you're looking at.</p>
@@ -2249,6 +2375,7 @@
 
             screen.innerHTML = `
                 <div class="screen-content">
+                    <button class="back-button" onclick="goBack()">← Back</button>
                     <div class="brand-mark"></div>
                     <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Taking a closer look.</h1>
                     <p class="microcopy">We're checking the image for the details that can help us identify the product.</p>
@@ -2297,6 +2424,7 @@
         function renderCodeProcessing() {
             screen.innerHTML = `
                 <div class="screen-content">
+                    <button class="back-button" onclick="goBack()">← Back</button>
                     <div class="brand-mark"></div>
                     <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Identifying the product.</h1>
                     <p class="microcopy">We're matching the code to the product it belongs to.</p>
@@ -2473,8 +2601,11 @@
                 var badgeClass = isFeatured ? '' : (p.id === 'lenovo' ? 'gold' : 'navy');
                 var badgeText = isFeatured ? 'Our top pick' : (p.id === 'lenovo' ? 'Best value' : 'Versatile');
 
+                var ctaText = isFeatured ? 'Where to buy from' : 'See more details';
+                var ctaAction = isFeatured ? `goToProductBestSeller('${p.id}')` : `goToKnowProductDetail('${p.id}')`;
+
                 return `
-                    <div class="product-card ${isFeatured ? 'featured' : ''}" onclick="goToProductBestSeller('${p.id}')">
+                    <div class="product-card ${isFeatured ? 'featured' : ''}">
                         <div class="product-image">
                             <img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='${p.name.split(' ')[0]}'">
                         </div>
@@ -2484,7 +2615,7 @@
                             <div class="price">${p.price}</div>
                             <div class="rating">★ ${p.rating} <span>(${p.reviews} reviews)</span></div>
                             <p style="font-size:13px;color:var(--muted);margin-top:8px;"><strong>Why consider it</strong><br>${p.id === 'macbook' ? 'The strongest all-rounder for most users.' : p.id === 'lenovo' ? 'A strong choice if you want a lightweight Windows laptop with a business-focused design and extensive connectivity.' : 'A flexible choice if you value a 2-in-1 design, touch capability and a more versatile way to use your laptop.'}</p>
-                            <button class="btn-primary" style="width:100%;margin-top:12px;justify-content:center;" onclick="event.stopPropagation(); goToProductBestSeller('${p.id}')">See where to buy</button>
+                            <button class="btn-primary" style="width:100%;margin-top:12px;justify-content:center;" onclick="${ctaAction}">${ctaText}</button>
                         </div>
                     </div>
                 `;
@@ -2504,6 +2635,65 @@
                     </div>
                 </div>
             `;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  28b. KNOW PRODUCT DETAIL
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        function renderKnowProductDetail() {
+            var productId = state.selectedProductId || 'lenovo';
+            var p = PRODUCTS[productId];
+            if (!p) p = PRODUCTS.lenovo;
+
+            var strengthsHtml = p.strengths.map(function(s) {
+                return '<div><span class="check">✓</span> ' + s + '</div>';
+            }).join('');
+
+            var tradeoffsHtml = p.tradeoffs.map(function(t) {
+                return '<div><span class="cross">✗</span> ' + t + '</div>';
+            }).join('');
+
+            screen.innerHTML = `
+                <div class="screen-content">
+                    <button class="back-button" onclick="goBack()">← Back</button>
+                    <div class="brand-mark"></div>
+                    <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">${p.name}</h1>
+                    <p class="microcopy">Here's a closer look at what this option offers and what you'd be giving up.</p>
+
+                    <div class="detail-product-card">
+                        <div class="product-image">
+                            <img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='💻'">
+                        </div>
+                        <div class="detail-body">
+                            <h3>${p.name}</h3>
+                            <div class="price">${p.price}</div>
+                            <div class="specs">${p.specs}</div>
+                            <div class="rating">★ ${p.rating} <span>(${p.reviews} reviews)</span></div>
+                        </div>
+                    </div>
+
+                    <div class="tradeoff-grid">
+                        <div class="tradeoff-card" style="border-color:var(--orange);">
+                            <h3>What you'll like</h3>
+                            <div class="strength-list">${strengthsHtml}</div>
+                        </div>
+                        <div class="tradeoff-card" style="border-color:#b91c1c;">
+                            <h3>What to consider</h3>
+                            <div class="tradeoff-list">${tradeoffsHtml}</div>
+                        </div>
+                    </div>
+
+                    <div class="button-row">
+                        <button class="btn-secondary" onclick="goBack()">← Back to summary</button>
+                        <button class="btn-primary orange" onclick="goToProductBestSeller('${p.id}')">Where to buy from →</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function goToKnowProductDetail(productId) {
+            state.selectedProductId = productId;
+            window.goTo('knowProductDetail');
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -2715,6 +2905,9 @@
                 var badgeClass = isFeatured ? '' : (p.id === 'lenovo' ? 'gold' : 'navy');
                 var badgeText = isFeatured ? 'Our top pick' : (p.id === 'lenovo' ? 'Best value' : 'Versatile');
 
+                var ctaText = isFeatured ? 'Where to buy from' : 'See more details';
+                var ctaAction = isFeatured ? `goToProductBestSeller('${p.id}')` : `goToConsideringProductDetail('${p.id}')`;
+
                 return `
                     <div class="product-card ${isFeatured ? 'featured' : ''}">
                         <div class="product-image">
@@ -2726,7 +2919,7 @@
                             <div class="price">${p.price}</div>
                             <div class="rating">★ ${p.rating} <span>(${p.reviews} reviews)</span></div>
                             <p style="font-size:13px;color:var(--muted);margin-top:8px;"><strong>Why consider it</strong><br>${p.id === 'macbook' ? 'The strongest all-rounder for most users.' : p.id === 'lenovo' ? 'A strong choice if you want a lightweight Windows laptop with a business-focused design and extensive connectivity.' : 'A flexible choice if you value a 2-in-1 design, touch capability and a more versatile way to use your laptop.'}</p>
-                            <button class="btn-primary" style="width:100%;margin-top:12px;justify-content:center;" onclick="goToProductBestSeller('${p.id}')">Where to buy from</button>
+                            <button class="btn-primary" style="width:100%;margin-top:12px;justify-content:center;" onclick="${ctaAction}">${ctaText}</button>
                         </div>
                     </div>
                 `;
@@ -2746,6 +2939,65 @@
                     </div>
                 </div>
             `;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  36b. CONSIDERING PRODUCT DETAIL
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        function renderConsideringProductDetail() {
+            var productId = state.selectedProductId || 'lenovo';
+            var p = PRODUCTS[productId];
+            if (!p) p = PRODUCTS.lenovo;
+
+            var strengthsHtml = p.strengths.map(function(s) {
+                return '<div><span class="check">✓</span> ' + s + '</div>';
+            }).join('');
+
+            var tradeoffsHtml = p.tradeoffs.map(function(t) {
+                return '<div><span class="cross">✗</span> ' + t + '</div>';
+            }).join('');
+
+            screen.innerHTML = `
+                <div class="screen-content">
+                    <button class="back-button" onclick="goBack()">← Back</button>
+                    <div class="brand-mark"></div>
+                    <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">${p.name}</h1>
+                    <p class="microcopy">Here's a closer look at what this option offers and what you'd be giving up.</p>
+
+                    <div class="detail-product-card">
+                        <div class="product-image">
+                            <img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='💻'">
+                        </div>
+                        <div class="detail-body">
+                            <h3>${p.name}</h3>
+                            <div class="price">${p.price}</div>
+                            <div class="specs">${p.specs}</div>
+                            <div class="rating">★ ${p.rating} <span>(${p.reviews} reviews)</span></div>
+                        </div>
+                    </div>
+
+                    <div class="tradeoff-grid">
+                        <div class="tradeoff-card" style="border-color:var(--orange);">
+                            <h3>What you'll like</h3>
+                            <div class="strength-list">${strengthsHtml}</div>
+                        </div>
+                        <div class="tradeoff-card" style="border-color:#b91c1c;">
+                            <h3>What to consider</h3>
+                            <div class="tradeoff-list">${tradeoffsHtml}</div>
+                        </div>
+                    </div>
+
+                    <div class="button-row">
+                        <button class="btn-secondary" onclick="goBack()">← Back to summary</button>
+                        <button class="btn-primary orange" onclick="goToProductBestSeller('${p.id}')">Where to buy from →</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function goToConsideringProductDetail(productId) {
+            state.selectedProductId = productId;
+            window.goTo('consideringProductDetail');
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
