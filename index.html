@@ -1138,6 +1138,17 @@
             text-align: left;
         }
 
+        .controversial-expand input {
+            width: 100%;
+            min-height: 48px;
+            padding: 0 12px;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            background: var(--white);
+            font-size: 16px;
+            margin-top: 6px;
+        }
+
         .controversial-expand .hint {
             font-size: 12px;
             color: var(--muted);
@@ -1902,7 +1913,7 @@
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        //  3. UNDERSTANDING THE REQUEST — FIXED "Something else" input
+        //  3. UNDERSTANDING THE REQUEST — "Something else" centered
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function renderUnderstandingRequest() {
             var showSomethingElse = state.useCase.indexOf('Something else') !== -1;
@@ -1924,15 +1935,14 @@
                     <p class="chip-count">Selected: ${state.useCase.length || 'none'}</p>
 
                     ${showSomethingElse ? `
-                        <div style="margin-top:16px;text-align:left;max-width:480px;margin-left:auto;margin-right:auto;">
-                            <label style="font-size:13px;color:var(--navy);font-weight:600;display:block;text-align:left;margin-bottom:6px;">Tell us what you need it for:</label>
+                        <div style="margin-top:16px;max-width:480px;margin-left:auto;margin-right:auto;">
+                            <label style="font-size:13px;color:var(--navy);font-weight:600;display:block;text-align:center;margin-bottom:6px;">Tell us what you need it for:</label>
                             <div class="input-card" style="border-radius:999px;padding:4px 6px 4px 20px;display:flex;align-items:center;gap:4px;transition:border-color 0.2s ease;width:100%;margin:0;">
                                 <input type="text" id="customUseCase" placeholder="Type or speak..." value="${state.customUseCase || ''}" style="flex:1;min-height:48px;padding:10px 4px 10px 0;border:0;outline:0;background:transparent;font-family:inherit;font-size:16px;color:var(--text);line-height:1.5;width:100%;">
                                 <button class="mic-button" id="useCaseMicBtn" onclick="startVoiceInput('customUseCase', 'useCaseMicBtn')" style="flex-shrink:0;font-size:20px;color:var(--muted);cursor:pointer;background:none;border:none;padding:8px 10px;border-radius:50%;transition:all 0.2s ease;line-height:1;display:flex;align-items:center;justify-content:center;width:44px;height:44px;">
                                     <i class="fas fa-microphone"></i>
                                 </button>
                             </div>
-                            <div style="font-size:12px;color:var(--muted);margin-top:8px;">This helps us recommend the right options for your specific needs.</div>
                         </div>
                     ` : ''}
 
@@ -3241,7 +3251,7 @@
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        //  30. CONSIDERING USE CASE — FIXED "Something else" input
+        //  30. CONSIDERING USE CASE — "Something else" centered
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function renderConsideringUseCase() {
             var showSomethingElse = state.useCase.indexOf('Something else') !== -1;
@@ -3262,15 +3272,14 @@
                     <p class="chip-count">Selected: ${state.useCase.length || 'none'}</p>
 
                     ${showSomethingElse ? `
-                        <div style="margin-top:16px;text-align:left;max-width:480px;margin-left:auto;margin-right:auto;">
-                            <label style="font-size:13px;color:var(--navy);font-weight:600;display:block;text-align:left;margin-bottom:6px;">Tell us what you need it for:</label>
+                        <div style="margin-top:16px;max-width:480px;margin-left:auto;margin-right:auto;">
+                            <label style="font-size:13px;color:var(--navy);font-weight:600;display:block;text-align:center;margin-bottom:6px;">Tell us what you need it for:</label>
                             <div class="input-card" style="border-radius:999px;padding:4px 6px 4px 20px;display:flex;align-items:center;gap:4px;transition:border-color 0.2s ease;width:100%;margin:0;">
                                 <input type="text" id="consideringCustomUseCase" placeholder="Type or speak..." value="${state.customUseCase || ''}" style="flex:1;min-height:48px;padding:10px 4px 10px 0;border:0;outline:0;background:transparent;font-family:inherit;font-size:16px;color:var(--text);line-height:1.5;width:100%;">
                                 <button class="mic-button" id="consideringMicBtn" onclick="startVoiceInput('consideringCustomUseCase', 'consideringMicBtn')" style="flex-shrink:0;font-size:20px;color:var(--muted);cursor:pointer;background:none;border:none;padding:8px 10px;border-radius:50%;transition:all 0.2s ease;line-height:1;display:flex;align-items:center;justify-content:center;width:44px;height:44px;">
                                     <i class="fas fa-microphone"></i>
                                 </button>
                             </div>
-                            <div style="font-size:12px;color:var(--muted);margin-top:8px;">This helps us recommend the right options for your specific needs.</div>
                         </div>
                     ` : ''}
 
