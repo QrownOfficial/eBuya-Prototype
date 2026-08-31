@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
     <title>eBuya — Spend with certainty.</title>
 
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
     <style>
         /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
            ROOT VARIABLES
@@ -20,7 +23,6 @@
             --line: rgba(18, 52, 86, 0.12);
             --navy-soft: rgba(18, 52, 86, 0.07);
             --orange-soft: rgba(249, 99, 28, 0.10);
-            --gold-soft: rgba(244, 196, 48, 0.18);
             --shadow: 0 14px 40px rgba(18, 52, 86, 0.065);
             --shadow-hover: 0 20px 48px rgba(18, 52, 86, 0.11);
             --radius: 20px;
@@ -440,17 +442,84 @@
         .input-card {
             width: min(720px, 100%);
             margin: 32px auto 0;
-            padding: 6px;
             border: 1px solid var(--line);
-            border-radius: 18px;
+            border-radius: 999px;
             background: var(--white);
             box-shadow: 0 14px 40px rgba(18, 52, 86, 0.07);
+            padding: 4px 6px 4px 20px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: border-color 0.2s ease;
+        }
+
+        .input-card:focus-within {
+            border-color: var(--orange);
+            box-shadow: 0 0 0 3px var(--orange-soft);
+        }
+
+        .input-card input {
+            flex: 1;
+            min-height: 56px;
+            padding: 12px 4px 12px 0;
+            border: 0;
+            outline: 0;
+            background: transparent;
+            font-family: inherit;
+            font-size: 16px;
+            color: var(--text);
+            line-height: 1.5;
+            width: 100%;
+        }
+
+        .input-card input::placeholder {
+            color: #9AA3AB;
+        }
+
+        .input-card .mic-button {
+            flex-shrink: 0;
+            font-size: 22px;
+            color: var(--muted);
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 10px 12px;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 46px;
+            height: 46px;
+        }
+
+        .input-card .mic-button:hover {
+            color: var(--orange);
+            background: var(--orange-soft);
+        }
+
+        .input-card .mic-button.listening {
+            color: var(--orange);
+            background: var(--orange-soft);
+            animation: pulse 1.2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.12);
+            }
         }
 
         .input-card.dashed {
             padding: 30px;
             text-align: center;
             border-style: dashed;
+            border-radius: 18px;
         }
 
         .input-card .icon-large {
@@ -461,54 +530,6 @@
         .input-card .label {
             color: var(--muted);
             margin-bottom: 12px;
-        }
-
-        textarea {
-            width: 100%;
-            min-height: 150px;
-            padding: 18px;
-            border: 0;
-            outline: 0;
-            color: var(--text);
-            background: transparent;
-            resize: vertical;
-            line-height: 1.6;
-            font-family: inherit;
-            font-size: 16px;
-        }
-
-        textarea::placeholder {
-            color: #9AA3AB;
-        }
-
-        input[type="text"],
-        input[type="url"],
-        input[type="number"] {
-            width: 100%;
-            min-height: 58px;
-            padding: 0 18px;
-            border: 0;
-            outline: 0;
-            color: var(--text);
-            background: transparent;
-            font-family: inherit;
-            font-size: 16px;
-        }
-
-        input[type="text"]::placeholder,
-        input[type="url"]::placeholder {
-            color: #9AA3AB;
-        }
-
-        input[type="file"] {
-            max-width: 100%;
-            margin: 0 auto;
-        }
-
-        .upload-preview {
-            margin-top: 12px;
-            color: var(--orange);
-            font-weight: 700;
         }
 
         .info-card {
@@ -1117,17 +1138,6 @@
             text-align: left;
         }
 
-        .controversial-expand input {
-            width: 100%;
-            min-height: 48px;
-            padding: 0 12px;
-            border: 1px solid var(--line);
-            border-radius: 12px;
-            background: var(--white);
-            font-size: 16px;
-            margin-top: 6px;
-        }
-
         .controversial-expand .hint {
             font-size: 12px;
             color: var(--muted);
@@ -1245,6 +1255,27 @@
             .range-grid {
                 grid-template-columns: 1fr;
             }
+
+            .input-card {
+                padding: 4px 4px 4px 14px;
+            }
+
+            .input-card input {
+                font-size: 15px;
+                min-height: 48px;
+                padding: 10px 4px 10px 0;
+            }
+
+            .input-card .mic-button {
+                font-size: 19px;
+                width: 40px;
+                height: 40px;
+                padding: 8px 10px;
+            }
+
+            .controversial-expand {
+                padding: 14px;
+            }
         }
 
         @media (max-width: 420px) {
@@ -1254,6 +1285,10 @@
 
             .screen {
                 padding: 16px 14px 40px;
+            }
+
+            h1 {
+                font-size: 32px;
             }
 
             .product-info h3 {
@@ -1266,6 +1301,27 @@
 
             .final-card .pick-name {
                 font-size: 20px;
+            }
+
+            .input-card {
+                padding: 2px 4px 2px 12px;
+            }
+
+            .input-card input {
+                font-size: 14px;
+                min-height: 42px;
+                padding: 8px 4px 8px 0;
+            }
+
+            .input-card .mic-button {
+                font-size: 17px;
+                width: 36px;
+                height: 36px;
+                padding: 6px 8px;
+            }
+
+            .controversial-expand {
+                padding: 12px;
             }
         }
     </style>
@@ -1335,6 +1391,11 @@
             state.returnToStage = null;
             state.selectedProductId = null;
             state.history = [];
+            if (recognition) {
+                try { recognition.stop(); } catch (e) {}
+                recognition = null;
+                isListening = false;
+            }
             render();
         }
 
@@ -1564,6 +1625,102 @@
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  VOICE INPUT FUNCTION
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        var recognition = null;
+        var isListening = false;
+
+        function startVoiceInput(inputId, buttonId) {
+            var input = document.getElementById(inputId);
+            var button = document.getElementById(buttonId);
+
+            if (!input) {
+                console.warn('Input field not found:', inputId);
+                return;
+            }
+
+            var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRecognition) {
+                alert('Voice input is not supported in this browser. Please try Chrome or Edge.');
+                return;
+            }
+
+            if (isListening && recognition) {
+                recognition.stop();
+                isListening = false;
+                if (button) button.classList.remove('listening');
+                return;
+            }
+
+            recognition = new SpeechRecognition();
+            recognition.lang = 'en-US';
+            recognition.continuous = false;
+            recognition.interimResults = true;
+            recognition.maxAlternatives = 1;
+
+            recognition.onstart = function() {
+                isListening = true;
+                if (button) button.classList.add('listening');
+                input.placeholder = '🎤 Listening... Speak now';
+            };
+
+            recognition.onresult = function(event) {
+                var transcript = '';
+                for (var i = event.resultIndex; i < event.results.length; i++) {
+                    if (event.results[i].isFinal) {
+                        transcript += event.results[i][0].transcript;
+                    } else {
+                        var interim = '';
+                        for (var j = event.resultIndex; j < event.results.length; j++) {
+                            interim += event.results[j][0].transcript;
+                        }
+                        input.value = interim;
+                    }
+                }
+                if (transcript) {
+                    input.value = transcript;
+                }
+            };
+
+            recognition.onerror = function(event) {
+                console.warn('Speech recognition error:', event.error);
+                if (event.error === 'not-allowed') {
+                    alert('Please allow microphone access to use voice input.');
+                } else if (event.error === 'no-speech') {
+                    alert('No speech detected. Please try again.');
+                } else {
+                    alert('Voice input error: ' + event.error + '. Please try again.');
+                }
+                stopVoiceInput(inputId, buttonId);
+            };
+
+            recognition.onend = function() {
+                stopVoiceInput(inputId, buttonId);
+            };
+
+            recognition.start();
+        }
+
+        function stopVoiceInput(inputId, buttonId) {
+            isListening = false;
+            if (recognition) {
+                try { recognition.stop(); } catch (e) {}
+                recognition = null;
+            }
+            var button = document.getElementById(buttonId);
+            if (button) {
+                button.classList.remove('listening');
+            }
+            var input = document.getElementById(inputId);
+            if (input) {
+                input.placeholder = 'Type or speak...';
+                if (!input.value.trim()) {
+                    input.value = '';
+                }
+            }
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         //  RENDER ENGINE
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         var screen = document.getElementById('screen');
@@ -1656,6 +1813,11 @@
             state.returnToStage = null;
             state.selectedProductId = null;
             state.history = [];
+            if (recognition) {
+                try { recognition.stop(); } catch (e) {}
+                recognition = null;
+                isListening = false;
+            }
             render();
         }
 
@@ -1710,7 +1872,10 @@
                     <p class="microcopy">Tell us what you're looking for in your own words and we'll take it from there.</p>
 
                     <div class="input-card">
-                        <textarea id="questionInput" placeholder="I need a laptop for work and school">${state.userQuestion}</textarea>
+                        <input type="text" id="questionInput" placeholder="Type or speak your question..." value="${state.userQuestion}">
+                        <button class="mic-button" id="askMicBtn" onclick="startVoiceInput('questionInput', 'askMicBtn')">
+                            <i class="fas fa-microphone"></i>
+                        </button>
                     </div>
 
                     <div class="button-row">
@@ -1728,11 +1893,16 @@
                 return;
             }
             state.userQuestion = input.value.trim();
+            if (recognition) {
+                try { recognition.stop(); } catch (e) {}
+                recognition = null;
+                isListening = false;
+            }
             window.goTo('understandingRequest');
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        //  3. UNDERSTANDING THE REQUEST — with "Something else" expand
+        //  3. UNDERSTANDING THE REQUEST — FIXED "Something else" input
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function renderUnderstandingRequest() {
             var showSomethingElse = state.useCase.indexOf('Something else') !== -1;
@@ -1754,10 +1924,15 @@
                     <p class="chip-count">Selected: ${state.useCase.length || 'none'}</p>
 
                     ${showSomethingElse ? `
-                        <div class="controversial-expand">
-                            <label>Tell us what you need it for:</label>
-                            <input type="text" id="customUseCase" placeholder="e.g., Video editing, programming, etc." value="${state.customUseCase || ''}">
-                            <div class="hint">This helps us recommend the right options for your specific needs.</div>
+                        <div style="margin-top:16px;text-align:left;max-width:480px;margin-left:auto;margin-right:auto;">
+                            <label style="font-size:13px;color:var(--navy);font-weight:600;display:block;text-align:left;margin-bottom:6px;">Tell us what you need it for:</label>
+                            <div class="input-card" style="border-radius:999px;padding:4px 6px 4px 20px;display:flex;align-items:center;gap:4px;transition:border-color 0.2s ease;width:100%;margin:0;">
+                                <input type="text" id="customUseCase" placeholder="Type or speak..." value="${state.customUseCase || ''}" style="flex:1;min-height:48px;padding:10px 4px 10px 0;border:0;outline:0;background:transparent;font-family:inherit;font-size:16px;color:var(--text);line-height:1.5;width:100%;">
+                                <button class="mic-button" id="useCaseMicBtn" onclick="startVoiceInput('customUseCase', 'useCaseMicBtn')" style="flex-shrink:0;font-size:20px;color:var(--muted);cursor:pointer;background:none;border:none;padding:8px 10px;border-radius:50%;transition:all 0.2s ease;line-height:1;display:flex;align-items:center;justify-content:center;width:44px;height:44px;">
+                                    <i class="fas fa-microphone"></i>
+                                </button>
+                            </div>
+                            <div style="font-size:12px;color:var(--muted);margin-top:8px;">This helps us recommend the right options for your specific needs.</div>
                         </div>
                     ` : ''}
 
@@ -1792,12 +1967,10 @@
                 return;
             }
 
-            // If "Something else" is selected, capture the custom input
             if (state.useCase.indexOf('Something else') !== -1) {
                 var input = document.getElementById('customUseCase');
                 if (input && input.value.trim().length > 0) {
                     state.customUseCase = input.value.trim();
-                    // Replace "Something else" with the custom value for display
                     var index = state.useCase.indexOf('Something else');
                     if (index !== -1) {
                         state.useCase[index] = state.customUseCase;
@@ -1856,7 +2029,7 @@
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        //  5. BUDGET — with "Set a specific range" expand — FIXED
+        //  5. BUDGET
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function renderBudget() {
             var selected = state.budget;
@@ -1909,16 +2082,6 @@
 
         function setBudgetByIndex(index) {
             var b = BUDGET_OPTIONS[index];
-            state.budget = b;
-            if (b !== 'Set a specific range') {
-                state.budgetMin = null;
-                state.budgetMax = null;
-            }
-            render();
-        }
-
-        function setBudget(b) {
-            // Kept for compatibility with other calls
             state.budget = b;
             if (b !== 'Set a specific range') {
                 state.budgetMin = null;
@@ -2217,7 +2380,7 @@
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        //  11. LOCATION — Optional & Lightweight
+        //  11. LOCATION
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function renderLocation() {
             screen.innerHTML = `
@@ -3077,6 +3240,9 @@
             `;
         }
 
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  30. CONSIDERING USE CASE — FIXED "Something else" input
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function renderConsideringUseCase() {
             var showSomethingElse = state.useCase.indexOf('Something else') !== -1;
 
@@ -3096,10 +3262,15 @@
                     <p class="chip-count">Selected: ${state.useCase.length || 'none'}</p>
 
                     ${showSomethingElse ? `
-                        <div class="controversial-expand">
-                            <label>Tell us what you need it for:</label>
-                            <input type="text" id="customUseCase" placeholder="e.g., Video editing, programming, etc." value="${state.customUseCase || ''}">
-                            <div class="hint">This helps us recommend the right options for your specific needs.</div>
+                        <div style="margin-top:16px;text-align:left;max-width:480px;margin-left:auto;margin-right:auto;">
+                            <label style="font-size:13px;color:var(--navy);font-weight:600;display:block;text-align:left;margin-bottom:6px;">Tell us what you need it for:</label>
+                            <div class="input-card" style="border-radius:999px;padding:4px 6px 4px 20px;display:flex;align-items:center;gap:4px;transition:border-color 0.2s ease;width:100%;margin:0;">
+                                <input type="text" id="consideringCustomUseCase" placeholder="Type or speak..." value="${state.customUseCase || ''}" style="flex:1;min-height:48px;padding:10px 4px 10px 0;border:0;outline:0;background:transparent;font-family:inherit;font-size:16px;color:var(--text);line-height:1.5;width:100%;">
+                                <button class="mic-button" id="consideringMicBtn" onclick="startVoiceInput('consideringCustomUseCase', 'consideringMicBtn')" style="flex-shrink:0;font-size:20px;color:var(--muted);cursor:pointer;background:none;border:none;padding:8px 10px;border-radius:50%;transition:all 0.2s ease;line-height:1;display:flex;align-items:center;justify-content:center;width:44px;height:44px;">
+                                    <i class="fas fa-microphone"></i>
+                                </button>
+                            </div>
+                            <div style="font-size:12px;color:var(--muted);margin-top:8px;">This helps us recommend the right options for your specific needs.</div>
                         </div>
                     ` : ''}
 
@@ -3110,7 +3281,7 @@
             `;
 
             if (showSomethingElse) {
-                var input = document.getElementById('customUseCase');
+                var input = document.getElementById('consideringCustomUseCase');
                 if (input) input.focus();
             }
         }
@@ -3122,7 +3293,7 @@
             }
 
             if (state.useCase.indexOf('Something else') !== -1) {
-                var input = document.getElementById('customUseCase');
+                var input = document.getElementById('consideringCustomUseCase');
                 if (input && input.value.trim().length > 0) {
                     state.customUseCase = input.value.trim();
                     var index = state.useCase.indexOf('Something else');
@@ -3138,6 +3309,9 @@
             window.goTo('consideringPriorities');
         }
 
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  31-36. CONSIDERING PRIORITIES, BUDGET, SUMMARY, ETC.
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function renderConsideringPriorities() {
             var chips = PRIORITIES_ALL.map(function(p) {
                 var active = state.selectedPriorities.indexOf(p) !== -1 ? 'active' : '';
@@ -3169,9 +3343,6 @@
             window.goTo('consideringBudget');
         }
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        //  CONSIDERING BUDGET — FIXED
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function renderConsideringBudget() {
             var selected = state.budget;
             var showSpecificRange = (selected === 'Set a specific range');
@@ -3249,9 +3420,6 @@
             window.goTo('consideringSummary');
         }
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        //  CONSIDERING SUMMARY
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function renderConsideringSummary() {
             var prioritiesText = state.selectedPriorities.length > 0 ? state.selectedPriorities.join(', ') : 'Not specified';
             var useCaseText = state.useCase.length > 0 ? state.useCase.join(', ') : 'Not specified';
@@ -3389,9 +3557,6 @@
             `;
         }
 
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        //  36b. CONSIDERING PRODUCT DETAIL
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function renderConsideringProductDetail() {
             var productId = state.selectedProductId || 'lenovo';
             var p = PRODUCTS[productId];
