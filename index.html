@@ -3933,13 +3933,19 @@
                             <p class="microcopy">If we've got it right, we'll use this product as the starting point for the next step.</p>
 
                             <div class="button-row">
-                                <button class="btn-secondary" onclick="window.goTo('wrongProduct')">That's not it</button>
+                                <button class="btn-secondary" onclick="goToWrongProduct()">That's not it</button>
                                 <button class="btn-primary orange" onclick="window.goTo('decisionFork')">Yes, continue</button>
                             </div>
 
                             ${renderFooter()}
                         </div>
                     `;
+        }
+
+        function goToWrongProduct() {
+            // Store the current entry method before going to wrong product screen
+            state.returnToEntry = state.entryMethod;
+            window.goTo('wrongProduct');
         }
 
         function renderWrongProduct() {
@@ -3951,12 +3957,36 @@
                             <p class="microcopy">We may have identified the wrong product, so give us another image, link or code and we'll take another look.</p>
 
                             <div class="button-row">
-                                <button class="btn-primary" onclick="resetApp()">Try again</button>
+                                <button class="btn-primary" onclick="goBackToEntryMethod()">Try again</button>
                             </div>
 
                             ${renderFooter()}
                         </div>
                     `;
+        }
+
+        function goBackToEntryMethod() {
+            // Go back to the entry method the user originally used
+            var entry = state.returnToEntry || state.entryMethod;
+
+            // Clear relevant state
+            state.uploadedImage = null;
+            state.pastedUrl = '';
+            state.scannedCode = '';
+            state.identifiedProduct = null;
+            state.productConfirmed = false;
+            state.returnToEntry = null;
+
+            if (entry === 'image') {
+                window.goTo('uploadImage');
+            } else if (entry === 'url') {
+                window.goTo('pasteUrl');
+            } else if (entry === 'code') {
+                window.goTo('scanCode');
+            } else {
+                // Fallback: go to home
+                window.goTo('home');
+            }
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
