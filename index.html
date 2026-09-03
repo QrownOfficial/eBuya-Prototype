@@ -899,7 +899,7 @@
         .product-image img {
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            object-fit: cover;
             display: block;
         }
 
@@ -1405,7 +1405,7 @@
         .detail-product-card .product-image img {
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            object-fit: cover;
             display: block;
         }
 
@@ -2281,10 +2281,6 @@
             }
         }
 
-        function getProductImageFallback(product) {
-            return `<i class="fas ${product.icon} fallback-icon"></i>`;
-        }
-
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         //  VOICE INPUT FUNCTION
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -2941,7 +2937,7 @@
                             <div class="product-grid" style="max-width:480px;margin-left:auto;margin-right:auto;display:flex;justify-content:center;">
                                 <div class="product-card featured" style="width:100%;max-width:400px;">
                                     <div class="product-image">
-                                        <img src="${p.image}" alt="${p.name}" onerror="this.style.display='none';this.parentElement.innerHTML='${getProductImageFallback(p)}'">
+                                        <img src="${p.image}" alt="${p.name}" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\'fas fa-laptop fallback-icon\'></i>';">
                                     </div>
                                     <div class="product-badge"><i class="fas fa-trophy"></i> Our top pick</div>
                                     <div class="product-info">
@@ -3033,7 +3029,7 @@
                 return `
                             <div class="product-card ${isFeatured ? 'featured' : ''}">
                                 <div class="product-image">
-                                    <img src="${p.image}" alt="${p.name}" onerror="this.style.display='none';this.parentElement.innerHTML='${getProductImageFallback(p)}'">
+                                    <img src="${p.image}" alt="${p.name}" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\'fas fa-laptop fallback-icon\'></i>';">
                                 </div>
                                 <div class="product-badge ${badgeClass}">${badgeIcon} ${badgeText}</div>
                                 <div class="product-info">
@@ -3090,7 +3086,7 @@
 
                             <div class="detail-product-card">
                                 <div class="product-image">
-                                    <img src="${p.image}" alt="${p.name}" onerror="this.style.display='none';this.parentElement.innerHTML='${getProductImageFallback(p)}'">
+                                    <img src="${p.image}" alt="${p.name}" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\'fas fa-laptop fallback-icon\'></i>';">
                                 </div>
                                 <div class="detail-body">
                                     <h3>${p.name}</h3>
@@ -3406,7 +3402,7 @@
 
                                 <div style="display:flex;gap:16px;align-items:center;padding:12px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:12px;">
                                     <div style="width:60px;height:60px;display:flex;align-items:center;justify-content:center;background:#F1EEE9;border-radius:12px;flex-shrink:0;overflow:hidden;">
-                                        <img src="${p.image}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.innerHTML='<i class="fas ${p.icon}" style="font-size:28px;color:#aaa;"></i>'">
+                                        <img src="${p.image}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.innerHTML='<i class=\'fas fa-laptop\' style=\'font-size:28px;color:#aaa;\'></i>'">
                                     </div>
                                     <div style="text-align:left;">
                                         <div style="font-weight:700;color:var(--navy);font-size:16px;">${p.name}</div>
@@ -3557,7 +3553,7 @@
                             <div class="final-card" style="border-color:var(--navy);">
                                 <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px;">
                                     <div style="width:60px;height:60px;display:flex;align-items:center;justify-content:center;background:#F1EEE9;border-radius:12px;flex-shrink:0;overflow:hidden;">
-                                        <img src="${p.image}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.innerHTML='<i class="fas ${p.icon}" style="font-size:28px;color:#aaa;"></i>'">
+                                        <img src="${p.image}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.innerHTML='<i class=\'fas fa-laptop\' style=\'font-size:28px;color:#aaa;\'></i>'">
                                     </div>
                                     <div style="text-align:left;">
                                         <div style="font-weight:700;color:var(--navy);font-size:18px;">${p.name}</div>
@@ -3662,7 +3658,7 @@
 
                                 <div style="display:flex;gap:16px;align-items:center;padding:12px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
                                     <div style="width:60px;height:60px;display:flex;align-items:center;justify-content:center;background:#F1EEE9;border-radius:12px;flex-shrink:0;overflow:hidden;">
-                                        <img src="${p.image}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.innerHTML='<i class="fas ${p.icon}" style="font-size:28px;color:#aaa;"></i>'">
+                                        <img src="${p.image}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.innerHTML='<i class=\'fas fa-laptop\' style=\'font-size:28px;color:#aaa;\'></i>'">
                                     </div>
                                     <div style="text-align:left;">
                                         <div style="font-weight:700;color:var(--navy);font-size:18px;">${p.name}</div>
@@ -3674,7 +3670,7 @@
                                     <div class="detail-item"><i class="fas fa-tag"></i> <strong>Price:</strong> <span class="value">${seller.price}</span></div>
                                     <div class="detail-item"><i class="fas fa-store"></i> <strong>Seller:</strong> <span class="value">${seller.name}</span></div>
                                     <div class="detail-item"><i class="fas fa-shopping-cart"></i> <strong>Marketplace:</strong> <span class="value">${seller.marketplace}</span></div>
-                                    <div class="detail-item"><strong>Rating:</strong> <span class="value">${seller.rating}</span></div>
+                                    <div class="detail-item"><i class="fas fa-star" style="color:var(--gold);"></i> <strong>Rating:</strong> <span class="value">${seller.rating}</span></div>
                                     <div class="detail-item"><i class="fas fa-location-dot"></i> <strong>Location:</strong> <span class="value">${seller.location}</span></div>
                                     <div class="detail-item"><i class="fas fa-truck"></i> <strong>Delivery:</strong> <span class="value">${deliveryText}</span></div>
                                     <div class="detail-item"><i class="fas fa-money-bill-wave"></i> <strong>Fee:</strong> <span class="value">${feeDisplay}</span></div>
@@ -4081,7 +4077,7 @@
                 return `
                             <div class="product-card ${isFeatured ? 'featured' : ''}">
                                 <div class="product-image">
-                                    <img src="${p.image}" alt="${p.name}" onerror="this.style.display='none';this.parentElement.innerHTML='${getProductImageFallback(p)}'">
+                                    <img src="${p.image}" alt="${p.name}" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\'fas fa-laptop fallback-icon\'></i>';">
                                 </div>
                                 <div class="product-badge ${badgeClass}">${badgeIcon} ${badgeText}</div>
                                 <div class="product-info">
@@ -4138,7 +4134,7 @@
 
                             <div class="detail-product-card">
                                 <div class="product-image">
-                                    <img src="${p.image}" alt="${p.name}" onerror="this.style.display='none';this.parentElement.innerHTML='${getProductImageFallback(p)}'">
+                                    <img src="${p.image}" alt="${p.name}" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\'fas fa-laptop fallback-icon\'></i>';">
                                 </div>
                                 <div class="detail-body">
                                     <h3>${p.name}</h3>
@@ -4418,7 +4414,7 @@
 
                             <div class="product-grid" style="max-width:480px;margin-left:auto;margin-right:auto;display:flex;justify-content:center;">
                                 <div class="product-card featured" style="width:100%;max-width:400px;">
-                                    <div class="product-image"><img src="${p.image}" alt="${p.name}" onerror="this.style.display='none';this.parentElement.innerHTML='${getProductImageFallback(p)}'"></div>
+                                    <div class="product-image"><img src="${p.image}" alt="${p.name}" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\'fas fa-laptop fallback-icon\'></i>';"></div>
                                     <div class="product-badge"><i class="fas fa-trophy"></i> Our top pick</div>
                                     <div class="product-info">
                                         <h3>${p.name}</h3>
@@ -4489,7 +4485,7 @@
                 return `
                             <div class="product-card ${isFeatured ? 'featured' : ''}">
                                 <div class="product-image">
-                                    <img src="${p.image}" alt="${p.name}" onerror="this.style.display='none';this.parentElement.innerHTML='${getProductImageFallback(p)}'">
+                                    <img src="${p.image}" alt="${p.name}" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\'fas fa-laptop fallback-icon\'></i>';">
                                 </div>
                                 <div class="product-badge ${badgeClass}">${badgeIcon} ${badgeText}</div>
                                 <div class="product-info">
@@ -4543,7 +4539,7 @@
 
                             <div class="detail-product-card">
                                 <div class="product-image">
-                                    <img src="${p.image}" alt="${p.name}" onerror="this.style.display='none';this.parentElement.innerHTML='${getProductImageFallback(p)}'">
+                                    <img src="${p.image}" alt="${p.name}" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\'fas fa-laptop fallback-icon\'></i>';">
                                 </div>
                                 <div class="detail-body">
                                     <h3>${p.name}</h3>
