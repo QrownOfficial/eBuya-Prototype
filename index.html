@@ -203,7 +203,7 @@
 
         .screen {
             flex: 1;
-            padding: 20px 22px 70px;
+            padding: 20px 22px 20px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -348,13 +348,6 @@
             line-height: 1.55;
         }
 
-        .home-note {
-            margin-top: 34px;
-            color: var(--navy);
-            font-size: 12px;
-            font-weight: 700;
-        }
-
         .back-button {
             display: inline-flex;
             align-items: center;
@@ -469,15 +462,15 @@
         .input-with-mic {
             display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 4px 12px 4px 16px;
+            gap: 6px;
+            padding: 4px 8px 4px 16px;
             width: 100%;
         }
 
         .input-with-mic textarea {
             flex: 1;
             min-height: 48px;
-            max-height: 120px;
+            height: 48px;
             padding: 12px 4px 12px 0;
             border: 0;
             outline: 0;
@@ -487,6 +480,7 @@
             color: var(--text);
             resize: none;
             line-height: 1.5;
+            box-sizing: border-box;
         }
 
         .input-with-mic textarea::placeholder {
@@ -513,7 +507,7 @@
 
         .input-with-mic .mic-button {
             flex-shrink: 0;
-            font-size: 22px;
+            font-size: 18px;
             color: var(--muted);
             cursor: pointer;
             background: none;
@@ -525,8 +519,9 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 44px;
-            height: 44px;
+            width: 40px;
+            height: 40px;
+            margin-top: -2px;
         }
 
         .input-with-mic .mic-button:hover {
@@ -548,6 +543,37 @@
             50% {
                 transform: scale(1.12);
             }
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           URL INPUT (no mic)
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .input-url {
+            width: min(720px, 100%);
+            margin: 32px auto 0;
+            padding: 6px;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            background: var(--white);
+            box-shadow: 0 14px 40px rgba(18, 52, 86, 0.07);
+        }
+
+        .input-url input[type="url"] {
+            width: 100%;
+            min-height: 52px;
+            padding: 10px 16px;
+            border: 0;
+            outline: 0;
+            background: transparent;
+            font-family: inherit;
+            font-size: 16px;
+            color: var(--text);
+            line-height: 1.5;
+            border-radius: 12px;
+        }
+
+        .input-url input[type="url"]::placeholder {
+            color: #9AA3AB;
         }
 
         .upload-preview {
@@ -939,6 +965,7 @@
             box-shadow: var(--shadow);
             transition: transform 160ms ease, border-color 160ms ease;
             cursor: pointer;
+            position: relative;
         }
 
         .seller-card:hover {
@@ -1012,6 +1039,54 @@
             font-size: 11px;
             font-weight: 600;
             text-align: center;
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           TRUST BADGES
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .trust-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 2px 10px 2px 6px;
+            border-radius: 40px;
+            background: rgba(18, 52, 86, 0.06);
+            color: var(--navy);
+            font-size: 11px;
+            font-weight: 600;
+            margin: 2px 0;
+        }
+
+        .trust-badge .check {
+            color: #008000;
+            font-size: 12px;
+        }
+
+        .trust-badge.verified {
+            background: rgba(0, 128, 0, 0.08);
+            color: #008000;
+        }
+
+        .trust-badge.verified .check {
+            color: #008000;
+        }
+
+        .trust-badge.secure {
+            background: rgba(18, 52, 86, 0.08);
+            color: var(--navy);
+        }
+
+        .trust-badge.secure .check {
+            color: var(--navy);
+        }
+
+        .trust-badge.guarantee {
+            background: rgba(249, 99, 28, 0.08);
+            color: var(--orange);
+        }
+
+        .trust-badge.guarantee .check {
+            color: var(--orange);
         }
 
         .location-box {
@@ -1098,6 +1173,21 @@
             width: 100%;
             justify-content: center;
             margin-top: 16px;
+        }
+
+        .trust-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 12px 0 16px;
+            padding: 12px 0;
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .trust-section .trust-badge {
+            font-size: 12px;
+            padding: 4px 12px 4px 8px;
         }
 
         .fork-grid {
@@ -1277,7 +1367,7 @@
         }
 
         .controversial-expand .input-card .input-with-mic {
-            padding: 4px 12px 4px 16px;
+            padding: 4px 8px 4px 16px;
         }
 
         .controversial-expand .input-card .input-with-mic input {
@@ -1349,14 +1439,6 @@
             margin-top: 16px;
         }
 
-        .about-text .tagline {
-            margin-top: 24px;
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--orange);
-            text-align: center;
-        }
-
         .range-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -1394,13 +1476,38 @@
             text-align: left;
         }
 
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           UNIVERSAL FOOTER
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .universal-footer {
+            margin-top: 40px;
+            padding-top: 16px;
+            text-align: center;
+        }
+
+        .universal-footer .footer-brand-mark {
+            width: 74px;
+            height: 7px;
+            margin: 0 auto 10px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--orange) 0 33%, var(--navy) 33% 66%, var(--gold) 66% 100%);
+        }
+
+        .universal-footer p {
+            font-size: 13px;
+            color: var(--orange);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            margin: 0;
+        }
+
         @media (max-width: 720px) {
             .topbar {
                 padding: 22px 19px 8px;
             }
 
             .screen {
-                padding: 20px 17px 55px;
+                padding: 20px 17px 20px;
             }
 
             h1 {
@@ -1475,6 +1582,7 @@
 
             .input-with-mic textarea {
                 min-height: 44px;
+                height: 44px;
                 font-size: 15px;
                 padding: 10px 4px 10px 0;
             }
@@ -1486,10 +1594,17 @@
             }
 
             .input-with-mic .mic-button {
-                font-size: 20px;
-                width: 40px;
-                height: 40px;
-                padding: 6px 8px;
+                font-size: 16px;
+                width: 36px;
+                height: 36px;
+                padding: 6px;
+                margin-top: -1px;
+            }
+
+            .input-url input[type="url"] {
+                min-height: 44px;
+                font-size: 15px;
+                padding: 8px 14px;
             }
 
             .category-card .category-icon {
@@ -1501,6 +1616,26 @@
             .controversial-expand {
                 padding: 14px;
             }
+
+            .trust-section {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .universal-footer {
+                margin-top: 30px;
+                padding-top: 14px;
+            }
+
+            .universal-footer .footer-brand-mark {
+                width: 60px;
+                height: 6px;
+                margin-bottom: 8px;
+            }
+
+            .universal-footer p {
+                font-size: 12px;
+            }
         }
 
         @media (max-width: 420px) {
@@ -1509,7 +1644,7 @@
             }
 
             .screen {
-                padding: 16px 14px 40px;
+                padding: 16px 14px 16px;
             }
 
             .product-info h3 {
@@ -1525,12 +1660,13 @@
             }
 
             .input-with-mic {
-                padding: 2px 8px 2px 12px;
+                padding: 2px 6px 2px 12px;
             }
 
             .input-with-mic textarea {
                 font-size: 14px;
                 min-height: 38px;
+                height: 38px;
                 padding: 8px 4px 8px 0;
             }
 
@@ -1541,10 +1677,17 @@
             }
 
             .input-with-mic .mic-button {
-                font-size: 18px;
-                width: 36px;
-                height: 36px;
-                padding: 4px 6px;
+                font-size: 14px;
+                width: 32px;
+                height: 32px;
+                padding: 4px;
+                margin-top: 0;
+            }
+
+            .input-url input[type="url"] {
+                min-height: 38px;
+                font-size: 14px;
+                padding: 6px 12px;
             }
 
             .category-card .category-icon {
@@ -1555,6 +1698,21 @@
 
             .controversial-expand {
                 padding: 12px;
+            }
+
+            .universal-footer {
+                margin-top: 24px;
+                padding-top: 12px;
+            }
+
+            .universal-footer .footer-brand-mark {
+                width: 48px;
+                height: 5px;
+                margin-bottom: 6px;
+            }
+
+            .universal-footer p {
+                font-size: 11px;
             }
         }
     </style>
@@ -1729,7 +1887,8 @@
             warranty: '1-year',
             stock: 'In stock',
             location: 'Lagos, Nigeria',
-            badge: 'Best overall'
+            badge: 'Best overall',
+            verified: true
         }, {
             name: 'GadgetHub',
             marketplace: 'Konga',
@@ -1743,7 +1902,8 @@
             warranty: '1-year',
             stock: 'In stock',
             location: 'Lagos, Nigeria',
-            badge: 'Lowest price'
+            badge: 'Lowest price',
+            verified: true
         }, {
             name: 'MegaStore NG',
             marketplace: 'Pointek',
@@ -1757,7 +1917,8 @@
             warranty: '2-year',
             stock: 'In stock',
             location: 'Abuja, Nigeria',
-            badge: 'Highest rated'
+            badge: 'Highest rated',
+            verified: true
         }];
 
         // WITHOUT LOCATION — National/fallback sellers
@@ -1774,7 +1935,8 @@
             warranty: '1-year',
             stock: 'In stock',
             location: 'Nationwide',
-            badge: 'Trusted'
+            badge: 'Trusted',
+            verified: true
         }, {
             name: 'Konga Direct',
             marketplace: 'Konga',
@@ -1788,7 +1950,8 @@
             warranty: '1-year',
             stock: 'In stock',
             location: 'Nationwide',
-            badge: 'Best value'
+            badge: 'Best value',
+            verified: true
         }, {
             name: 'Pointek Online',
             marketplace: 'Pointek',
@@ -1802,7 +1965,8 @@
             warranty: '2-year',
             stock: 'In stock',
             location: 'Nationwide',
-            badge: 'Premium'
+            badge: 'Premium',
+            verified: true
         }];
 
         function getSellers() {
@@ -2089,6 +2253,18 @@
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  RENDER HELPERS
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        function renderFooter() {
+            return `
+                        <div class="universal-footer">
+                            <div class="footer-brand-mark"></div>
+                            <p>Spend with certainty.</p>
+                        </div>
+                    `;
+        }
+
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         //  1. CATEGORY SELECTION
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function renderCategorySelection() {
@@ -2100,37 +2276,38 @@
                     '<span class="category-badge coming">Coming soon</span>';
 
                 return `
-                        <div class="category-card ${active}" ${clickable} style="${opacity}">
-                            <div class="category-icon">
-                                <i class="fas ${c.icon}"></i>
+                            <div class="category-card ${active}" ${clickable} style="${opacity}">
+                                <div class="category-icon">
+                                    <i class="fas ${c.icon}"></i>
+                                </div>
+                                <h3>${c.label}</h3>
+                                <p>${c.desc}</p>
+                                ${badge}
                             </div>
-                            <h3>${c.label}</h3>
-                            <p>${c.desc}</p>
-                            ${badge}
-                        </div>
-                    `;
+                        `;
             }).join('');
 
             screen.innerHTML = `
-                    <div class="screen-content">
-                        <div class="brand-mark"></div>
-                        <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">What are you trying to spend on?</h1>
-                        <p class="microcopy">Select what best describes what you are looking for, and we will guide you from there.</p>
+                        <div class="screen-content">
+                            <div class="brand-mark"></div>
+                            <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">What are you trying to spend on?</h1>
+                            <p class="microcopy">Select what best describes what you are looking for, and we will guide you from there.</p>
 
-                        <div class="category-grid">${cards}</div>
+                            <div class="category-grid">${cards}</div>
 
-                        <div id="categoryMessage" class="category-message"></div>
+                            <div id="categoryMessage" class="category-message"></div>
 
-                        <div class="button-row">
-                            <button class="btn-primary" onclick="continueCategory()">Continue</button>
+                            <div class="button-row">
+                                <button class="btn-primary" onclick="continueCategory()">Continue</button>
+                            </div>
+
+                            ${renderFooter()}
                         </div>
-                    </div>
-                `;
+                    `;
         }
 
         function selectCategory(id) {
             state.selectedCategory = id;
-            // Hide message when selecting
             var msgEl = document.getElementById('categoryMessage');
             if (msgEl) {
                 msgEl.style.display = 'none';
@@ -2164,38 +2341,37 @@
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function renderHome() {
             screen.innerHTML = `
-                    <div class="screen-content">
-                        <div class="brand-mark"></div>
-                        <div class="eyebrow">Spend with certainty.</div>
-                        <h1>What are you considering?</h1>
-                        <p class="description">Tell us what you're looking for and we'll help you figure out what matters.</p>
+                        <div class="screen-content">
+                            <div class="brand-mark"></div>
+                            <h1>What are you considering?</h1>
+                            <p class="description">Tell us what you're considering and we'll provide the intelligence to help you decide with confidence.</p>
 
-                        <div class="entry-grid">
-                            <button class="entry-card" type="button" onclick="state.entryMethod='question'; window.goTo('ask')">
-                                <div class="entry-icon">?</div>
-                                <h2>Ask a Question</h2>
-                                <p>Tell us what you're looking for and we'll help you work out what matters.</p>
-                            </button>
-                            <button class="entry-card" type="button" onclick="state.entryMethod='image'; window.goTo('uploadImage')">
-                                <div class="entry-icon">↑</div>
-                                <h2>Upload an Image</h2>
-                                <p>Show us the product you're considering.</p>
-                            </button>
-                            <button class="entry-card" type="button" onclick="state.entryMethod='url'; window.goTo('pasteUrl')">
-                                <div class="entry-icon">↗</div>
-                                <h2>Paste a URL</h2>
-                                <p>Share a product link and we'll take a closer look.</p>
-                            </button>
-                            <button class="entry-card" type="button" onclick="state.entryMethod='code'; window.goTo('scanCode')">
-                                <div class="entry-icon">⌁</div>
-                                <h2>Scan a Code</h2>
-                                <p>Scan a product code and we'll identify what you're looking at.</p>
-                            </button>
+                            <div class="entry-grid">
+                                <button class="entry-card" type="button" onclick="state.entryMethod='question'; window.goTo('ask')">
+                                    <div class="entry-icon">?</div>
+                                    <h2>Ask a Question</h2>
+                                    <p>Tell us what you're looking for and we'll help you work out what matters.</p>
+                                </button>
+                                <button class="entry-card" type="button" onclick="state.entryMethod='image'; window.goTo('uploadImage')">
+                                    <div class="entry-icon">↑</div>
+                                    <h2>Upload an Image</h2>
+                                    <p>Show us the product you're considering.</p>
+                                </button>
+                                <button class="entry-card" type="button" onclick="state.entryMethod='url'; window.goTo('pasteUrl')">
+                                    <div class="entry-icon">↗</div>
+                                    <h2>Paste a URL</h2>
+                                    <p>Share a product link and we'll take a closer look.</p>
+                                </button>
+                                <button class="entry-card" type="button" onclick="state.entryMethod='code'; window.goTo('scanCode')">
+                                    <div class="entry-icon">⌁</div>
+                                    <h2>Scan a Code</h2>
+                                    <p>Scan a product code and we'll identify what you're looking at.</p>
+                                </button>
+                            </div>
+
+                            ${renderFooter()}
                         </div>
-
-                        <div class="home-note">Spend with certainty.</div>
-                    </div>
-                `;
+                    `;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -2203,28 +2379,29 @@
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function renderAsk() {
             screen.innerHTML = `
-                    <div class="screen-content">
-                        <button class="back-button" onclick="goBack()">← Back</button>
-                        <div class="brand-mark"></div>
-                        <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">What are you considering?</h1>
-                        <p class="microcopy">Tell us what you're looking for in your own words and we'll take it from there.</p>
+                        <div class="screen-content">
+                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <div class="brand-mark"></div>
+                            <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">What are you considering?</h1>
+                            <p class="microcopy">Tell us what you're looking for in your own words and we'll take it from there.</p>
 
-                        <div class="input-card" style="padding:0;">
-                            <div class="input-with-mic">
-                                <textarea id="questionInput" placeholder="Type or speak your question...">${state.userQuestion}</textarea>
-                                <button class="mic-button" id="askMicBtn" onclick="startVoiceInput('questionInput', 'askMicBtn')">
-                                    <i class="fas fa-microphone-lines"></i>
-                                </button>
+                            <div class="input-card" style="padding:0;">
+                                <div class="input-with-mic">
+                                    <textarea id="questionInput" placeholder="Type or speak your question...">${state.userQuestion}</textarea>
+                                    <button class="mic-button" id="askMicBtn" onclick="startVoiceInput('questionInput', 'askMicBtn')">
+                                        <i class="fas fa-microphone"></i>
+                                    </button>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="button-row">
-                            <button class="btn-primary" onclick="submitQuestion()">Continue</button>
-                        </div>
-                    </div>
-                `;
+                            <div class="button-row">
+                                <button class="btn-primary" onclick="submitQuestion()">Continue</button>
+                            </div>
 
-            // Auto-resize textarea
+                            ${renderFooter()}
+                        </div>
+                    `;
+
             var textarea = document.getElementById('questionInput');
             if (textarea) {
                 textarea.addEventListener('input', function() {
@@ -2262,35 +2439,37 @@
             }).join('');
 
             screen.innerHTML = `
-                    <div class="screen-content">
-                        <button class="back-button" onclick="goBack()">← Back</button>
-                        <div class="brand-mark"></div>
-                        <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Let's narrow it down.</h1>
-                        <p class="microcopy">A little more context will help us focus on the options that actually make sense for you.</p>
-                        <p style="color:var(--navy);font-weight:600;margin-top:12px;">What do you need it for?</p>
+                        <div class="screen-content">
+                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <div class="brand-mark"></div>
+                            <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Let's narrow it down.</h1>
+                            <p class="microcopy">A little more context will help us focus on the options that actually make sense for you.</p>
+                            <p style="color:var(--navy);font-weight:600;margin-top:12px;">What do you need it for?</p>
 
-                        <div class="chip-grid">${chips}</div>
-                        <p class="chip-count">Selected: ${state.useCase.length || 'none'}</p>
+                            <div class="chip-grid">${chips}</div>
+                            <p class="chip-count">Selected: ${state.useCase.length || 'none'}</p>
 
-                        ${showSomethingElse ? `
-                            <div class="controversial-expand">
-                                <label>Tell us what you need it for:</label>
-                                <div class="input-card">
-                                    <div class="input-with-mic">
-                                        <input type="text" id="customUseCase" placeholder="Type or speak..." value="${state.customUseCase || ''}">
-                                        <button class="mic-button" id="useCaseMicBtn" onclick="startVoiceInput('customUseCase', 'useCaseMicBtn')">
-                                            <i class="fas fa-microphone-lines"></i>
-                                        </button>
+                            ${showSomethingElse ? `
+                                <div class="controversial-expand">
+                                    <label>Tell us what you need it for:</label>
+                                    <div class="input-card">
+                                        <div class="input-with-mic">
+                                            <input type="text" id="customUseCase" placeholder="Type or speak..." value="${state.customUseCase || ''}">
+                                            <button class="mic-button" id="useCaseMicBtn" onclick="startVoiceInput('customUseCase', 'useCaseMicBtn')">
+                                                <i class="fas fa-microphone"></i>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        ` : ''}
+                            ` : ''}
 
-                        <div class="button-row">
-                            <button class="btn-primary" onclick="submitUseCase()">Continue</button>
+                            <div class="button-row">
+                                <button class="btn-primary" onclick="submitUseCase()">Continue</button>
+                            </div>
+
+                            ${renderFooter()}
                         </div>
-                    </div>
-                `;
+                    `;
 
             if (showSomethingElse) {
                 var input = document.getElementById('customUseCase');
@@ -2344,20 +2523,22 @@
             }).join('');
 
             screen.innerHTML = `
-                    <div class="screen-content">
-                        <button class="back-button" onclick="goBack()">← Back</button>
-                        <div class="brand-mark"></div>
-                        <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">What matters to you?</h1>
-                        <p class="microcopy">Pick the things you want us to weigh most when helping you decide.</p>
+                        <div class="screen-content">
+                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <div class="brand-mark"></div>
+                            <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">What matters to you?</h1>
+                            <p class="microcopy">Pick the things you want us to weigh most when helping you decide.</p>
 
-                        <div class="chip-grid">${chips}</div>
-                        <p class="chip-count">Selected: ${state.selectedPriorities.length || 'none'}</p>
+                            <div class="chip-grid">${chips}</div>
+                            <p class="chip-count">Selected: ${state.selectedPriorities.length || 'none'}</p>
 
-                        <div class="button-row">
-                            <button class="btn-primary" onclick="submitPriorities()">Continue</button>
+                            <div class="button-row">
+                                <button class="btn-primary" onclick="submitPriorities()">Continue</button>
+                            </div>
+
+                            ${renderFooter()}
                         </div>
-                    </div>
-                `;
+                    `;
         }
 
         function togglePriority(p) {
@@ -2391,35 +2572,37 @@
             }).join('');
 
             screen.innerHTML = `
-                    <div class="screen-content">
-                        <button class="back-button" onclick="goBack()">← Back</button>
-                        <div class="brand-mark"></div>
-                        <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">What's your budget?</h1>
-                        <p class="microcopy">Tell us what you're comfortable spending, or choose that you don't have a fixed budget and we'll keep the decision focused on fit and value.</p>
+                        <div class="screen-content">
+                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <div class="brand-mark"></div>
+                            <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">What's your budget?</h1>
+                            <p class="microcopy">Tell us what you're comfortable spending, or choose that you don't have a fixed budget and we'll keep the decision focused on fit and value.</p>
 
-                        <div class="chip-grid">${options}</div>
+                            <div class="chip-grid">${options}</div>
 
-                        ${showSpecificRange ? `
-                            <div class="controversial-expand">
-                                <div class="range-grid">
-                                    <div>
-                                        <label>Minimum (₦)</label>
-                                        <input type="number" id="budgetMin" placeholder="0">
+                            ${showSpecificRange ? `
+                                <div class="controversial-expand">
+                                    <div class="range-grid">
+                                        <div>
+                                            <label>Minimum (₦)</label>
+                                            <input type="number" id="budgetMin" placeholder="0">
+                                        </div>
+                                        <div>
+                                            <label>Maximum (₦)</label>
+                                            <input type="number" id="budgetMax" placeholder="0">
+                                        </div>
                                     </div>
-                                    <div>
-                                        <label>Maximum (₦)</label>
-                                        <input type="number" id="budgetMax" placeholder="0">
-                                    </div>
+                                    <div class="hint">Enter your preferred price range in Naira.</div>
                                 </div>
-                                <div class="hint">Enter your preferred price range in Naira.</div>
-                            </div>
-                        ` : ''}
+                            ` : ''}
 
-                        <div class="button-row">
-                            <button class="btn-primary" onclick="submitBudget()">Continue</button>
+                            <div class="button-row">
+                                <button class="btn-primary" onclick="submitBudget()">Continue</button>
+                            </div>
+
+                            ${renderFooter()}
                         </div>
-                    </div>
-                `;
+                    `;
 
             if (showSpecificRange) {
                 var minInput = document.getElementById('budgetMin');
@@ -2482,27 +2665,29 @@
             }
 
             screen.innerHTML = `
-                    <div class="screen-content">
-                        <button class="back-button" onclick="goBack()">← Back</button>
-                        <div class="brand-mark"></div>
-                        <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Here's what we understand.</h1>
-                        <p class="microcopy">We've pulled together what you've told us so far so you can make sure we're looking at the decision the same way you are.</p>
+                        <div class="screen-content">
+                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <div class="brand-mark"></div>
+                            <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Here's what we understand.</h1>
+                            <p class="microcopy">We've pulled together what you've told us so far so you can make sure we're looking at the decision the same way you are.</p>
 
-                        <div class="info-card">
-                            <p><strong style="color:var(--navy);">You're looking for</strong><br>A laptop</p>
-                            <p style="margin-top:12px;"><strong style="color:var(--navy);">You'll use it for</strong><br>${useCaseText}</p>
-                            <p style="margin-top:12px;"><strong style="color:var(--navy);">What matters most</strong><br>${prioritiesText}</p>
-                            <p style="margin-top:12px;"><strong style="color:var(--navy);">Budget</strong><br>${budgetText}</p>
+                            <div class="info-card">
+                                <p><strong style="color:var(--navy);">You're looking for</strong><br>A laptop</p>
+                                <p style="margin-top:12px;"><strong style="color:var(--navy);">You'll use it for</strong><br>${useCaseText}</p>
+                                <p style="margin-top:12px;"><strong style="color:var(--navy);">What matters most</strong><br>${prioritiesText}</p>
+                                <p style="margin-top:12px;"><strong style="color:var(--navy);">Budget</strong><br>${budgetText}</p>
+                            </div>
+
+                            <p class="text-muted mt-16">Does that sound right?</p>
+
+                            <div class="button-row">
+                                <button class="btn-secondary" onclick="window.goTo('budget')">Go back and change something</button>
+                                <button class="btn-primary orange" onclick="window.goTo('recommendation')">Yes, continue</button>
+                            </div>
+
+                            ${renderFooter()}
                         </div>
-
-                        <p class="text-muted mt-16">Does that sound right?</p>
-
-                        <div class="button-row">
-                            <button class="btn-secondary" onclick="window.goTo('budget')">Go back and change something</button>
-                            <button class="btn-primary orange" onclick="window.goTo('recommendation')">Yes, continue</button>
-                        </div>
-                    </div>
-                `;
+                    `;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -2512,35 +2697,37 @@
             var p = PRODUCTS.macbook;
 
             screen.innerHTML = `
-                    <div class="screen-content">
-                        <button class="back-button" onclick="goBack()">← Back</button>
-                        <div class="brand-mark"></div>
-                        <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Here's what we'd recommend.</h1>
-                        <p class="microcopy">We looked at what you need, what matters to you and what you're comfortable spending before narrowing this down.</p>
+                        <div class="screen-content">
+                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <div class="brand-mark"></div>
+                            <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Here's what we'd recommend.</h1>
+                            <p class="microcopy">We looked at what you need, what matters to you and what you're comfortable spending before narrowing this down.</p>
 
-                        <div class="product-grid" style="max-width:480px;margin-left:auto;margin-right:auto;display:flex;justify-content:center;">
-                            <div class="product-card featured" style="width:100%;max-width:400px;">
-                                <div class="product-image">
-                                    <img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='${p.emoji}'">
-                                </div>
-                                <div class="product-badge">Our top pick</div>
-                                <div class="product-info">
-                                    <h3>${p.name}</h3>
-                                    <div class="price">${p.price}</div>
-                                    <div class="rating">★ ${p.rating} <span>(${p.reviews} reviews)</span></div>
-                                    <div class="strengths"><strong>✓</strong> ${p.strengths.slice(0,2).join(' • ')}</div>
-                                    <div class="tradeoffs"><strong>✗</strong> ${p.tradeoffs.slice(0,1).join(' • ')}</div>
-                                    <p style="margin-top:12px;font-size:14px;color:var(--navy);font-weight:500;">Why we chose it</p>
-                                    <p style="font-size:13px;color:var(--muted);">It gives you a strong balance of performance, battery life and portability for demanding work and everyday use.</p>
+                            <div class="product-grid" style="max-width:480px;margin-left:auto;margin-right:auto;display:flex;justify-content:center;">
+                                <div class="product-card featured" style="width:100%;max-width:400px;">
+                                    <div class="product-image">
+                                        <img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='${p.emoji}'">
+                                    </div>
+                                    <div class="product-badge">Our top pick</div>
+                                    <div class="product-info">
+                                        <h3>${p.name}</h3>
+                                        <div class="price">${p.price}</div>
+                                        <div class="rating">★ ${p.rating} <span>(${p.reviews} reviews)</span></div>
+                                        <div class="strengths"><strong>✓</strong> ${p.strengths.slice(0,2).join(' • ')}</div>
+                                        <div class="tradeoffs"><strong>✗</strong> ${p.tradeoffs.slice(0,1).join(' • ')}</div>
+                                        <p style="margin-top:12px;font-size:14px;color:var(--navy);font-weight:500;">Why we chose it</p>
+                                        <p style="font-size:13px;color:var(--muted);">It gives you a strong balance of performance, battery life and portability for demanding work and everyday use.</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="button-row">
-                            <button class="btn-primary orange" onclick="window.goTo('tradeoffs')">See trade-offs →</button>
+                            <div class="button-row">
+                                <button class="btn-primary orange" onclick="window.goTo('tradeoffs')">See trade-offs →</button>
+                            </div>
+
+                            ${renderFooter()}
                         </div>
-                    </div>
-                `;
+                    `;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -2550,33 +2737,35 @@
             var p = PRODUCTS.macbook;
 
             screen.innerHTML = `
-                    <div class="screen-content">
-                        <button class="back-button" onclick="goBack()">← Back</button>
-                        <div class="brand-mark"></div>
-                        <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Before you decide</h1>
-                        <p class="microcopy">Every option gives you something and asks you to give something up, so here's what we'd want you to know before choosing this one.</p>
+                        <div class="screen-content">
+                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <div class="brand-mark"></div>
+                            <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Before you decide</h1>
+                            <p class="microcopy">Every option gives you something and asks you to give something up, so here's what we'd want you to know before choosing this one.</p>
 
-                        <div class="tradeoff-grid">
-                            <div class="tradeoff-card" style="border-color:var(--orange);">
-                                <h3>What you'll like</h3>
-                                <div class="strength-list">
-                                    ${p.strengths.map(function(s) { return '<div><span class="check">✓</span> ' + s + '</div>'; }).join('')}
+                            <div class="tradeoff-grid">
+                                <div class="tradeoff-card" style="border-color:var(--orange);">
+                                    <h3>What you'll like</h3>
+                                    <div class="strength-list">
+                                        ${p.strengths.map(function(s) { return '<div><span class="check">✓</span> ' + s + '</div>'; }).join('')}
+                                    </div>
+                                </div>
+                                <div class="tradeoff-card" style="border-color:#b91c1c;">
+                                    <h3>What to consider</h3>
+                                    <div class="tradeoff-list">
+                                        ${p.tradeoffs.map(function(t) { return '<div><span class="cross">✗</span> ' + t + '</div>'; }).join('')}
+                                    </div>
                                 </div>
                             </div>
-                            <div class="tradeoff-card" style="border-color:#b91c1c;">
-                                <h3>What to consider</h3>
-                                <div class="tradeoff-list">
-                                    ${p.tradeoffs.map(function(t) { return '<div><span class="cross">✗</span> ' + t + '</div>'; }).join('')}
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="button-row">
-                            <button class="btn-secondary" onclick="window.goTo('alternatives')">See alternatives</button>
-                            <button class="btn-primary orange" onclick="startPurchaseFlow()">Make a purchase</button>
+                            <div class="button-row">
+                                <button class="btn-secondary" onclick="window.goTo('alternatives')">See alternatives</button>
+                                <button class="btn-primary orange" onclick="startPurchaseFlow()">Make a purchase</button>
+                            </div>
+
+                            ${renderFooter()}
                         </div>
-                    </div>
-                `;
+                    `;
         }
 
         function startPurchaseFlow() {
@@ -2606,36 +2795,38 @@
                 var ctaAction = isFeatured ? `goToProductBestSeller('${p.id}')` : `goToProductDetail('${p.id}', 'alternatives')`;
 
                 return `
-                        <div class="product-card ${isFeatured ? 'featured' : ''}">
-                            <div class="product-image">
-                                <img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='${p.emoji}'">
+                            <div class="product-card ${isFeatured ? 'featured' : ''}">
+                                <div class="product-image">
+                                    <img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='${p.emoji}'">
+                                </div>
+                                <div class="product-badge ${badgeClass}">${badgeText}</div>
+                                <div class="product-info">
+                                    <h3>${p.name}</h3>
+                                    <div class="price">${p.price}</div>
+                                    <div class="rating">★ ${p.rating} <span>(${p.reviews} reviews)</span></div>
+                                    <p style="font-size:13px;color:var(--muted);margin-top:8px;"><strong>Why consider it</strong><br>${p.id === 'macbook' ? 'The strongest all-rounder for most users.' : p.id === 'lenovo' ? 'A strong choice if you want a lightweight Windows laptop with a business-focused design and extensive connectivity.' : 'A flexible choice if you value a 2-in-1 design, touch capability and a more versatile way to use your laptop.'}</p>
+                                    <button class="btn-primary" style="width:100%;margin-top:12px;justify-content:center;" onclick="${ctaAction}">${ctaText}</button>
+                                </div>
                             </div>
-                            <div class="product-badge ${badgeClass}">${badgeText}</div>
-                            <div class="product-info">
-                                <h3>${p.name}</h3>
-                                <div class="price">${p.price}</div>
-                                <div class="rating">★ ${p.rating} <span>(${p.reviews} reviews)</span></div>
-                                <p style="font-size:13px;color:var(--muted);margin-top:8px;"><strong>Why consider it</strong><br>${p.id === 'macbook' ? 'The strongest all-rounder for most users.' : p.id === 'lenovo' ? 'A strong choice if you want a lightweight Windows laptop with a business-focused design and extensive connectivity.' : 'A flexible choice if you value a 2-in-1 design, touch capability and a more versatile way to use your laptop.'}</p>
-                                <button class="btn-primary" style="width:100%;margin-top:12px;justify-content:center;" onclick="${ctaAction}">${ctaText}</button>
-                            </div>
-                        </div>
-                    `;
+                        `;
             }).join('');
 
             screen.innerHTML = `
-                    <div class="screen-content">
-                        <button class="back-button" onclick="goBack()">← Back</button>
-                        <div class="brand-mark"></div>
-                        <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Other options worth considering</h1>
-                        <p class="microcopy">These may suit you better if your priorities lean in a different direction.</p>
+                        <div class="screen-content">
+                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <div class="brand-mark"></div>
+                            <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Other options worth considering</h1>
+                            <p class="microcopy">These may suit you better if your priorities lean in a different direction.</p>
 
-                        <div class="product-grid">${cards}</div>
+                            <div class="product-grid">${cards}</div>
 
-                        <div class="button-row">
-                            <button class="btn-secondary" onclick="window.goTo('tradeoffs')">← Back to trade-offs</button>
+                            <div class="button-row">
+                                <button class="btn-secondary" onclick="window.goTo('tradeoffs')">← Back to trade-offs</button>
+                            </div>
+
+                            ${renderFooter()}
                         </div>
-                    </div>
-                `;
+                    `;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -2655,41 +2846,43 @@
             }).join('');
 
             screen.innerHTML = `
-                    <div class="screen-content">
-                        <button class="back-button" onclick="goBack()">← Back</button>
-                        <div class="brand-mark"></div>
-                        <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">${p.name}</h1>
-                        <p class="microcopy">Here's a closer look at what this option offers and what you'd be giving up.</p>
+                        <div class="screen-content">
+                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <div class="brand-mark"></div>
+                            <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">${p.name}</h1>
+                            <p class="microcopy">Here's a closer look at what this option offers and what you'd be giving up.</p>
 
-                        <div class="detail-product-card">
-                            <div class="product-image">
-                                <img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='${p.emoji}'">
+                            <div class="detail-product-card">
+                                <div class="product-image">
+                                    <img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='${p.emoji}'">
+                                </div>
+                                <div class="detail-body">
+                                    <h3>${p.name}</h3>
+                                    <div class="price">${p.price}</div>
+                                    <div class="specs">${p.specs}</div>
+                                    <div class="rating">★ ${p.rating} <span>(${p.reviews} reviews)</span></div>
+                                </div>
                             </div>
-                            <div class="detail-body">
-                                <h3>${p.name}</h3>
-                                <div class="price">${p.price}</div>
-                                <div class="specs">${p.specs}</div>
-                                <div class="rating">★ ${p.rating} <span>(${p.reviews} reviews)</span></div>
-                            </div>
-                        </div>
 
-                        <div class="tradeoff-grid">
-                            <div class="tradeoff-card" style="border-color:var(--orange);">
-                                <h3>What you'll like</h3>
-                                <div class="strength-list">${strengthsHtml}</div>
+                            <div class="tradeoff-grid">
+                                <div class="tradeoff-card" style="border-color:var(--orange);">
+                                    <h3>What you'll like</h3>
+                                    <div class="strength-list">${strengthsHtml}</div>
+                                </div>
+                                <div class="tradeoff-card" style="border-color:#b91c1c;">
+                                    <h3>What to consider</h3>
+                                    <div class="tradeoff-list">${tradeoffsHtml}</div>
+                                </div>
                             </div>
-                            <div class="tradeoff-card" style="border-color:#b91c1c;">
-                                <h3>What to consider</h3>
-                                <div class="tradeoff-list">${tradeoffsHtml}</div>
-                            </div>
-                        </div>
 
-                        <div class="button-row">
-                            <button class="btn-secondary" onclick="goBack()">← Back to summary</button>
-                            <button class="btn-primary orange" onclick="goToProductBestSeller('${p.id}')">Where to buy from →</button>
+                            <div class="button-row">
+                                <button class="btn-secondary" onclick="goBack()">← Back to summary</button>
+                                <button class="btn-primary orange" onclick="goToProductBestSeller('${p.id}')">Where to buy from →</button>
+                            </div>
+
+                            ${renderFooter()}
                         </div>
-                    </div>
-                `;
+                    `;
         }
 
         function goToProductDetail(productId, returnStage) {
@@ -2716,17 +2909,19 @@
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function renderGettingIt() {
             screen.innerHTML = `
-                    <div class="screen-content">
-                        <button class="back-button" onclick="goBack()">← Back</button>
-                        <div class="brand-mark"></div>
-                        <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Ready to get it?</h1>
-                        <p class="microcopy">Now that we've narrowed down what fits, let's find the best place to get it.</p>
+                        <div class="screen-content">
+                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <div class="brand-mark"></div>
+                            <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Ready to get it?</h1>
+                            <p class="microcopy">Now that we've narrowed down what fits, let's find the best place to get it.</p>
 
-                        <div class="button-row">
-                            <button class="btn-primary orange" onclick="startPurchaseFlow()">Find where to buy →</button>
+                            <div class="button-row">
+                                <button class="btn-primary orange" onclick="startPurchaseFlow()">Find where to buy →</button>
+                            </div>
+
+                            ${renderFooter()}
                         </div>
-                    </div>
-                `;
+                    `;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -2734,26 +2929,28 @@
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function renderLocation() {
             screen.innerHTML = `
-                    <div class="screen-content">
-                        <button class="back-button" onclick="goBack()">← Back</button>
-                        <div class="brand-mark"></div>
-                        <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Where should we look?</h1>
-                        <p class="microcopy">Your location helps us find sellers that can actually serve you and compare the options available nearby.</p>
+                        <div class="screen-content">
+                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <div class="brand-mark"></div>
+                            <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Where should we look?</h1>
+                            <p class="microcopy">Your location helps us find sellers that can actually serve you and compare the options available nearby.</p>
 
-                        <div class="button-row">
-                            <button class="btn-primary" onclick="setLocationAndContinue('Lagos')">📍 Use my location</button>
-                        </div>
-                        <div class="button-row" style="margin-top:12px;">
-                            <button class="btn-secondary" onclick="skipLocation()">⏭️ Skip for now</button>
-                        </div>
+                            <div class="button-row">
+                                <button class="btn-primary" onclick="setLocationAndContinue('Lagos')">📍 Use my location</button>
+                            </div>
+                            <div class="button-row" style="margin-top:12px;">
+                                <button class="btn-secondary" onclick="skipLocation()">⏭️ Skip for now</button>
+                            </div>
 
-                        <div class="location-hint">💡 Your location helps us recommend the best sellers for you, with faster delivery, better prices, and what's actually available near you.</div>
+                            <div class="location-hint">💡 Your location helps us recommend the best sellers for you, with faster delivery, better prices, and what's actually available near you.</div>
 
-                        <div class="button-row" style="margin-top:16px;">
-                            <button class="btn-secondary" style="background:transparent;border:none;color:var(--muted);font-size:14px;" onclick="window.goTo('locationManual')">Enter location manually →</button>
+                            <div class="button-row" style="margin-top:16px;">
+                                <button class="btn-secondary" style="background:transparent;border:none;color:var(--muted);font-size:14px;" onclick="window.goTo('locationManual')">Enter location manually →</button>
+                            </div>
+
+                            ${renderFooter()}
                         </div>
-                    </div>
-                `;
+                    `;
         }
 
         function setLocationAndContinue(loc) {
@@ -2773,21 +2970,23 @@
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function renderLocationManual() {
             screen.innerHTML = `
-                    <div class="screen-content">
-                        <button class="back-button" onclick="goBack()">← Back</button>
-                        <div class="brand-mark"></div>
-                        <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Where are you?</h1>
-                        <p class="microcopy">Enter your city or area and we'll use it to narrow down the sellers available to you.</p>
+                        <div class="screen-content">
+                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <div class="brand-mark"></div>
+                            <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Where are you?</h1>
+                            <p class="microcopy">Enter your city or area and we'll use it to narrow down the sellers available to you.</p>
 
-                        <div class="input-card">
-                            <input type="text" id="manualLocation" placeholder="City, area or postcode">
-                        </div>
+                            <div class="input-card">
+                                <input type="text" id="manualLocation" placeholder="City, area or postcode">
+                            </div>
 
-                        <div class="button-row">
-                            <button class="btn-primary" onclick="submitManualLocation()">Continue</button>
+                            <div class="button-row">
+                                <button class="btn-primary" onclick="submitManualLocation()">Continue</button>
+                            </div>
+
+                            ${renderFooter()}
                         </div>
-                    </div>
-                `;
+                    `;
         }
 
         function submitManualLocation() {
@@ -2818,19 +3017,21 @@
             }).join('');
 
             screen.innerHTML = `
-                    <div class="screen-content">
-                        <button class="back-button" onclick="goBack()">← Back</button>
-                        <div class="brand-mark"></div>
-                        <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Finding the best place to get it.</h1>
-                        <p class="microcopy">We're checking sellers in your area and comparing them against what matters most to you.</p>
+                        <div class="screen-content">
+                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <div class="brand-mark"></div>
+                            <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Finding the best place to get it.</h1>
+                            <p class="microcopy">We're checking sellers in your area and comparing them against what matters most to you.</p>
 
-                        <div class="loading-states">${stateHtml}</div>
+                            <div class="loading-states">${stateHtml}</div>
 
-                        <div class="button-row" style="margin-top:32px;">
-                            <button class="btn-primary" onclick="finishLocationProcessing()">Show me →</button>
+                            <div class="button-row" style="margin-top:32px;">
+                                <button class="btn-primary" onclick="finishLocationProcessing()">Show me →</button>
+                            </div>
+
+                            ${renderFooter()}
                         </div>
-                    </div>
-                `;
+                    `;
 
             animateLocationLoading();
         }
@@ -2876,19 +3077,21 @@
             }).join('');
 
             screen.innerHTML = `
-                    <div class="screen-content">
-                        <button class="back-button" onclick="goBack()">← Back</button>
-                        <div class="brand-mark"></div>
-                        <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Finding the best place to get it.</h1>
-                        <p class="microcopy">We're comparing the sellers available in your area against the things you've told us matter most.</p>
+                        <div class="screen-content">
+                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <div class="brand-mark"></div>
+                            <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Finding the best place to get it.</h1>
+                            <p class="microcopy">We're comparing the sellers available in your area against the things you've told us matter most.</p>
 
-                        <div class="loading-states">${stateHtml}</div>
+                            <div class="loading-states">${stateHtml}</div>
 
-                        <div class="button-row" style="margin-top:32px;">
-                            <button class="btn-primary" onclick="window.goTo('recommendedSeller')">Show me →</button>
+                            <div class="button-row" style="margin-top:32px;">
+                                <button class="btn-primary" onclick="window.goTo('recommendedSeller')">Show me →</button>
+                            </div>
+
+                            ${renderFooter()}
                         </div>
-                    </div>
-                `;
+                    `;
 
             animateLoading();
         }
@@ -2937,59 +3140,71 @@
 
             var deliveryFeeDisplay = getDeliveryDisplay(seller);
 
+            var trustBadges = `
+                        <span class="trust-badge verified"><i class="fas fa-check-circle check"></i> Verified seller</span>
+                        <span class="trust-badge guarantee"><i class="fas fa-check-circle check"></i> Authenticity guaranteed</span>
+                        <span class="trust-badge secure"><i class="fas fa-check-circle check"></i> Secure checkout</span>
+                    `;
+
             screen.innerHTML = `
-                    <div class="screen-content">
-                        <button class="back-button" onclick="goBack()">← Back</button>
-                        <div class="brand-mark"></div>
-                        <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Our pick for you</h1>
-                        <p class="microcopy">Based on your priorities and what's available, this seller gives you the strongest overall fit.</p>
+                        <div class="screen-content">
+                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <div class="brand-mark"></div>
+                            <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Our pick for you</h1>
+                            <p class="microcopy">Based on your priorities and what's available, this seller gives you the strongest overall fit.</p>
 
-                        <div class="final-card" style="border-color:var(--navy);">
-                            <div class="pick-label">🏆 Our pick</div>
-                            <div class="pick-name">${seller.name}</div>
-                            <div class="marketplace-badge">on ${seller.marketplace}</div>
+                            <div class="final-card" style="border-color:var(--navy);">
+                                <div class="pick-label">🏆 Our pick</div>
+                                <div class="pick-name">${seller.name}</div>
+                                <div class="marketplace-badge">on ${seller.marketplace}</div>
 
-                            <div style="margin:12px 0;display:flex;gap:12px;flex-wrap:wrap;">
-                                <span style="font-size:18px;font-weight:700;color:var(--navy);">${seller.price}</span>
-                                <span style="color:var(--gold);font-weight:600;">★ ${seller.rating} (${seller.reviews})</span>
-                                <span class="seller-reputation excellent">${seller.reputation}</span>
-                            </div>
-
-                            <div style="display:flex;gap:16px;align-items:center;padding:12px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:12px;">
-                                <div style="width:60px;height:60px;display:flex;align-items:center;justify-content:center;background:#F1EEE9;border-radius:12px;flex-shrink:0;overflow:hidden;">
-                                    <img src="${p.image}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.innerHTML='${p.emoji}'">
+                                <div style="margin:12px 0;display:flex;gap:12px;flex-wrap:wrap;">
+                                    <span style="font-size:18px;font-weight:700;color:var(--navy);">${seller.price}</span>
+                                    <span style="color:var(--gold);font-weight:600;">★ ${seller.rating} (${seller.reviews})</span>
+                                    <span class="seller-reputation excellent">${seller.reputation}</span>
                                 </div>
-                                <div style="text-align:left;">
-                                    <div style="font-weight:700;color:var(--navy);font-size:16px;">${p.name}</div>
-                                    <div style="color:var(--muted);font-size:13px;">${p.specs}</div>
+
+                                <div class="trust-section">
+                                    ${trustBadges}
                                 </div>
+
+                                <div style="display:flex;gap:16px;align-items:center;padding:12px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:12px;">
+                                    <div style="width:60px;height:60px;display:flex;align-items:center;justify-content:center;background:#F1EEE9;border-radius:12px;flex-shrink:0;overflow:hidden;">
+                                        <img src="${p.image}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.innerHTML='${p.emoji}'">
+                                    </div>
+                                    <div style="text-align:left;">
+                                        <div style="font-weight:700;color:var(--navy);font-size:16px;">${p.name}</div>
+                                        <div style="color:var(--muted);font-size:13px;">${p.specs}</div>
+                                    </div>
+                                </div>
+
+                                <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 16px;font-size:14px;color:var(--muted);">
+                                    <div><strong style="color:var(--navy);">📍 Location:</strong> ${seller.location}</div>
+                                    <div><strong style="color:var(--navy);">🚚 Delivery:</strong> ${deliveryText} · ${deliveryFeeDisplay}</div>
+                                    <div><strong style="color:var(--navy);">🔄 Returns:</strong> ${seller.returns}</div>
+                                    <div><strong style="color:var(--navy);">🛡️ Warranty:</strong> ${seller.warranty}</div>
+                                    <div><strong style="color:var(--navy);">📦 Stock:</strong> ${seller.stock}</div>
+                                </div>
+
+                                <hr style="border:none;border-top:1px solid var(--line);margin:16px 0;">
+
+                                <h3 style="font-size:16px;color:var(--navy);">Why we picked them</h3>
+                                <p style="color:var(--muted);font-size:14px;line-height:1.6;">This option came out ahead because it matches the things you told us matter most.</p>
+                                <ul style="margin-top:8px;list-style:none;padding:0;font-size:14px;color:var(--navy);">
+                                    <li style="padding:4px 0;"><strong style="color:var(--orange);">✓</strong> <strong>Strong on price</strong> — It stays within the range you gave us.</li>
+                                    <li style="padding:4px 0;"><strong style="color:var(--orange);">✓</strong> <strong>Strong on delivery</strong> — It offers the delivery option that best matches your preference.</li>
+                                    <li style="padding:4px 0;"><strong style="color:var(--orange);">✓</strong> <strong>Strong on trust</strong> — Its seller reputation and policies give you more confidence in the purchase.</li>
+                                </ul>
                             </div>
 
-                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 16px;font-size:14px;color:var(--muted);">
-                                <div><strong style="color:var(--navy);">📍 Location:</strong> ${seller.location}</div>
-                                <div><strong style="color:var(--navy);">🚚 Delivery:</strong> ${deliveryText} · ${deliveryFeeDisplay}</div>
-                                <div><strong style="color:var(--navy);">🔄 Returns:</strong> ${seller.returns}</div>
-                                <div><strong style="color:var(--navy);">🛡️ Warranty:</strong> ${seller.warranty}</div>
-                                <div><strong style="color:var(--navy);">📦 Stock:</strong> ${seller.stock}</div>
+                            <div class="button-row">
+                                <button class="btn-secondary" onclick="window.goTo('sellerComparison')">Compare sellers</button>
+                                <button class="btn-primary orange" onclick="window.goTo('orderSummary')">Make a purchase →</button>
                             </div>
 
-                            <hr style="border:none;border-top:1px solid var(--line);margin:16px 0;">
-
-                            <h3 style="font-size:16px;color:var(--navy);">Why we picked them</h3>
-                            <p style="color:var(--muted);font-size:14px;line-height:1.6;">This option came out ahead because it matches the things you told us matter most.</p>
-                            <ul style="margin-top:8px;list-style:none;padding:0;font-size:14px;color:var(--navy);">
-                                <li style="padding:4px 0;"><strong style="color:var(--orange);">✓</strong> <strong>Strong on price</strong> — It stays within the range you gave us.</li>
-                                <li style="padding:4px 0;"><strong style="color:var(--orange);">✓</strong> <strong>Strong on delivery</strong> — It offers the delivery option that best matches your preference.</li>
-                                <li style="padding:4px 0;"><strong style="color:var(--orange);">✓</strong> <strong>Strong on trust</strong> — Its seller reputation and policies give you more confidence in the purchase.</li>
-                            </ul>
+                            ${renderFooter()}
                         </div>
-
-                        <div class="button-row">
-                            <button class="btn-secondary" onclick="window.goTo('sellerComparison')">Compare sellers</button>
-                            <button class="btn-primary orange" onclick="window.goTo('orderSummary')">Make a purchase →</button>
-                        </div>
-                    </div>
-                `;
+                    `;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -3015,38 +3230,45 @@
 
                 var deliveryFeeDisplay = getDeliveryDisplay(s);
 
+                var trustBadge = s.verified ? `
+                                    <span class="trust-badge verified"><i class="fas fa-check-circle check"></i> Verified</span>
+                                ` : '';
+
                 return `
-                        <div class="seller-card" style="${isRecommended ? 'border-color:var(--orange);border-width:2px;' : ''}" onclick="selectSeller('${s.name}')">
-                            <div class="seller-name">${s.name}</div>
-                            <div class="marketplace-badge">on ${s.marketplace}</div>
-                            ${isRecommended ? '<span style="color:var(--orange);font-size:11px;font-weight:700;">★ Our pick</span>' : ''}
-                            <div class="seller-price">${s.price}</div>
-                            <div class="seller-rating">★ ${s.rating} <span>(${s.reviews} reviews)</span></div>
-                            <div class="seller-reputation ${repClass}">${s.reputation}</div>
-                            <div class="seller-detail"><strong>📍 Location:</strong> ${s.location}</div>
-                            <div class="seller-detail"><strong>🚚 Delivery:</strong> ${deliveryText} · ${deliveryFeeDisplay}</div>
-                            <div class="seller-detail"><strong>🔄 Returns:</strong> ${s.returns}</div>
-                            <div class="seller-detail"><strong>🛡️ Warranty:</strong> ${s.warranty}</div>
-                            <div class="seller-detail"><strong>📦 Stock:</strong> ${s.stock}</div>
-                            <span class="click-hint">Click to purchase →</span>
-                        </div>
-                    `;
+                            <div class="seller-card" style="${isRecommended ? 'border-color:var(--orange);border-width:2px;' : ''}" onclick="selectSeller('${s.name}')">
+                                <div class="seller-name">${s.name}</div>
+                                <div class="marketplace-badge">on ${s.marketplace}</div>
+                                ${isRecommended ? '<span style="color:var(--orange);font-size:11px;font-weight:700;">★ Our pick</span>' : ''}
+                                <div class="seller-price">${s.price}</div>
+                                <div class="seller-rating">★ ${s.rating} <span>(${s.reviews} reviews)</span></div>
+                                <div class="seller-reputation ${repClass}">${s.reputation}</div>
+                                ${trustBadge}
+                                <div class="seller-detail"><strong>📍 Location:</strong> ${s.location}</div>
+                                <div class="seller-detail"><strong>🚚 Delivery:</strong> ${deliveryText} · ${deliveryFeeDisplay}</div>
+                                <div class="seller-detail"><strong>🔄 Returns:</strong> ${s.returns}</div>
+                                <div class="seller-detail"><strong>🛡️ Warranty:</strong> ${s.warranty}</div>
+                                <div class="seller-detail"><strong>📦 Stock:</strong> ${s.stock}</div>
+                                <span class="click-hint">Click to purchase →</span>
+                            </div>
+                        `;
             }).join('');
 
             screen.innerHTML = `
-                    <div class="screen-content">
-                        <button class="back-button" onclick="goBack()">← Back</button>
-                        <div class="brand-mark"></div>
-                        <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Other places you can get it</h1>
-                        <p class="microcopy">These sellers are worth considering if you're willing to trade one advantage for another.</p>
+                        <div class="screen-content">
+                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <div class="brand-mark"></div>
+                            <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Other places you can get it</h1>
+                            <p class="microcopy">These sellers are worth considering if you're willing to trade one advantage for another.</p>
 
-                        <div class="seller-grid">${cards}</div>
+                            <div class="seller-grid">${cards}</div>
 
-                        <div class="button-row">
-                            <button class="btn-secondary" onclick="window.goTo('recommendedSeller')">← Back to our pick</button>
+                            <div class="button-row">
+                                <button class="btn-secondary" onclick="window.goTo('recommendedSeller')">← Back to our pick</button>
+                            </div>
+
+                            ${renderFooter()}
                         </div>
-                    </div>
-                `;
+                    `;
         }
 
         function selectSeller(name) {
@@ -3082,56 +3304,67 @@
 
             var deliveryFeeDisplay = getDeliveryDisplay(seller);
 
+            var trustBadges = `
+                        <span class="trust-badge verified"><i class="fas fa-check-circle check"></i> Verified seller</span>
+                        <span class="trust-badge guarantee"><i class="fas fa-check-circle check"></i> Authenticity guaranteed</span>
+                    `;
+
             screen.innerHTML = `
-                    <div class="screen-content">
-                        <button class="back-button" onclick="goBack()">← Back</button>
-                        <div class="brand-mark"></div>
-                        <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Order Summary</h1>
-                        <p class="microcopy">Review your selection before you proceed.</p>
+                        <div class="screen-content">
+                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <div class="brand-mark"></div>
+                            <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Order Summary</h1>
+                            <p class="microcopy">Review your selection before you proceed.</p>
 
-                        <div class="final-card" style="border-color:var(--navy);">
-                            <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px;">
-                                <div style="width:60px;height:60px;display:flex;align-items:center;justify-content:center;background:#F1EEE9;border-radius:12px;flex-shrink:0;overflow:hidden;">
-                                    <img src="${p.image}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.innerHTML='${p.emoji}'">
+                            <div class="final-card" style="border-color:var(--navy);">
+                                <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px;">
+                                    <div style="width:60px;height:60px;display:flex;align-items:center;justify-content:center;background:#F1EEE9;border-radius:12px;flex-shrink:0;overflow:hidden;">
+                                        <img src="${p.image}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.innerHTML='${p.emoji}'">
+                                    </div>
+                                    <div style="text-align:left;">
+                                        <div style="font-weight:700;color:var(--navy);font-size:18px;">${p.name}</div>
+                                        <div style="color:var(--muted);font-size:13px;">${p.specs}</div>
+                                    </div>
                                 </div>
-                                <div style="text-align:left;">
-                                    <div style="font-weight:700;color:var(--navy);font-size:18px;">${p.name}</div>
-                                    <div style="color:var(--muted);font-size:13px;">${p.specs}</div>
+
+                                <div class="trust-section">
+                                    ${trustBadges}
                                 </div>
+
+                                <div class="order-summary">
+                                    <div class="row">
+                                        <span class="label">Seller</span>
+                                        <span class="value">${seller.name}</span>
+                                    </div>
+                                    <div class="row">
+                                        <span class="label">Price</span>
+                                        <span class="value">${seller.price}</span>
+                                    </div>
+                                    <div class="row">
+                                        <span class="label">Delivery</span>
+                                        <span class="value">${deliveryText} · ${deliveryFeeDisplay}</span>
+                                    </div>
+                                    <div class="row">
+                                        <span class="label">Returns</span>
+                                        <span class="value">${seller.returns}</span>
+                                    </div>
+                                    <div class="row">
+                                        <span class="label">Warranty</span>
+                                        <span class="value">${seller.warranty}</span>
+                                    </div>
+                                    <div class="row">
+                                        <span class="label">Stock</span>
+                                        <span class="value">${seller.stock}</span>
+                                    </div>
+                                    ${state.location ? `<div class="row"><span class="label">Location</span><span class="value">${state.location}</span></div>` : ''}
+                                </div>
+
+                                <button class="btn-primary orange" style="width:100%;justify-content:center;margin-top:16px;" onclick="window.goTo('finalPurchase')">Get it →</button>
                             </div>
 
-                            <div class="order-summary">
-                                <div class="row">
-                                    <span class="label">Seller</span>
-                                    <span class="value">${seller.name}</span>
-                                </div>
-                                <div class="row">
-                                    <span class="label">Price</span>
-                                    <span class="value">${seller.price}</span>
-                                </div>
-                                <div class="row">
-                                    <span class="label">Delivery</span>
-                                    <span class="value">${deliveryText} · ${deliveryFeeDisplay}</span>
-                                </div>
-                                <div class="row">
-                                    <span class="label">Returns</span>
-                                    <span class="value">${seller.returns}</span>
-                                </div>
-                                <div class="row">
-                                    <span class="label">Warranty</span>
-                                    <span class="value">${seller.warranty}</span>
-                                </div>
-                                <div class="row">
-                                    <span class="label">Stock</span>
-                                    <span class="value">${seller.stock}</span>
-                                </div>
-                                ${state.location ? `<div class="row"><span class="label">Location</span><span class="value">${state.location}</span></div>` : ''}
-                            </div>
-
-                            <button class="btn-primary orange" style="width:100%;justify-content:center;margin-top:16px;" onclick="window.goTo('finalPurchase')">Get it →</button>
+                            ${renderFooter()}
                         </div>
-                    </div>
-                `;
+                    `;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -3162,74 +3395,86 @@
 
             var deliveryFeeDisplay = getDeliveryDisplay(seller);
 
+            var trustBadges = `
+                        <span class="trust-badge verified"><i class="fas fa-check-circle check"></i> Verified seller</span>
+                        <span class="trust-badge guarantee"><i class="fas fa-check-circle check"></i> Authenticity guaranteed</span>
+                        <span class="trust-badge secure"><i class="fas fa-check-circle check"></i> Secure transaction</span>
+                    `;
+
             screen.innerHTML = `
-                    <div class="screen-content">
-                        <button class="back-button" onclick="goBack()">← Back</button>
-                        <div class="brand-mark"></div>
-                        <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Ready to get it?</h1>
-                        <p class="microcopy">Everything we've considered points here as the strongest option for you.</p>
+                        <div class="screen-content">
+                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <div class="brand-mark"></div>
+                            <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Ready to get it?</h1>
+                            <p class="microcopy">Everything we've considered points here as the strongest option for you.</p>
 
-                        <div class="final-card">
-                            <div class="pick-label">🏆 Our pick</div>
-                            <div class="pick-name">${seller.name}</div>
-                            <div class="marketplace-badge">on ${seller.marketplace}</div>
-                            <div class="pick-reason">${seller.name} gives you the strongest balance based on what you've told us.</div>
+                            <div class="final-card">
+                                <div class="pick-label">🏆 Our pick</div>
+                                <div class="pick-name">${seller.name}</div>
+                                <div class="marketplace-badge">on ${seller.marketplace}</div>
+                                <div class="pick-reason">${seller.name} gives you the strongest balance based on what you've told us.</div>
 
-                            <div style="display:flex;gap:16px;align-items:center;padding:12px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
-                                <div style="width:60px;height:60px;display:flex;align-items:center;justify-content:center;background:#F1EEE9;border-radius:12px;flex-shrink:0;overflow:hidden;">
-                                    <img src="${p.image}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.innerHTML='${p.emoji}'">
+                                <div class="trust-section">
+                                    ${trustBadges}
                                 </div>
-                                <div style="text-align:left;">
-                                    <div style="font-weight:700;color:var(--navy);font-size:18px;">${p.name}</div>
-                                    <div style="color:var(--muted);font-size:13px;">${p.specs}</div>
+
+                                <div style="display:flex;gap:16px;align-items:center;padding:12px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+                                    <div style="width:60px;height:60px;display:flex;align-items:center;justify-content:center;background:#F1EEE9;border-radius:12px;flex-shrink:0;overflow:hidden;">
+                                        <img src="${p.image}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.innerHTML='${p.emoji}'">
+                                    </div>
+                                    <div style="text-align:left;">
+                                        <div style="font-weight:700;color:var(--navy);font-size:18px;">${p.name}</div>
+                                        <div style="color:var(--muted);font-size:13px;">${p.specs}</div>
+                                    </div>
                                 </div>
+
+                                <div class="detail-grid">
+                                    <div class="detail-item"><strong>Price:</strong> <span class="value">${seller.price}</span></div>
+                                    <div class="detail-item"><strong>Seller:</strong> <span class="value">${seller.name}</span></div>
+                                    <div class="detail-item"><strong>Marketplace:</strong> <span class="value">${seller.marketplace}</span></div>
+                                    <div class="detail-item"><strong>Rating:</strong> <span class="value">★ ${seller.rating}</span></div>
+                                    <div class="detail-item"><strong>📍 Location:</strong> <span class="value">${seller.location}</span></div>
+                                    <div class="detail-item"><strong>🚚 Delivery:</strong> <span class="value">${deliveryText} · ${deliveryFeeDisplay}</span></div>
+                                    <div class="detail-item"><strong>🔄 Returns:</strong> <span class="value">${seller.returns}</span></div>
+                                    <div class="detail-item"><strong>🛡️ Warranty:</strong> <span class="value">${seller.warranty}</span></div>
+                                    <div class="detail-item"><strong>📦 Stock:</strong> <span class="value">${seller.stock}</span></div>
+                                    ${state.location ? `<div class="detail-item"><strong>Your location:</strong> <span class="value">${state.location}</span></div>` : `<div class="detail-item"><strong>Delivery:</strong> <span class="value">Standard shipping</span></div>`}
+                                </div>
+
+                                <button class="btn-primary orange" onclick="alert('🎉 Redirecting to ${seller.name} on ${seller.marketplace} to complete your purchase...')">Make a purchase →</button>
                             </div>
 
-                            <div class="detail-grid">
-                                <div class="detail-item"><strong>Price:</strong> <span class="value">${seller.price}</span></div>
-                                <div class="detail-item"><strong>Seller:</strong> <span class="value">${seller.name}</span></div>
-                                <div class="detail-item"><strong>Marketplace:</strong> <span class="value">${seller.marketplace}</span></div>
-                                <div class="detail-item"><strong>Rating:</strong> <span class="value">★ ${seller.rating}</span></div>
-                                <div class="detail-item"><strong>📍 Location:</strong> <span class="value">${seller.location}</span></div>
-                                <div class="detail-item"><strong>🚚 Delivery:</strong> <span class="value">${deliveryText} · ${deliveryFeeDisplay}</span></div>
-                                <div class="detail-item"><strong>🔄 Returns:</strong> <span class="value">${seller.returns}</span></div>
-                                <div class="detail-item"><strong>🛡️ Warranty:</strong> <span class="value">${seller.warranty}</span></div>
-                                <div class="detail-item"><strong>📦 Stock:</strong> <span class="value">${seller.stock}</span></div>
-                                ${state.location ? `<div class="detail-item"><strong>Your location:</strong> <span class="value">${state.location}</span></div>` : `<div class="detail-item"><strong>Delivery:</strong> <span class="value">Standard shipping</span></div>`}
+                            <div class="button-row" style="margin-top:12px;">
+                                <button class="btn-secondary" onclick="window.goTo('sellerComparison')">Compare sellers again</button>
                             </div>
 
-                            <button class="btn-primary orange" onclick="alert('🎉 Redirecting to ${seller.name} on ${seller.marketplace} to complete your purchase...')">Make a purchase →</button>
+                            ${renderFooter()}
                         </div>
-
-                        <div class="button-row" style="margin-top:12px;">
-                            <button class="btn-secondary" onclick="window.goTo('sellerComparison')">Compare sellers again</button>
-                        </div>
-
-                        <div class="home-note">Spend with certainty.</div>
-                    </div>
-                `;
+                    `;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        //  19-26. NON-QUESTION FLOWS
+        //  19. PASTE URL (Redesigned)
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function renderPasteUrl() {
             screen.innerHTML = `
-                    <div class="screen-content">
-                        <button class="back-button" onclick="goBack()">← Back</button>
-                        <div class="brand-mark"></div>
-                        <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Paste the product link</h1>
-                        <p class="microcopy">Share the link to the product you're considering and we'll take a closer look.</p>
+                        <div class="screen-content">
+                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <div class="brand-mark"></div>
+                            <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Paste the product link</h1>
+                            <p class="microcopy">Share the link to the product you're considering and we'll take a closer look.</p>
 
-                        <div class="input-card">
-                            <input type="url" id="urlInput" placeholder="Paste a product URL" value="${state.pastedUrl}">
-                        </div>
+                            <div class="input-url">
+                                <input type="url" id="urlInput" placeholder="Paste a product URL" value="${state.pastedUrl}">
+                            </div>
 
-                        <div class="button-row">
-                            <button class="btn-primary" onclick="submitUrl()">Continue</button>
+                            <div class="button-row">
+                                <button class="btn-primary" onclick="submitUrl()">Continue</button>
+                            </div>
+
+                            ${renderFooter()}
                         </div>
-                    </div>
-                `;
+                    `;
         }
 
         function submitUrl() {
@@ -3251,40 +3496,43 @@
             }).join('');
 
             screen.innerHTML = `
-                    <div class="screen-content">
-                        <button class="back-button" onclick="goBack()">← Back</button>
-                        <div class="brand-mark"></div>
-                        <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Taking a look.</h1>
-                        <p class="microcopy">We're reading the page to work out exactly which product you're looking at.</p>
-                        <div class="loading-states">${stateHtml}</div>
-                        <div class="button-row" style="margin-top:32px;">
-                            <button class="btn-primary" onclick="window.goTo('productRecognition')">Show me →</button>
+                        <div class="screen-content">
+                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <div class="brand-mark"></div>
+                            <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Taking a look.</h1>
+                            <p class="microcopy">We're reading the page to work out exactly which product you're looking at.</p>
+                            <div class="loading-states">${stateHtml}</div>
+                            <div class="button-row" style="margin-top:32px;">
+                                <button class="btn-primary" onclick="window.goTo('productRecognition')">Show me →</button>
+                            </div>
+                            ${renderFooter()}
                         </div>
-                    </div>
-                `;
+                    `;
             animateLoading();
         }
 
         function renderUploadImage() {
             screen.innerHTML = `
-                    <div class="screen-content">
-                        <button class="back-button" onclick="goBack()">← Back</button>
-                        <div class="brand-mark"></div>
-                        <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Show us what you're considering.</h1>
-                        <p class="microcopy">Upload a clear photo of the product and we'll see what we can identify.</p>
+                        <div class="screen-content">
+                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <div class="brand-mark"></div>
+                            <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Show us what you're considering.</h1>
+                            <p class="microcopy">Upload a clear photo of the product and we'll see what we can identify.</p>
 
-                        <div class="input-card dashed">
-                            <div class="icon-large">🖼️</div>
-                            <p class="label">Upload a clear photo of the product</p>
-                            <input type="file" accept="image/*" id="imageUpload" onchange="handleImageUpload(event)" style="max-width:100%;">
-                            <div id="uploadPreview" class="upload-preview"></div>
-                        </div>
+                            <div class="input-card dashed">
+                                <div class="icon-large">🖼️</div>
+                                <p class="label">Upload a clear photo of the product</p>
+                                <input type="file" accept="image/*" id="imageUpload" onchange="handleImageUpload(event)" style="max-width:100%;">
+                                <div id="uploadPreview" class="upload-preview"></div>
+                            </div>
 
-                        <div class="button-row">
-                            <button class="btn-primary" onclick="submitImageUpload()">Continue</button>
+                            <div class="button-row">
+                                <button class="btn-primary" onclick="submitImageUpload()">Continue</button>
+                            </div>
+
+                            ${renderFooter()}
                         </div>
-                    </div>
-                `;
+                    `;
         }
 
         function handleImageUpload(e) {
@@ -3305,21 +3553,23 @@
 
         function renderImagePreview() {
             screen.innerHTML = `
-                    <div class="screen-content">
-                        <button class="back-button" onclick="goBack()">← Back</button>
-                        <div class="brand-mark"></div>
-                        <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Is this the image you want to use?</h1>
+                        <div class="screen-content">
+                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <div class="brand-mark"></div>
+                            <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Is this the image you want to use?</h1>
 
-                        <div style="max-width:400px;margin:20px auto;border-radius:16px;overflow:hidden;border:1px solid var(--line);">
-                            <img src="${state.uploadedImage}" alt="Uploaded product" style="width:100%;display:block;">
-                        </div>
+                            <div style="max-width:400px;margin:20px auto;border-radius:16px;overflow:hidden;border:1px solid var(--line);">
+                                <img src="${state.uploadedImage}" alt="Uploaded product" style="width:100%;display:block;">
+                            </div>
 
-                        <div class="button-row">
-                            <button class="btn-secondary" onclick="window.goTo('uploadImage')">Choose another image</button>
-                            <button class="btn-primary" onclick="window.goTo('imageProcessing')">Continue</button>
+                            <div class="button-row">
+                                <button class="btn-secondary" onclick="window.goTo('uploadImage')">Choose another image</button>
+                                <button class="btn-primary" onclick="window.goTo('imageProcessing')">Continue</button>
+                            </div>
+
+                            ${renderFooter()}
                         </div>
-                    </div>
-                `;
+                    `;
         }
 
         function renderImageProcessing() {
@@ -3330,40 +3580,43 @@
             }).join('');
 
             screen.innerHTML = `
-                    <div class="screen-content">
-                        <button class="back-button" onclick="goBack()">← Back</button>
-                        <div class="brand-mark"></div>
-                        <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Taking a closer look.</h1>
-                        <p class="microcopy">We're checking the image for the details that can help us identify the product.</p>
-                        <div class="loading-states">${stateHtml}</div>
-                        <div class="button-row" style="margin-top:32px;">
-                            <button class="btn-primary" onclick="window.goTo('productRecognition')">Show me →</button>
+                        <div class="screen-content">
+                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <div class="brand-mark"></div>
+                            <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Taking a closer look.</h1>
+                            <p class="microcopy">We're checking the image for the details that can help us identify the product.</p>
+                            <div class="loading-states">${stateHtml}</div>
+                            <div class="button-row" style="margin-top:32px;">
+                                <button class="btn-primary" onclick="window.goTo('productRecognition')">Show me →</button>
+                            </div>
+                            ${renderFooter()}
                         </div>
-                    </div>
-                `;
+                    `;
             animateLoading();
         }
 
         function renderScanCode() {
             screen.innerHTML = `
-                    <div class="screen-content">
-                        <button class="back-button" onclick="goBack()">← Back</button>
-                        <div class="brand-mark"></div>
-                        <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Scan the product code</h1>
-                        <p class="microcopy">Place the barcode or QR code inside the frame and we'll use it to identify the product.</p>
+                        <div class="screen-content">
+                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <div class="brand-mark"></div>
+                            <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Scan the product code</h1>
+                            <p class="microcopy">Place the barcode or QR code inside the frame and we'll use it to identify the product.</p>
 
-                        <div class="input-card dashed" style="padding:40px 30px;">
-                            <div class="icon-large">📷</div>
-                            <p class="label">Place the code inside the frame.</p>
-                            <div style="width:200px;height:200px;margin:12px auto;border:2px dashed var(--line);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:64px;color:var(--muted);">◻</div>
-                            <input type="text" id="manualCodeInput" placeholder="Or enter code manually" value="${state.scannedCode}" style="width:100%;min-height:48px;padding:0 12px;border:1px solid var(--line);border-radius:12px;background:var(--white);font-size:14px;text-align:center;margin-top:12px;">
-                        </div>
+                            <div class="input-card dashed" style="padding:40px 30px;">
+                                <div class="icon-large">📷</div>
+                                <p class="label">Place the code inside the frame.</p>
+                                <div style="width:200px;height:200px;margin:12px auto;border:2px dashed var(--line);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:64px;color:var(--muted);">◻</div>
+                                <input type="text" id="manualCodeInput" placeholder="Or enter code manually" value="${state.scannedCode}" style="width:100%;min-height:48px;padding:0 12px;border:1px solid var(--line);border-radius:12px;background:var(--white);font-size:14px;text-align:center;margin-top:12px;">
+                            </div>
 
-                        <div class="button-row">
-                            <button class="btn-primary" onclick="submitScanCode()">Continue</button>
+                            <div class="button-row">
+                                <button class="btn-primary" onclick="submitScanCode()">Continue</button>
+                            </div>
+
+                            ${renderFooter()}
                         </div>
-                    </div>
-                `;
+                    `;
         }
 
         function submitScanCode() {
@@ -3379,77 +3632,84 @@
 
         function renderCodeProcessing() {
             screen.innerHTML = `
-                    <div class="screen-content">
-                        <button class="back-button" onclick="goBack()">← Back</button>
-                        <div class="brand-mark"></div>
-                        <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Identifying the product.</h1>
-                        <p class="microcopy">We're matching the code to the product it belongs to.</p>
-                        <div class="loading-states" style="margin-top:20px;">
-                            <div class="state active">Matching the code</div>
+                        <div class="screen-content">
+                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <div class="brand-mark"></div>
+                            <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Identifying the product.</h1>
+                            <p class="microcopy">We're matching the code to the product it belongs to.</p>
+                            <div class="loading-states" style="margin-top:20px;">
+                                <div class="state active">Matching the code</div>
+                            </div>
+                            <div class="button-row" style="margin-top:32px;">
+                                <button class="btn-primary" onclick="window.goTo('productRecognition')">Show me →</button>
+                            </div>
+                            ${renderFooter()}
                         </div>
-                        <div class="button-row" style="margin-top:32px;">
-                            <button class="btn-primary" onclick="window.goTo('productRecognition')">Show me →</button>
-                        </div>
-                    </div>
-                `;
+                    `;
         }
 
         function renderProductRecognition() {
             var p = PRODUCTS.macbook;
 
             screen.innerHTML = `
-                    <div class="screen-content">
-                        <button class="back-button" onclick="goBack()">← Back</button>
-                        <div class="brand-mark"></div>
-                        <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">We found this product.</h1>
-                        <p class="microcopy">Here's what we believe you're looking at.</p>
+                        <div class="screen-content">
+                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <div class="brand-mark"></div>
+                            <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">We found this product.</h1>
+                            <p class="microcopy">Here's what we believe you're looking at.</p>
 
-                        <div style="max-width:400px;margin:24px auto;border:1px solid var(--line);border-radius:20px;overflow:hidden;background:var(--white);box-shadow:var(--shadow);">
-                            <div style="aspect-ratio:1.18/1;background:#F1EEE9;display:flex;align-items:center;justify-content:center;">
-                                <img src="./image/macbook.png" alt="MacBook Pro 14-inch with M5 chip" style="width:100%;height:100%;object-fit:cover;" />
+                            <div style="max-width:400px;margin:24px auto;border:1px solid var(--line);border-radius:20px;overflow:hidden;background:var(--white);box-shadow:var(--shadow);">
+                                <div style="aspect-ratio:1.18/1;background:#F1EEE9;display:flex;align-items:center;justify-content:center;">
+                                    <img src="./image/macbook.png" alt="MacBook Pro 14-inch with M5 chip" style="width:100%;height:100%;object-fit:cover;" />
+                                </div>
+                                <div style="padding:20px;">
+                                    <h3 style="color:var(--navy);">${p.name}</h3>
+                                    <p style="color:var(--muted);font-size:14px;">Apple • Laptop • 14-inch</p>
+                                </div>
                             </div>
-                            <div style="padding:20px;">
-                                <h3 style="color:var(--navy);">${p.name}</h3>
-                                <p style="color:var(--muted);font-size:14px;">Apple • Laptop • 14-inch</p>
-                            </div>
-                        </div>
 
-                        <div class="button-row">
-                            <button class="btn-primary" onclick="window.goTo('productConfirmation')">Continue</button>
+                            <div class="button-row">
+                                <button class="btn-primary" onclick="window.goTo('productConfirmation')">Continue</button>
+                            </div>
+
+                            ${renderFooter()}
                         </div>
-                    </div>
-                `;
+                    `;
         }
 
         function renderProductConfirmation() {
             screen.innerHTML = `
-                    <div class="screen-content">
-                        <button class="back-button" onclick="goBack()">← Back</button>
-                        <div class="brand-mark"></div>
-                        <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Is this the product you're looking at?</h1>
-                        <p class="microcopy">If we've got it right, we'll use this product as the starting point for the next step.</p>
+                        <div class="screen-content">
+                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <div class="brand-mark"></div>
+                            <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Is this the product you're looking at?</h1>
+                            <p class="microcopy">If we've got it right, we'll use this product as the starting point for the next step.</p>
 
-                        <div class="button-row">
-                            <button class="btn-secondary" onclick="window.goTo('wrongProduct')">That's not it</button>
-                            <button class="btn-primary orange" onclick="window.goTo('decisionFork')">Yes, continue</button>
+                            <div class="button-row">
+                                <button class="btn-secondary" onclick="window.goTo('wrongProduct')">That's not it</button>
+                                <button class="btn-primary orange" onclick="window.goTo('decisionFork')">Yes, continue</button>
+                            </div>
+
+                            ${renderFooter()}
                         </div>
-                    </div>
-                `;
+                    `;
         }
 
         function renderWrongProduct() {
             screen.innerHTML = `
-                    <div class="screen-content">
-                        <button class="back-button" onclick="goBack()">← Back</button>
-                        <div class="brand-mark"></div>
-                        <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Let's try that again.</h1>
-                        <p class="microcopy">We may have identified the wrong product, so give us another image, link or code and we'll take another look.</p>
+                        <div class="screen-content">
+                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <div class="brand-mark"></div>
+                            <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Let's try that again.</h1>
+                            <p class="microcopy">We may have identified the wrong product, so give us another image, link or code and we'll take another look.</p>
 
-                        <div class="button-row">
-                            <button class="btn-primary" onclick="resetApp()">Try again</button>
+                            <div class="button-row">
+                                <button class="btn-primary" onclick="resetApp()">Try again</button>
+                            </div>
+
+                            ${renderFooter()}
                         </div>
-                    </div>
-                `;
+                    `;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -3457,24 +3717,26 @@
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function renderDecisionFork() {
             screen.innerHTML = `
-                    <div class="screen-content">
-                        <button class="back-button" onclick="goBack()">← Back</button>
-                        <div class="brand-mark"></div>
-                        <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">What would you like help with?</h1>
-                        <p class="microcopy">You can either focus on finding the best place to buy this product or let us help you decide whether it's actually the right one for you.</p>
+                        <div class="screen-content">
+                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <div class="brand-mark"></div>
+                            <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">What would you like help with?</h1>
+                            <p class="microcopy">You can either focus on finding the best place to buy this product or let us help you decide whether it's actually the right one for you.</p>
 
-                        <div class="fork-grid">
-                            <div class="fork-card" onclick="state.decisionFork='know'; window.goTo('knowWhatIWant')">
-                                <h3>I know what I want.</h3>
-                                <p>Help me find the best place to get it from.</p>
+                            <div class="fork-grid">
+                                <div class="fork-card" onclick="state.decisionFork='know'; window.goTo('knowWhatIWant')">
+                                    <h3>I know what I want.</h3>
+                                    <p>Help me find the best place to get it from.</p>
+                                </div>
+                                <div class="fork-card" onclick="state.decisionFork='consider'; window.goTo('stillConsidering')">
+                                    <h3>I'm still considering.</h3>
+                                    <p>Help me get it right.</p>
+                                </div>
                             </div>
-                            <div class="fork-card" onclick="state.decisionFork='consider'; window.goTo('stillConsidering')">
-                                <h3>I'm still considering.</h3>
-                                <p>Help me get it right.</p>
-                            </div>
+
+                            ${renderFooter()}
                         </div>
-                    </div>
-                `;
+                    `;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -3487,20 +3749,22 @@
             }).join('');
 
             screen.innerHTML = `
-                    <div class="screen-content">
-                        <button class="back-button" onclick="goBack()">← Back</button>
-                        <div class="brand-mark"></div>
-                        <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">What matters when you buy it?</h1>
-                        <p class="microcopy">Since you've already settled on the product, we'll focus on what makes one place to buy it better for you than another.</p>
+                        <div class="screen-content">
+                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <div class="brand-mark"></div>
+                            <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">What matters when you buy it?</h1>
+                            <p class="microcopy">Since you've already settled on the product, we'll focus on what makes one place to buy it better for you than another.</p>
 
-                        <div class="chip-grid">${chips}</div>
-                        <p class="chip-count">Selected: ${state.selectedPriorities.length || 'none'}</p>
+                            <div class="chip-grid">${chips}</div>
+                            <p class="chip-count">Selected: ${state.selectedPriorities.length || 'none'}</p>
 
-                        <div class="button-row">
-                            <button class="btn-primary" onclick="submitKnowWhatIWant()">Continue</button>
+                            <div class="button-row">
+                                <button class="btn-primary" onclick="submitKnowWhatIWant()">Continue</button>
+                            </div>
+
+                            ${renderFooter()}
                         </div>
-                    </div>
-                `;
+                    `;
         }
 
         function togglePriorityBuy(p) {
@@ -3528,22 +3792,24 @@
             var prioritiesText = state.selectedPriorities.length > 0 ? state.selectedPriorities.join(', ') : 'Not specified';
 
             screen.innerHTML = `
-                    <div class="screen-content">
-                        <button class="back-button" onclick="goBack()">← Back</button>
-                        <div class="brand-mark"></div>
-                        <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Here's what matters most.</h1>
-                        <p class="microcopy">We'll use these priorities when we compare where you can get the product.</p>
+                        <div class="screen-content">
+                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <div class="brand-mark"></div>
+                            <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Here's what matters most.</h1>
+                            <p class="microcopy">We'll use these priorities when we compare where you can get the product.</p>
 
-                        <div class="info-card">
-                            <p><strong style="color:var(--navy);">You care most about</strong><br>${prioritiesText}</p>
-                        </div>
+                            <div class="info-card">
+                                <p><strong style="color:var(--navy);">You care most about</strong><br>${prioritiesText}</p>
+                            </div>
 
-                        <div class="button-row">
-                            <button class="btn-secondary" onclick="window.goTo('knowAlternatives')">See other options worth considering</button>
-                            <button class="btn-primary orange" onclick="startPurchaseFlow()">Proceed with my choice</button>
+                            <div class="button-row">
+                                <button class="btn-secondary" onclick="window.goTo('knowAlternatives')">See other options worth considering</button>
+                                <button class="btn-primary orange" onclick="startPurchaseFlow()">Proceed with my choice</button>
+                            </div>
+
+                            ${renderFooter()}
                         </div>
-                    </div>
-                `;
+                    `;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -3561,36 +3827,38 @@
                 var ctaAction = isFeatured ? `goToProductBestSeller('${p.id}')` : `goToKnowProductDetail('${p.id}')`;
 
                 return `
-                        <div class="product-card ${isFeatured ? 'featured' : ''}">
-                            <div class="product-image">
-                                <img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='${p.emoji}'">
+                            <div class="product-card ${isFeatured ? 'featured' : ''}">
+                                <div class="product-image">
+                                    <img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='${p.emoji}'">
+                                </div>
+                                <div class="product-badge ${badgeClass}">${badgeText}</div>
+                                <div class="product-info">
+                                    <h3>${p.name}</h3>
+                                    <div class="price">${p.price}</div>
+                                    <div class="rating">★ ${p.rating} <span>(${p.reviews} reviews)</span></div>
+                                    <p style="font-size:13px;color:var(--muted);margin-top:8px;"><strong>Why consider it</strong><br>${p.id === 'macbook' ? 'The strongest all-rounder for most users.' : p.id === 'lenovo' ? 'A strong choice if you want a lightweight Windows laptop with a business-focused design and extensive connectivity.' : 'A flexible choice if you value a 2-in-1 design, touch capability and a more versatile way to use your laptop.'}</p>
+                                    <button class="btn-primary" style="width:100%;margin-top:12px;justify-content:center;" onclick="${ctaAction}">${ctaText}</button>
+                                </div>
                             </div>
-                            <div class="product-badge ${badgeClass}">${badgeText}</div>
-                            <div class="product-info">
-                                <h3>${p.name}</h3>
-                                <div class="price">${p.price}</div>
-                                <div class="rating">★ ${p.rating} <span>(${p.reviews} reviews)</span></div>
-                                <p style="font-size:13px;color:var(--muted);margin-top:8px;"><strong>Why consider it</strong><br>${p.id === 'macbook' ? 'The strongest all-rounder for most users.' : p.id === 'lenovo' ? 'A strong choice if you want a lightweight Windows laptop with a business-focused design and extensive connectivity.' : 'A flexible choice if you value a 2-in-1 design, touch capability and a more versatile way to use your laptop.'}</p>
-                                <button class="btn-primary" style="width:100%;margin-top:12px;justify-content:center;" onclick="${ctaAction}">${ctaText}</button>
-                            </div>
-                        </div>
-                    `;
+                        `;
             }).join('');
 
             screen.innerHTML = `
-                    <div class="screen-content">
-                        <button class="back-button" onclick="goBack()">← Back</button>
-                        <div class="brand-mark"></div>
-                        <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Other options worth considering</h1>
-                        <p class="microcopy">Here are the other options worth considering. Click any to see where to get it.</p>
+                        <div class="screen-content">
+                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <div class="brand-mark"></div>
+                            <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Other options worth considering</h1>
+                            <p class="microcopy">Here are the other options worth considering. Click any to see where to get it.</p>
 
-                        <div class="product-grid">${cards}</div>
+                            <div class="product-grid">${cards}</div>
 
-                        <div class="button-row">
-                            <button class="btn-secondary" onclick="window.goTo('knowSummary')">← Back to summary</button>
+                            <div class="button-row">
+                                <button class="btn-secondary" onclick="window.goTo('knowSummary')">← Back to summary</button>
+                            </div>
+
+                            ${renderFooter()}
                         </div>
-                    </div>
-                `;
+                    `;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -3610,41 +3878,43 @@
             }).join('');
 
             screen.innerHTML = `
-                    <div class="screen-content">
-                        <button class="back-button" onclick="goBack()">← Back</button>
-                        <div class="brand-mark"></div>
-                        <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">${p.name}</h1>
-                        <p class="microcopy">Here's a closer look at what this option offers and what you'd be giving up.</p>
+                        <div class="screen-content">
+                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <div class="brand-mark"></div>
+                            <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">${p.name}</h1>
+                            <p class="microcopy">Here's a closer look at what this option offers and what you'd be giving up.</p>
 
-                        <div class="detail-product-card">
-                            <div class="product-image">
-                                <img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='${p.emoji}'">
+                            <div class="detail-product-card">
+                                <div class="product-image">
+                                    <img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='${p.emoji}'">
+                                </div>
+                                <div class="detail-body">
+                                    <h3>${p.name}</h3>
+                                    <div class="price">${p.price}</div>
+                                    <div class="specs">${p.specs}</div>
+                                    <div class="rating">★ ${p.rating} <span>(${p.reviews} reviews)</span></div>
+                                </div>
                             </div>
-                            <div class="detail-body">
-                                <h3>${p.name}</h3>
-                                <div class="price">${p.price}</div>
-                                <div class="specs">${p.specs}</div>
-                                <div class="rating">★ ${p.rating} <span>(${p.reviews} reviews)</span></div>
-                            </div>
-                        </div>
 
-                        <div class="tradeoff-grid">
-                            <div class="tradeoff-card" style="border-color:var(--orange);">
-                                <h3>What you'll like</h3>
-                                <div class="strength-list">${strengthsHtml}</div>
+                            <div class="tradeoff-grid">
+                                <div class="tradeoff-card" style="border-color:var(--orange);">
+                                    <h3>What you'll like</h3>
+                                    <div class="strength-list">${strengthsHtml}</div>
+                                </div>
+                                <div class="tradeoff-card" style="border-color:#b91c1c;">
+                                    <h3>What to consider</h3>
+                                    <div class="tradeoff-list">${tradeoffsHtml}</div>
+                                </div>
                             </div>
-                            <div class="tradeoff-card" style="border-color:#b91c1c;">
-                                <h3>What to consider</h3>
-                                <div class="tradeoff-list">${tradeoffsHtml}</div>
-                            </div>
-                        </div>
 
-                        <div class="button-row">
-                            <button class="btn-secondary" onclick="goBack()">← Back to summary</button>
-                            <button class="btn-primary orange" onclick="goToProductBestSeller('${p.id}')">Where to buy from →</button>
+                            <div class="button-row">
+                                <button class="btn-secondary" onclick="goBack()">← Back to summary</button>
+                                <button class="btn-primary orange" onclick="goToProductBestSeller('${p.id}')">Where to buy from →</button>
+                            </div>
+
+                            ${renderFooter()}
                         </div>
-                    </div>
-                `;
+                    `;
         }
 
         function goToKnowProductDetail(productId) {
@@ -3657,17 +3927,19 @@
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function renderStillConsidering() {
             screen.innerHTML = `
-                    <div class="screen-content">
-                        <button class="back-button" onclick="goBack()">← Back</button>
-                        <div class="brand-mark"></div>
-                        <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Let's make sure it's right for you.</h1>
-                        <p class="microcopy">A product can look good on paper and still be the wrong fit, so let's see how well it matches what you actually need.</p>
+                        <div class="screen-content">
+                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <div class="brand-mark"></div>
+                            <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Let's make sure it's right for you.</h1>
+                            <p class="microcopy">A product can look good on paper and still be the wrong fit, so let's see how well it matches what you actually need.</p>
 
-                        <div class="button-row">
-                            <button class="btn-primary" onclick="window.goTo('consideringUseCase')">Continue →</button>
+                            <div class="button-row">
+                                <button class="btn-primary" onclick="window.goTo('consideringUseCase')">Continue →</button>
+                            </div>
+
+                            ${renderFooter()}
                         </div>
-                    </div>
-                `;
+                    `;
         }
 
         function renderConsideringUseCase() {
@@ -3679,34 +3951,36 @@
             }).join('');
 
             screen.innerHTML = `
-                    <div class="screen-content">
-                        <button class="back-button" onclick="goBack()">← Back</button>
-                        <div class="brand-mark"></div>
-                        <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">What do you need it for?</h1>
-                        <p class="microcopy">Tell us how you'll actually use it and we'll know what to prioritize.</p>
+                        <div class="screen-content">
+                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <div class="brand-mark"></div>
+                            <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">What do you need it for?</h1>
+                            <p class="microcopy">Tell us how you'll actually use it and we'll know what to prioritize.</p>
 
-                        <div class="chip-grid">${chips}</div>
-                        <p class="chip-count">Selected: ${state.useCase.length || 'none'}</p>
+                            <div class="chip-grid">${chips}</div>
+                            <p class="chip-count">Selected: ${state.useCase.length || 'none'}</p>
 
-                        ${showSomethingElse ? `
-                            <div class="controversial-expand">
-                                <label>Tell us what you need it for:</label>
-                                <div class="input-card">
-                                    <div class="input-with-mic">
-                                        <input type="text" id="consideringCustomUseCase" placeholder="Type or speak..." value="${state.customUseCase || ''}">
-                                        <button class="mic-button" id="consideringMicBtn" onclick="startVoiceInput('consideringCustomUseCase', 'consideringMicBtn')">
-                                            <i class="fas fa-microphone-lines"></i>
-                                        </button>
+                            ${showSomethingElse ? `
+                                <div class="controversial-expand">
+                                    <label>Tell us what you need it for:</label>
+                                    <div class="input-card">
+                                        <div class="input-with-mic">
+                                            <input type="text" id="consideringCustomUseCase" placeholder="Type or speak..." value="${state.customUseCase || ''}">
+                                            <button class="mic-button" id="consideringMicBtn" onclick="startVoiceInput('consideringCustomUseCase', 'consideringMicBtn')">
+                                                <i class="fas fa-microphone"></i>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        ` : ''}
+                            ` : ''}
 
-                        <div class="button-row">
-                            <button class="btn-primary" onclick="submitConsideringUseCase()">Continue</button>
+                            <div class="button-row">
+                                <button class="btn-primary" onclick="submitConsideringUseCase()">Continue</button>
+                            </div>
+
+                            ${renderFooter()}
                         </div>
-                    </div>
-                `;
+                    `;
 
             if (showSomethingElse) {
                 var input = document.getElementById('consideringCustomUseCase');
@@ -3744,20 +4018,22 @@
             }).join('');
 
             screen.innerHTML = `
-                    <div class="screen-content">
-                        <button class="back-button" onclick="goBack()">← Back</button>
-                        <div class="brand-mark"></div>
-                        <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">What matters to you?</h1>
-                        <p class="microcopy">Pick the things you want us to weigh most when helping you decide.</p>
+                        <div class="screen-content">
+                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <div class="brand-mark"></div>
+                            <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">What matters to you?</h1>
+                            <p class="microcopy">Pick the things you want us to weigh most when helping you decide.</p>
 
-                        <div class="chip-grid">${chips}</div>
-                        <p class="chip-count">Selected: ${state.selectedPriorities.length || 'none'}</p>
+                            <div class="chip-grid">${chips}</div>
+                            <p class="chip-count">Selected: ${state.selectedPriorities.length || 'none'}</p>
 
-                        <div class="button-row">
-                            <button class="btn-primary" onclick="submitConsideringPriorities()">Continue</button>
+                            <div class="button-row">
+                                <button class="btn-primary" onclick="submitConsideringPriorities()">Continue</button>
+                            </div>
+
+                            ${renderFooter()}
                         </div>
-                    </div>
-                `;
+                    `;
         }
 
         function submitConsideringPriorities() {
@@ -3778,35 +4054,37 @@
             }).join('');
 
             screen.innerHTML = `
-                    <div class="screen-content">
-                        <button class="back-button" onclick="goBack()">← Back</button>
-                        <div class="brand-mark"></div>
-                        <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">What's your budget?</h1>
-                        <p class="microcopy">Tell us what you're comfortable spending, or choose that you don't have a fixed budget and we'll keep the decision focused on fit and value.</p>
+                        <div class="screen-content">
+                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <div class="brand-mark"></div>
+                            <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">What's your budget?</h1>
+                            <p class="microcopy">Tell us what you're comfortable spending, or choose that you don't have a fixed budget and we'll keep the decision focused on fit and value.</p>
 
-                        <div class="chip-grid">${options}</div>
+                            <div class="chip-grid">${options}</div>
 
-                        ${showSpecificRange ? `
-                            <div class="controversial-expand">
-                                <div class="range-grid">
-                                    <div>
-                                        <label>Minimum (₦)</label>
-                                        <input type="number" id="budgetMin" placeholder="0">
+                            ${showSpecificRange ? `
+                                <div class="controversial-expand">
+                                    <div class="range-grid">
+                                        <div>
+                                            <label>Minimum (₦)</label>
+                                            <input type="number" id="budgetMin" placeholder="0">
+                                        </div>
+                                        <div>
+                                            <label>Maximum (₦)</label>
+                                            <input type="number" id="budgetMax" placeholder="0">
+                                        </div>
                                     </div>
-                                    <div>
-                                        <label>Maximum (₦)</label>
-                                        <input type="number" id="budgetMax" placeholder="0">
-                                    </div>
+                                    <div class="hint">Enter your preferred price range in Naira.</div>
                                 </div>
-                                <div class="hint">Enter your preferred price range in Naira.</div>
-                            </div>
-                        ` : ''}
+                            ` : ''}
 
-                        <div class="button-row">
-                            <button class="btn-primary" onclick="submitConsideringBudget()">Continue</button>
+                            <div class="button-row">
+                                <button class="btn-primary" onclick="submitConsideringBudget()">Continue</button>
+                            </div>
+
+                            ${renderFooter()}
                         </div>
-                    </div>
-                `;
+                    `;
 
             if (showSpecificRange) {
                 var minInput = document.getElementById('budgetMin');
@@ -3855,87 +4133,93 @@
             }
 
             screen.innerHTML = `
-                    <div class="screen-content">
-                        <button class="back-button" onclick="goBack()">← Back</button>
-                        <div class="brand-mark"></div>
-                        <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Here's what we understand.</h1>
-                        <p class="microcopy">We'll use this to work out whether the product you're considering is actually the best fit for you.</p>
+                        <div class="screen-content">
+                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <div class="brand-mark"></div>
+                            <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Here's what we understand.</h1>
+                            <p class="microcopy">We'll use this to work out whether the product you're considering is actually the best fit for you.</p>
 
-                        <div class="info-card">
-                            <p style="margin-top:12px;"><strong style="color:var(--navy);">Use case</strong><br>${useCaseText}</p>
-                            <p style="margin-top:12px;"><strong style="color:var(--navy);">Priorities</strong><br>${prioritiesText}</p>
-                            <p style="margin-top:12px;"><strong style="color:var(--navy);">Budget</strong><br>${budgetText}</p>
-                        </div>
+                            <div class="info-card">
+                                <p style="margin-top:12px;"><strong style="color:var(--navy);">Use case</strong><br>${useCaseText}</p>
+                                <p style="margin-top:12px;"><strong style="color:var(--navy);">Priorities</strong><br>${prioritiesText}</p>
+                                <p style="margin-top:12px;"><strong style="color:var(--navy);">Budget</strong><br>${budgetText}</p>
+                            </div>
 
-                        <div class="button-row">
-                            <button class="btn-primary orange" onclick="window.goTo('consideringRecommendation')">Show me what fits →</button>
+                            <div class="button-row">
+                                <button class="btn-primary orange" onclick="window.goTo('consideringRecommendation')">Show me what fits →</button>
+                            </div>
+
+                            ${renderFooter()}
                         </div>
-                    </div>
-                `;
+                    `;
         }
 
         function renderConsideringRecommendation() {
             var p = PRODUCTS.macbook;
 
             screen.innerHTML = `
-                    <div class="screen-content">
-                        <button class="back-button" onclick="goBack()">← Back</button>
-                        <div class="brand-mark"></div>
-                        <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Here's where we'd land.</h1>
-                        <p class="microcopy">We've compared the product you're considering with the alternatives against the things you've told us matter most.</p>
+                        <div class="screen-content">
+                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <div class="brand-mark"></div>
+                            <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Here's where we'd land.</h1>
+                            <p class="microcopy">We've compared the product you're considering with the alternatives against the things you've told us matter most.</p>
 
-                        <div class="product-grid" style="max-width:480px;margin-left:auto;margin-right:auto;display:flex;justify-content:center;">
-                            <div class="product-card featured" style="width:100%;max-width:400px;">
-                                <div class="product-image"><img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='${p.emoji}'"></div>
-                                <div class="product-badge">Our top pick</div>
-                                <div class="product-info">
-                                    <h3>${p.name}</h3>
-                                    <div class="price">${p.price}</div>
-                                    <div class="rating">★ ${p.rating} <span>(${p.reviews} reviews)</span></div>
-                                    <p style="margin-top:12px;font-size:14px;color:var(--orange);font-weight:600;">★ It looks like a good fit.</p>
-                                    <p style="font-size:13px;color:var(--muted);">It comes closest to giving you what you need without asking you to compromise on the things you've told us matter most.</p>
+                            <div class="product-grid" style="max-width:480px;margin-left:auto;margin-right:auto;display:flex;justify-content:center;">
+                                <div class="product-card featured" style="width:100%;max-width:400px;">
+                                    <div class="product-image"><img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='${p.emoji}'"></div>
+                                    <div class="product-badge">Our top pick</div>
+                                    <div class="product-info">
+                                        <h3>${p.name}</h3>
+                                        <div class="price">${p.price}</div>
+                                        <div class="rating">★ ${p.rating} <span>(${p.reviews} reviews)</span></div>
+                                        <p style="margin-top:12px;font-size:14px;color:var(--orange);font-weight:600;">★ It looks like a good fit.</p>
+                                        <p style="font-size:13px;color:var(--muted);">It comes closest to giving you what you need without asking you to compromise on the things you've told us matter most.</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="button-row">
-                            <button class="btn-primary orange" onclick="window.goTo('consideringTradeoffs')">See trade-offs →</button>
+                            <div class="button-row">
+                                <button class="btn-primary orange" onclick="window.goTo('consideringTradeoffs')">See trade-offs →</button>
+                            </div>
+
+                            ${renderFooter()}
                         </div>
-                    </div>
-                `;
+                    `;
         }
 
         function renderConsideringTradeoffs() {
             var p = PRODUCTS.macbook;
 
             screen.innerHTML = `
-                    <div class="screen-content">
-                        <button class="back-button" onclick="goBack()">← Back</button>
-                        <div class="brand-mark"></div>
-                        <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Before you decide</h1>
-                        <p class="microcopy">Every option gives you something and asks you to give something up, so here's what we'd want you to know before choosing this one.</p>
+                        <div class="screen-content">
+                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <div class="brand-mark"></div>
+                            <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Before you decide</h1>
+                            <p class="microcopy">Every option gives you something and asks you to give something up, so here's what we'd want you to know before choosing this one.</p>
 
-                        <div class="tradeoff-grid">
-                            <div class="tradeoff-card" style="border-color:var(--orange);">
-                                <h3>What you'll like</h3>
-                                <div class="strength-list">
-                                    ${p.strengths.map(function(s) { return '<div><span class="check">✓</span> ' + s + '</div>'; }).join('')}
+                            <div class="tradeoff-grid">
+                                <div class="tradeoff-card" style="border-color:var(--orange);">
+                                    <h3>What you'll like</h3>
+                                    <div class="strength-list">
+                                        ${p.strengths.map(function(s) { return '<div><span class="check">✓</span> ' + s + '</div>'; }).join('')}
+                                    </div>
+                                </div>
+                                <div class="tradeoff-card" style="border-color:#b91c1c;">
+                                    <h3>What to consider</h3>
+                                    <div class="tradeoff-list">
+                                        ${p.tradeoffs.map(function(t) { return '<div><span class="cross">✗</span> ' + t + '</div>'; }).join('')}
+                                    </div>
                                 </div>
                             </div>
-                            <div class="tradeoff-card" style="border-color:#b91c1c;">
-                                <h3>What to consider</h3>
-                                <div class="tradeoff-list">
-                                    ${p.tradeoffs.map(function(t) { return '<div><span class="cross">✗</span> ' + t + '</div>'; }).join('')}
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="button-row">
-                            <button class="btn-secondary" onclick="window.goTo('consideringAlternatives')">See alternatives</button>
-                            <button class="btn-primary orange" onclick="startPurchaseFlow()">Make a purchase</button>
+                            <div class="button-row">
+                                <button class="btn-secondary" onclick="window.goTo('consideringAlternatives')">See alternatives</button>
+                                <button class="btn-primary orange" onclick="startPurchaseFlow()">Make a purchase</button>
+                            </div>
+
+                            ${renderFooter()}
                         </div>
-                    </div>
-                `;
+                    `;
         }
 
         function renderConsideringAlternatives() {
@@ -3950,36 +4234,38 @@
                 var ctaAction = isFeatured ? `goToProductBestSeller('${p.id}')` : `goToConsideringProductDetail('${p.id}')`;
 
                 return `
-                        <div class="product-card ${isFeatured ? 'featured' : ''}">
-                            <div class="product-image">
-                                <img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='${p.emoji}'">
+                            <div class="product-card ${isFeatured ? 'featured' : ''}">
+                                <div class="product-image">
+                                    <img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='${p.emoji}'">
+                                </div>
+                                <div class="product-badge ${badgeClass}">${badgeText}</div>
+                                <div class="product-info">
+                                    <h3>${p.name}</h3>
+                                    <div class="price">${p.price}</div>
+                                    <div class="rating">★ ${p.rating} <span>(${p.reviews} reviews)</span></div>
+                                    <p style="font-size:13px;color:var(--muted);margin-top:8px;"><strong>Why consider it</strong><br>${p.id === 'macbook' ? 'The strongest all-rounder for most users.' : p.id === 'lenovo' ? 'A strong choice if you want a lightweight Windows laptop with a business-focused design and extensive connectivity.' : 'A flexible choice if you value a 2-in-1 design, touch capability and a more versatile way to use your laptop.'}</p>
+                                    <button class="btn-primary" style="width:100%;margin-top:12px;justify-content:center;" onclick="${ctaAction}">${ctaText}</button>
+                                </div>
                             </div>
-                            <div class="product-badge ${badgeClass}">${badgeText}</div>
-                            <div class="product-info">
-                                <h3>${p.name}</h3>
-                                <div class="price">${p.price}</div>
-                                <div class="rating">★ ${p.rating} <span>(${p.reviews} reviews)</span></div>
-                                <p style="font-size:13px;color:var(--muted);margin-top:8px;"><strong>Why consider it</strong><br>${p.id === 'macbook' ? 'The strongest all-rounder for most users.' : p.id === 'lenovo' ? 'A strong choice if you want a lightweight Windows laptop with a business-focused design and extensive connectivity.' : 'A flexible choice if you value a 2-in-1 design, touch capability and a more versatile way to use your laptop.'}</p>
-                                <button class="btn-primary" style="width:100%;margin-top:12px;justify-content:center;" onclick="${ctaAction}">${ctaText}</button>
-                            </div>
-                        </div>
-                    `;
+                        `;
             }).join('');
 
             screen.innerHTML = `
-                    <div class="screen-content">
-                        <button class="back-button" onclick="goBack()">← Back</button>
-                        <div class="brand-mark"></div>
-                        <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">What else could work?</h1>
-                        <p class="microcopy">These are the alternatives we'd keep on the table if you want to trade one priority for another.</p>
+                        <div class="screen-content">
+                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <div class="brand-mark"></div>
+                            <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">What else could work?</h1>
+                            <p class="microcopy">These are the alternatives we'd keep on the table if you want to trade one priority for another.</p>
 
-                        <div class="product-grid">${cards}</div>
+                            <div class="product-grid">${cards}</div>
 
-                        <div class="button-row">
-                            <button class="btn-secondary" onclick="window.goTo('consideringTradeoffs')">← Back to trade-offs</button>
+                            <div class="button-row">
+                                <button class="btn-secondary" onclick="window.goTo('consideringTradeoffs')">← Back to trade-offs</button>
+                            </div>
+
+                            ${renderFooter()}
                         </div>
-                    </div>
-                `;
+                    `;
         }
 
         function renderConsideringProductDetail() {
@@ -3996,41 +4282,43 @@
             }).join('');
 
             screen.innerHTML = `
-                    <div class="screen-content">
-                        <button class="back-button" onclick="goBack()">← Back</button>
-                        <div class="brand-mark"></div>
-                        <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">${p.name}</h1>
-                        <p class="microcopy">Here's a closer look at what this option offers and what you'd be giving up.</p>
+                        <div class="screen-content">
+                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <div class="brand-mark"></div>
+                            <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">${p.name}</h1>
+                            <p class="microcopy">Here's a closer look at what this option offers and what you'd be giving up.</p>
 
-                        <div class="detail-product-card">
-                            <div class="product-image">
-                                <img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='${p.emoji}'">
+                            <div class="detail-product-card">
+                                <div class="product-image">
+                                    <img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='${p.emoji}'">
+                                </div>
+                                <div class="detail-body">
+                                    <h3>${p.name}</h3>
+                                    <div class="price">${p.price}</div>
+                                    <div class="specs">${p.specs}</div>
+                                    <div class="rating">★ ${p.rating} <span>(${p.reviews} reviews)</span></div>
+                                </div>
                             </div>
-                            <div class="detail-body">
-                                <h3>${p.name}</h3>
-                                <div class="price">${p.price}</div>
-                                <div class="specs">${p.specs}</div>
-                                <div class="rating">★ ${p.rating} <span>(${p.reviews} reviews)</span></div>
-                            </div>
-                        </div>
 
-                        <div class="tradeoff-grid">
-                            <div class="tradeoff-card" style="border-color:var(--orange);">
-                                <h3>What you'll like</h3>
-                                <div class="strength-list">${strengthsHtml}</div>
+                            <div class="tradeoff-grid">
+                                <div class="tradeoff-card" style="border-color:var(--orange);">
+                                    <h3>What you'll like</h3>
+                                    <div class="strength-list">${strengthsHtml}</div>
+                                </div>
+                                <div class="tradeoff-card" style="border-color:#b91c1c;">
+                                    <h3>What to consider</h3>
+                                    <div class="tradeoff-list">${tradeoffsHtml}</div>
+                                </div>
                             </div>
-                            <div class="tradeoff-card" style="border-color:#b91c1c;">
-                                <h3>What to consider</h3>
-                                <div class="tradeoff-list">${tradeoffsHtml}</div>
-                            </div>
-                        </div>
 
-                        <div class="button-row">
-                            <button class="btn-secondary" onclick="goBack()">← Back to summary</button>
-                            <button class="btn-primary orange" onclick="goToProductBestSeller('${p.id}')">Where to buy from →</button>
+                            <div class="button-row">
+                                <button class="btn-secondary" onclick="goBack()">← Back to summary</button>
+                                <button class="btn-primary orange" onclick="goToProductBestSeller('${p.id}')">Where to buy from →</button>
+                            </div>
+
+                            ${renderFooter()}
                         </div>
-                    </div>
-                `;
+                    `;
         }
 
         function goToConsideringProductDetail(productId) {
@@ -4043,24 +4331,24 @@
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function renderAbout() {
             screen.innerHTML = `
-                    <div class="screen-content">
-                        <button class="back-button" onclick="goBack()">← Back</button>
-                        <div class="brand-mark"></div>
-                        <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">About eBuya</h1>
+                        <div class="screen-content">
+                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <div class="brand-mark"></div>
+                            <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">About eBuya</h1>
 
-                        <div class="about-text">
-                            <p class="highlight">eBuya is the intelligence layer for spending.</p>
+                            <div class="about-text">
+                                <p class="highlight">eBuya is the intelligence layer for spending.</p>
 
-                            <p class="body-text">It helps people make better spending decisions before they pay by understanding what they are trying to accomplish, evaluating the available options, weighing the trade-offs, and identifying what best fits their needs, priorities, and circumstances.</p>
+                                <p class="body-text">It helps people make better spending decisions before they pay by understanding what they are trying to accomplish, evaluating the available options, weighing the trade-offs, and identifying what best fits their needs, priorities, and circumstances.</p>
 
-                            <p class="body-text">Whether someone is buying a product, choosing a service, subscribing to software, booking travel, or making another meaningful online payment, eBuya provides the intelligence needed to move from uncertainty to a confident decision.</p>
+                                <p class="body-text">Whether someone is buying a product, choosing a service, subscribing to software, booking travel, or making another meaningful online payment, eBuya provides the intelligence needed to move from uncertainty to a confident decision.</p>
 
-                            <p class="closing">eBuya does not exist simply to help people find things to buy, but to help them spend smarter.</p>
+                                <p class="closing">eBuya does not exist simply to help people find things to buy, but to help them spend smarter.</p>
+                            </div>
 
-                            <p class="tagline">Spend with certainty.</p>
+                            ${renderFooter()}
                         </div>
-                    </div>
-                `;
+                    `;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
