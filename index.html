@@ -368,6 +368,10 @@
             background: var(--navy-soft);
         }
 
+        .back-button i {
+            font-size: 14px;
+        }
+
         .btn-primary {
             min-height: 50px;
             padding: 0 25px;
@@ -383,6 +387,7 @@
             align-items: center;
             justify-content: center;
             font-size: 16px;
+            gap: 8px;
         }
 
         .btn-primary:hover {
@@ -399,6 +404,10 @@
             background: #e0550f;
         }
 
+        .btn-primary i {
+            font-size: 14px;
+        }
+
         .btn-secondary {
             min-height: 50px;
             padding: 0 25px;
@@ -413,10 +422,16 @@
             align-items: center;
             justify-content: center;
             font-size: 16px;
+            gap: 8px;
         }
 
         .btn-secondary:hover {
             transform: translateY(-2px);
+        }
+
+        .btn-secondary i {
+            font-size: 14px;
+            color: var(--orange);
         }
 
         .button-row {
@@ -444,18 +459,15 @@
         }
 
         .input-card.dashed {
-            padding: 30px;
+            padding: 30px 20px;
             text-align: center;
             border-style: dashed;
         }
 
-        .input-card .icon-large {
-            font-size: 48px;
-            margin-bottom: 12px;
-        }
-
         .input-card .label {
-            color: var(--muted);
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text);
             margin-bottom: 12px;
         }
 
@@ -546,6 +558,37 @@
         }
 
         /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           LOCATION INPUT (no mic, rounded)
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .input-location {
+            width: min(720px, 100%);
+            margin: 32px auto 0;
+            padding: 6px;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            background: var(--white);
+            box-shadow: 0 14px 40px rgba(18, 52, 86, 0.07);
+        }
+
+        .input-location input[type="text"] {
+            width: 100%;
+            min-height: 52px;
+            padding: 10px 16px;
+            border: 0;
+            outline: 0;
+            background: transparent;
+            font-family: inherit;
+            font-size: 16px;
+            color: var(--text);
+            line-height: 1.5;
+            border-radius: 12px;
+        }
+
+        .input-location input[type="text"]::placeholder {
+            color: #9AA3AB;
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
            URL INPUT (no mic)
         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
         .input-url {
@@ -574,6 +617,59 @@
 
         .input-url input[type="url"]::placeholder {
             color: #9AA3AB;
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           SCAN FRAME — Centered square
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .scan-frame {
+            width: 200px;
+            height: 200px;
+            margin: 12px auto;
+            border: 2px dashed rgba(18, 52, 86, 0.12);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .scan-frame .square-icon {
+            width: 64px;
+            height: 64px;
+            border: 3px solid var(--muted);
+            border-radius: 4px;
+            opacity: 0.5;
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           FILE INPUT (no duplicate text)
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .file-input-wrapper input[type="file"] {
+            display: block;
+            margin: 0 auto;
+            padding: 8px;
+            font-size: 14px;
+            color: var(--muted);
+            max-width: 100%;
+            border: 1px solid rgba(18, 52, 86, 0.08);
+            border-radius: 12px;
+            background: rgba(18, 52, 86, 0.02);
+            width: 100%;
+        }
+
+        .file-input-wrapper input[type="file"]::file-selector-button {
+            padding: 6px 16px;
+            border: none;
+            border-radius: 8px;
+            background: var(--navy);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            margin-right: 12px;
+        }
+
+        .file-input-wrapper input[type="file"]::file-selector-button:hover {
+            background: #0a2a44;
         }
 
         .upload-preview {
@@ -721,7 +817,9 @@
             font-weight: 600;
             padding: 4px 12px;
             border-radius: 40px;
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
             margin-top: 8px;
         }
 
@@ -733,6 +831,10 @@
         .category-badge.coming {
             background: var(--navy-soft);
             color: var(--muted);
+        }
+
+        .category-badge i {
+            font-size: 12px;
         }
 
         .category-message {
@@ -791,18 +893,25 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 48px;
-            color: #aaa;
+            position: relative;
         }
 
         .product-image img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
+            display: block;
+        }
+
+        .product-image .fallback-icon {
+            font-size: 48px;
+            color: #aaa;
         }
 
         .product-badge {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
             margin: 12px 20px 4px;
             padding: 3px 12px;
             border-radius: 999px;
@@ -812,6 +921,10 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+        }
+
+        .product-badge i {
+            font-size: 11px;
         }
 
         .product-badge.gold {
@@ -1017,6 +1130,15 @@
             font-size: 13px;
             color: var(--muted);
             margin: 2px 0;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .seller-card .seller-detail i {
+            font-size: 13px;
+            color: var(--navy);
+            width: 16px;
         }
 
         .seller-card .seller-detail strong {
@@ -1057,8 +1179,7 @@
             margin: 2px 0;
         }
 
-        .trust-badge .check {
-            color: #008000;
+        .trust-badge i {
             font-size: 12px;
         }
 
@@ -1067,7 +1188,7 @@
             color: #008000;
         }
 
-        .trust-badge.verified .check {
+        .trust-badge.verified i {
             color: #008000;
         }
 
@@ -1076,7 +1197,7 @@
             color: var(--navy);
         }
 
-        .trust-badge.secure .check {
+        .trust-badge.secure i {
             color: var(--navy);
         }
 
@@ -1085,7 +1206,7 @@
             color: var(--orange);
         }
 
-        .trust-badge.guarantee .check {
+        .trust-badge.guarantee i {
             color: var(--orange);
         }
 
@@ -1134,6 +1255,13 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .final-card .pick-label i {
+            font-size: 14px;
         }
 
         .final-card .pick-name {
@@ -1159,6 +1287,15 @@
 
         .final-card .detail-item {
             font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .final-card .detail-item i {
+            font-size: 14px;
+            color: var(--navy);
+            width: 18px;
         }
 
         .final-card .detail-item strong {
@@ -1268,7 +1405,8 @@
         .detail-product-card .product-image img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
+            display: block;
         }
 
         .detail-product-card .detail-body {
@@ -1339,6 +1477,16 @@
             font-weight: 600;
         }
 
+        .fee-free {
+            color: #008000;
+            font-weight: 600;
+        }
+
+        .fee-paid {
+            color: var(--orange);
+            font-weight: 600;
+        }
+
         .controversial-expand {
             margin-top: 16px;
             padding: 20px;
@@ -1374,6 +1522,28 @@
             min-height: 48px;
             padding: 10px 4px 10px 0;
             font-size: 16px;
+        }
+
+        .controversial-expand .range-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .controversial-expand .range-grid input[type="number"] {
+            width: 100%;
+            min-height: 48px;
+            padding: 0 16px;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            background: var(--white);
+            font-size: 16px;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        .controversial-expand .range-grid input[type="number"]:focus {
+            border-color: var(--orange);
         }
 
         .controversial-expand .hint {
@@ -1474,6 +1644,35 @@
 
         .text-left {
             text-align: left;
+        }
+
+        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           SELLER DETAILS (grid)
+        ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        .seller-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4px 16px;
+            font-size: 14px;
+            color: var(--muted);
+            margin: 12px 0;
+        }
+
+        .seller-details .detail {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .seller-details .detail i {
+            font-size: 14px;
+            color: var(--navy);
+            width: 16px;
+            flex-shrink: 0;
+        }
+
+        .seller-details .detail strong {
+            color: var(--navy);
         }
 
         /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -1601,6 +1800,7 @@
                 margin-top: -1px;
             }
 
+            .input-location input[type="text"],
             .input-url input[type="url"] {
                 min-height: 44px;
                 font-size: 15px;
@@ -1615,6 +1815,10 @@
 
             .controversial-expand {
                 padding: 14px;
+            }
+
+            .controversial-expand .range-grid {
+                grid-template-columns: 1fr;
             }
 
             .trust-section {
@@ -1635,6 +1839,21 @@
 
             .universal-footer p {
                 font-size: 12px;
+            }
+
+            .scan-frame {
+                width: 160px;
+                height: 160px;
+            }
+
+            .scan-frame .square-icon {
+                width: 48px;
+                height: 48px;
+            }
+
+            .seller-details {
+                grid-template-columns: 1fr;
+                gap: 2px;
             }
         }
 
@@ -1684,6 +1903,7 @@
                 margin-top: 0;
             }
 
+            .input-location input[type="text"],
             .input-url input[type="url"] {
                 min-height: 38px;
                 font-size: 14px;
@@ -1713,6 +1933,16 @@
 
             .universal-footer p {
                 font-size: 11px;
+            }
+
+            .scan-frame {
+                width: 140px;
+                height: 140px;
+            }
+
+            .scan-frame .square-icon {
+                width: 40px;
+                height: 40px;
             }
         }
     </style>
@@ -1839,7 +2069,7 @@
                 strengths: ['Strong performance', 'Long battery life', 'High-quality display', 'Portable 14-inch design'],
                 tradeoffs: ['Higher cost than some Windows alternatives', 'macOS may require adjustment if you\'re coming from Windows'],
                 bestSeller: 'TechWorld Ng',
-                emoji: '💻'
+                icon: 'fa-laptop'
             },
             lenovo: {
                 id: 'lenovo',
@@ -1852,7 +2082,7 @@
                 strengths: ['Lightweight Windows laptop', 'Business-focused design', 'Extensive connectivity', 'Durable build'],
                 tradeoffs: ['Slightly less performance than MacBook', 'Battery life not as long'],
                 bestSeller: 'GadgetHub',
-                emoji: '💻'
+                icon: 'fa-laptop'
             },
             hp: {
                 id: 'hp',
@@ -1865,7 +2095,7 @@
                 strengths: ['Flexible 2-in-1 design', 'Touch capability', 'Versatile way to use your laptop', 'Good build quality'],
                 tradeoffs: ['Price', 'Battery life not as good as MacBook', 'Heavier than some alternatives'],
                 bestSeller: 'MegaStore NG',
-                emoji: '💻'
+                icon: 'fa-laptop'
             }
         };
 
@@ -2042,13 +2272,17 @@
             }
         }
 
-        function getDeliveryDisplay(seller) {
+        function getFeeDisplay(seller) {
             var fee = getDeliveryFee(seller);
             if (fee === 'Free') {
-                return '<span class="delivery-free">Free delivery</span>';
+                return '<span class="fee-free">Free</span>';
             } else {
-                return '<span class="delivery-fee">' + fee + ' delivery</span>';
+                return '<span class="fee-paid">' + fee + '</span>';
             }
+        }
+
+        function getProductImageFallback(product) {
+            return `<i class="fas ${product.icon} fallback-icon"></i>`;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -2272,8 +2506,9 @@
                 var active = state.selectedCategory === c.id ? 'active' : '';
                 var clickable = c.active ? `onclick="selectCategory('${c.id}')"` : '';
                 var opacity = c.active ? '' : 'opacity:0.6;cursor:not-allowed;';
-                var badge = c.active ? '<span class="category-badge active">Active</span>' :
-                    '<span class="category-badge coming">Coming soon</span>';
+                var badge = c.active ?
+                    '<span class="category-badge active"><i class="fas fa-check-circle"></i> Active</span>' :
+                    '<span class="category-badge coming"><i class="fas fa-clock"></i> Coming soon</span>';
 
                 return `
                             <div class="category-card ${active}" ${clickable} style="${opacity}">
@@ -2291,7 +2526,7 @@
                         <div class="screen-content">
                             <div class="brand-mark"></div>
                             <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">What are you trying to spend on?</h1>
-                            <p class="microcopy">Select what best describes what you are looking for, and we will guide you from there.</p>
+                            <p class="microcopy">Pick a category and we'll help you decide with confidence.</p>
 
                             <div class="category-grid">${cards}</div>
 
@@ -2348,22 +2583,22 @@
 
                             <div class="entry-grid">
                                 <button class="entry-card" type="button" onclick="state.entryMethod='question'; window.goTo('ask')">
-                                    <div class="entry-icon">?</div>
+                                    <div class="entry-icon"><i class="fas fa-question"></i></div>
                                     <h2>Ask a Question</h2>
                                     <p>Tell us what you're looking for and we'll help you work out what matters.</p>
                                 </button>
                                 <button class="entry-card" type="button" onclick="state.entryMethod='image'; window.goTo('uploadImage')">
-                                    <div class="entry-icon">↑</div>
+                                    <div class="entry-icon"><i class="fas fa-image"></i></div>
                                     <h2>Upload an Image</h2>
                                     <p>Show us the product you're considering.</p>
                                 </button>
                                 <button class="entry-card" type="button" onclick="state.entryMethod='url'; window.goTo('pasteUrl')">
-                                    <div class="entry-icon">↗</div>
+                                    <div class="entry-icon"><i class="fas fa-link"></i></div>
                                     <h2>Paste a URL</h2>
                                     <p>Share a product link and we'll take a closer look.</p>
                                 </button>
                                 <button class="entry-card" type="button" onclick="state.entryMethod='code'; window.goTo('scanCode')">
-                                    <div class="entry-icon">⌁</div>
+                                    <div class="entry-icon"><i class="fas fa-qrcode"></i></div>
                                     <h2>Scan a Code</h2>
                                     <p>Scan a product code and we'll identify what you're looking at.</p>
                                 </button>
@@ -2380,7 +2615,7 @@
         function renderAsk() {
             screen.innerHTML = `
                         <div class="screen-content">
-                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back</button>
                             <div class="brand-mark"></div>
                             <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">What are you considering?</h1>
                             <p class="microcopy">Tell us what you're looking for in your own words and we'll take it from there.</p>
@@ -2440,7 +2675,7 @@
 
             screen.innerHTML = `
                         <div class="screen-content">
-                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back</button>
                             <div class="brand-mark"></div>
                             <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Let's narrow it down.</h1>
                             <p class="microcopy">A little more context will help us focus on the options that actually make sense for you.</p>
@@ -2524,7 +2759,7 @@
 
             screen.innerHTML = `
                         <div class="screen-content">
-                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back</button>
                             <div class="brand-mark"></div>
                             <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">What matters to you?</h1>
                             <p class="microcopy">Pick the things you want us to weigh most when helping you decide.</p>
@@ -2573,7 +2808,7 @@
 
             screen.innerHTML = `
                         <div class="screen-content">
-                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back</button>
                             <div class="brand-mark"></div>
                             <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">What's your budget?</h1>
                             <p class="microcopy">Tell us what you're comfortable spending, or choose that you don't have a fixed budget and we'll keep the decision focused on fit and value.</p>
@@ -2666,7 +2901,7 @@
 
             screen.innerHTML = `
                         <div class="screen-content">
-                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back</button>
                             <div class="brand-mark"></div>
                             <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Here's what we understand.</h1>
                             <p class="microcopy">We've pulled together what you've told us so far so you can make sure we're looking at the decision the same way you are.</p>
@@ -2698,7 +2933,7 @@
 
             screen.innerHTML = `
                         <div class="screen-content">
-                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back</button>
                             <div class="brand-mark"></div>
                             <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Here's what we'd recommend.</h1>
                             <p class="microcopy">We looked at what you need, what matters to you and what you're comfortable spending before narrowing this down.</p>
@@ -2706,9 +2941,9 @@
                             <div class="product-grid" style="max-width:480px;margin-left:auto;margin-right:auto;display:flex;justify-content:center;">
                                 <div class="product-card featured" style="width:100%;max-width:400px;">
                                     <div class="product-image">
-                                        <img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='${p.emoji}'">
+                                        <img src="${p.image}" alt="${p.name}" onerror="this.style.display='none';this.parentElement.innerHTML='${getProductImageFallback(p)}'">
                                     </div>
-                                    <div class="product-badge">Our top pick</div>
+                                    <div class="product-badge"><i class="fas fa-trophy"></i> Our top pick</div>
                                     <div class="product-info">
                                         <h3>${p.name}</h3>
                                         <div class="price">${p.price}</div>
@@ -2722,7 +2957,7 @@
                             </div>
 
                             <div class="button-row">
-                                <button class="btn-primary orange" onclick="window.goTo('tradeoffs')">See trade-offs →</button>
+                                <button class="btn-primary orange" onclick="window.goTo('tradeoffs')">See trade-offs <i class="fas fa-arrow-right"></i></button>
                             </div>
 
                             ${renderFooter()}
@@ -2738,7 +2973,7 @@
 
             screen.innerHTML = `
                         <div class="screen-content">
-                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back</button>
                             <div class="brand-mark"></div>
                             <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Before you decide</h1>
                             <p class="microcopy">Every option gives you something and asks you to give something up, so here's what we'd want you to know before choosing this one.</p>
@@ -2789,6 +3024,7 @@
             var cards = allProducts.map(function(p) {
                 var isFeatured = p.id === 'macbook';
                 var badgeClass = isFeatured ? '' : (p.id === 'lenovo' ? 'gold' : 'navy');
+                var badgeIcon = isFeatured ? '<i class="fas fa-trophy"></i>' : (p.id === 'lenovo' ? '<i class="fas fa-star"></i>' : '<i class="fas fa-arrows-spin"></i>');
                 var badgeText = isFeatured ? 'Our top pick' : (p.id === 'lenovo' ? 'Best value' : 'Versatile');
 
                 var ctaText = isFeatured ? 'Where to buy from' : 'See more details';
@@ -2797,9 +3033,9 @@
                 return `
                             <div class="product-card ${isFeatured ? 'featured' : ''}">
                                 <div class="product-image">
-                                    <img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='${p.emoji}'">
+                                    <img src="${p.image}" alt="${p.name}" onerror="this.style.display='none';this.parentElement.innerHTML='${getProductImageFallback(p)}'">
                                 </div>
-                                <div class="product-badge ${badgeClass}">${badgeText}</div>
+                                <div class="product-badge ${badgeClass}">${badgeIcon} ${badgeText}</div>
                                 <div class="product-info">
                                     <h3>${p.name}</h3>
                                     <div class="price">${p.price}</div>
@@ -2813,7 +3049,7 @@
 
             screen.innerHTML = `
                         <div class="screen-content">
-                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back</button>
                             <div class="brand-mark"></div>
                             <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Other options worth considering</h1>
                             <p class="microcopy">These may suit you better if your priorities lean in a different direction.</p>
@@ -2821,7 +3057,7 @@
                             <div class="product-grid">${cards}</div>
 
                             <div class="button-row">
-                                <button class="btn-secondary" onclick="window.goTo('tradeoffs')">← Back to trade-offs</button>
+                                <button class="btn-secondary" onclick="window.goTo('tradeoffs')"><i class="fas fa-arrow-left"></i> Back to trade-offs</button>
                             </div>
 
                             ${renderFooter()}
@@ -2847,14 +3083,14 @@
 
             screen.innerHTML = `
                         <div class="screen-content">
-                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back</button>
                             <div class="brand-mark"></div>
                             <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">${p.name}</h1>
                             <p class="microcopy">Here's a closer look at what this option offers and what you'd be giving up.</p>
 
                             <div class="detail-product-card">
                                 <div class="product-image">
-                                    <img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='${p.emoji}'">
+                                    <img src="${p.image}" alt="${p.name}" onerror="this.style.display='none';this.parentElement.innerHTML='${getProductImageFallback(p)}'">
                                 </div>
                                 <div class="detail-body">
                                     <h3>${p.name}</h3>
@@ -2876,8 +3112,8 @@
                             </div>
 
                             <div class="button-row">
-                                <button class="btn-secondary" onclick="goBack()">← Back to summary</button>
-                                <button class="btn-primary orange" onclick="goToProductBestSeller('${p.id}')">Where to buy from →</button>
+                                <button class="btn-secondary" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back to summary</button>
+                                <button class="btn-primary orange" onclick="goToProductBestSeller('${p.id}')">Where to buy from <i class="fas fa-arrow-right"></i></button>
                             </div>
 
                             ${renderFooter()}
@@ -2910,13 +3146,13 @@
         function renderGettingIt() {
             screen.innerHTML = `
                         <div class="screen-content">
-                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back</button>
                             <div class="brand-mark"></div>
                             <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Ready to get it?</h1>
                             <p class="microcopy">Now that we've narrowed down what fits, let's find the best place to get it.</p>
 
                             <div class="button-row">
-                                <button class="btn-primary orange" onclick="startPurchaseFlow()">Find where to buy →</button>
+                                <button class="btn-primary orange" onclick="startPurchaseFlow()">Find where to buy <i class="fas fa-arrow-right"></i></button>
                             </div>
 
                             ${renderFooter()}
@@ -2930,22 +3166,22 @@
         function renderLocation() {
             screen.innerHTML = `
                         <div class="screen-content">
-                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back</button>
                             <div class="brand-mark"></div>
                             <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Where should we look?</h1>
                             <p class="microcopy">Your location helps us find sellers that can actually serve you and compare the options available nearby.</p>
 
                             <div class="button-row">
-                                <button class="btn-primary" onclick="setLocationAndContinue('Lagos')">📍 Use my location</button>
+                                <button class="btn-primary" onclick="setLocationAndContinue('Lagos')"><i class="fas fa-location-dot"></i> Use my location</button>
                             </div>
                             <div class="button-row" style="margin-top:12px;">
-                                <button class="btn-secondary" onclick="skipLocation()">⏭️ Skip for now</button>
+                                <button class="btn-secondary" onclick="skipLocation()">Skip for now</button>
                             </div>
 
-                            <div class="location-hint">💡 Your location helps us recommend the best sellers for you, with faster delivery, better prices, and what's actually available near you.</div>
+                            <div class="location-hint"><i class="fas fa-lightbulb" style="color:var(--orange);margin-right:6px;"></i> Your location helps us recommend the best sellers for you, with faster delivery, better prices, and what's actually available near you.</div>
 
                             <div class="button-row" style="margin-top:16px;">
-                                <button class="btn-secondary" style="background:transparent;border:none;color:var(--muted);font-size:14px;" onclick="window.goTo('locationManual')">Enter location manually →</button>
+                                <button class="btn-secondary" onclick="window.goTo('locationManual')"><i class="fas fa-pen"></i> Enter location manually</button>
                             </div>
 
                             ${renderFooter()}
@@ -2966,17 +3202,17 @@
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        //  13. LOCATION MANUAL ENTRY
+        //  13. LOCATION MANUAL ENTRY (Redesigned)
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function renderLocationManual() {
             screen.innerHTML = `
                         <div class="screen-content">
-                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back</button>
                             <div class="brand-mark"></div>
                             <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Where are you?</h1>
                             <p class="microcopy">Enter your city or area and we'll use it to narrow down the sellers available to you.</p>
 
-                            <div class="input-card">
+                            <div class="input-location">
                                 <input type="text" id="manualLocation" placeholder="City, area or postcode">
                             </div>
 
@@ -3018,7 +3254,7 @@
 
             screen.innerHTML = `
                         <div class="screen-content">
-                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back</button>
                             <div class="brand-mark"></div>
                             <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Finding the best place to get it.</h1>
                             <p class="microcopy">We're checking sellers in your area and comparing them against what matters most to you.</p>
@@ -3026,7 +3262,7 @@
                             <div class="loading-states">${stateHtml}</div>
 
                             <div class="button-row" style="margin-top:32px;">
-                                <button class="btn-primary" onclick="finishLocationProcessing()">Show me →</button>
+                                <button class="btn-primary" onclick="finishLocationProcessing()">Show me <i class="fas fa-arrow-right"></i></button>
                             </div>
 
                             ${renderFooter()}
@@ -3078,7 +3314,7 @@
 
             screen.innerHTML = `
                         <div class="screen-content">
-                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back</button>
                             <div class="brand-mark"></div>
                             <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Finding the best place to get it.</h1>
                             <p class="microcopy">We're comparing the sellers available in your area against the things you've told us matter most.</p>
@@ -3086,7 +3322,7 @@
                             <div class="loading-states">${stateHtml}</div>
 
                             <div class="button-row" style="margin-top:32px;">
-                                <button class="btn-primary" onclick="window.goTo('recommendedSeller')">Show me →</button>
+                                <button class="btn-primary" onclick="window.goTo('recommendedSeller')">Show me <i class="fas fa-arrow-right"></i></button>
                             </div>
 
                             ${renderFooter()}
@@ -3138,23 +3374,23 @@
                 }
             }
 
-            var deliveryFeeDisplay = getDeliveryDisplay(seller);
+            var feeDisplay = getFeeDisplay(seller);
 
             var trustBadges = `
-                        <span class="trust-badge verified"><i class="fas fa-check-circle check"></i> Verified seller</span>
-                        <span class="trust-badge guarantee"><i class="fas fa-check-circle check"></i> Authenticity guaranteed</span>
-                        <span class="trust-badge secure"><i class="fas fa-check-circle check"></i> Secure checkout</span>
+                        <span class="trust-badge verified"><i class="fas fa-check-circle"></i> Verified seller</span>
+                        <span class="trust-badge guarantee"><i class="fas fa-check-circle"></i> Authenticity guaranteed</span>
+                        <span class="trust-badge secure"><i class="fas fa-check-circle"></i> Secure checkout</span>
                     `;
 
             screen.innerHTML = `
                         <div class="screen-content">
-                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back</button>
                             <div class="brand-mark"></div>
                             <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Our pick for you</h1>
                             <p class="microcopy">Based on your priorities and what's available, this seller gives you the strongest overall fit.</p>
 
                             <div class="final-card" style="border-color:var(--navy);">
-                                <div class="pick-label">🏆 Our pick</div>
+                                <div class="pick-label"><i class="fas fa-trophy"></i> Our pick</div>
                                 <div class="pick-name">${seller.name}</div>
                                 <div class="marketplace-badge">on ${seller.marketplace}</div>
 
@@ -3170,7 +3406,7 @@
 
                                 <div style="display:flex;gap:16px;align-items:center;padding:12px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:12px;">
                                     <div style="width:60px;height:60px;display:flex;align-items:center;justify-content:center;background:#F1EEE9;border-radius:12px;flex-shrink:0;overflow:hidden;">
-                                        <img src="${p.image}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.innerHTML='${p.emoji}'">
+                                        <img src="${p.image}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.innerHTML='<i class="fas ${p.icon}" style="font-size:28px;color:#aaa;"></i>'">
                                     </div>
                                     <div style="text-align:left;">
                                         <div style="font-weight:700;color:var(--navy);font-size:16px;">${p.name}</div>
@@ -3178,12 +3414,13 @@
                                     </div>
                                 </div>
 
-                                <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 16px;font-size:14px;color:var(--muted);">
-                                    <div><strong style="color:var(--navy);">📍 Location:</strong> ${seller.location}</div>
-                                    <div><strong style="color:var(--navy);">🚚 Delivery:</strong> ${deliveryText} · ${deliveryFeeDisplay}</div>
-                                    <div><strong style="color:var(--navy);">🔄 Returns:</strong> ${seller.returns}</div>
-                                    <div><strong style="color:var(--navy);">🛡️ Warranty:</strong> ${seller.warranty}</div>
-                                    <div><strong style="color:var(--navy);">📦 Stock:</strong> ${seller.stock}</div>
+                                <div class="seller-details">
+                                    <div class="detail"><i class="fas fa-location-dot"></i> <strong>Location:</strong> ${seller.location}</div>
+                                    <div class="detail"><i class="fas fa-truck"></i> <strong>Delivery:</strong> ${deliveryText}</div>
+                                    <div class="detail"><i class="fas fa-money-bill-wave"></i> <strong>Fee:</strong> ${feeDisplay}</div>
+                                    <div class="detail"><i class="fas fa-rotate-left"></i> <strong>Returns:</strong> ${seller.returns}</div>
+                                    <div class="detail"><i class="fas fa-shield-halved"></i> <strong>Warranty:</strong> ${seller.warranty}</div>
+                                    <div class="detail"><i class="fas fa-box"></i> <strong>Stock:</strong> ${seller.stock}</div>
                                 </div>
 
                                 <hr style="border:none;border-top:1px solid var(--line);margin:16px 0;">
@@ -3199,7 +3436,7 @@
 
                             <div class="button-row">
                                 <button class="btn-secondary" onclick="window.goTo('sellerComparison')">Compare sellers</button>
-                                <button class="btn-primary orange" onclick="window.goTo('orderSummary')">Make a purchase →</button>
+                                <button class="btn-primary orange" onclick="window.goTo('orderSummary')">Make a purchase <i class="fas fa-arrow-right"></i></button>
                             </div>
 
                             ${renderFooter()}
@@ -3228,34 +3465,35 @@
                     }
                 }
 
-                var deliveryFeeDisplay = getDeliveryDisplay(s);
+                var feeDisplay = getFeeDisplay(s);
 
                 var trustBadge = s.verified ? `
-                                    <span class="trust-badge verified"><i class="fas fa-check-circle check"></i> Verified</span>
+                                    <span class="trust-badge verified"><i class="fas fa-check-circle"></i> Verified</span>
                                 ` : '';
 
                 return `
                             <div class="seller-card" style="${isRecommended ? 'border-color:var(--orange);border-width:2px;' : ''}" onclick="selectSeller('${s.name}')">
                                 <div class="seller-name">${s.name}</div>
                                 <div class="marketplace-badge">on ${s.marketplace}</div>
-                                ${isRecommended ? '<span style="color:var(--orange);font-size:11px;font-weight:700;">★ Our pick</span>' : ''}
+                                ${isRecommended ? '<span style="color:var(--orange);font-size:11px;font-weight:700;"><i class="fas fa-star"></i> Our pick</span>' : ''}
                                 <div class="seller-price">${s.price}</div>
                                 <div class="seller-rating">★ ${s.rating} <span>(${s.reviews} reviews)</span></div>
                                 <div class="seller-reputation ${repClass}">${s.reputation}</div>
                                 ${trustBadge}
-                                <div class="seller-detail"><strong>📍 Location:</strong> ${s.location}</div>
-                                <div class="seller-detail"><strong>🚚 Delivery:</strong> ${deliveryText} · ${deliveryFeeDisplay}</div>
-                                <div class="seller-detail"><strong>🔄 Returns:</strong> ${s.returns}</div>
-                                <div class="seller-detail"><strong>🛡️ Warranty:</strong> ${s.warranty}</div>
-                                <div class="seller-detail"><strong>📦 Stock:</strong> ${s.stock}</div>
-                                <span class="click-hint">Click to purchase →</span>
+                                <div class="seller-detail"><i class="fas fa-location-dot"></i> <strong>Location:</strong> ${s.location}</div>
+                                <div class="seller-detail"><i class="fas fa-truck"></i> <strong>Delivery:</strong> ${deliveryText}</div>
+                                <div class="seller-detail"><i class="fas fa-money-bill-wave"></i> <strong>Fee:</strong> ${feeDisplay}</div>
+                                <div class="seller-detail"><i class="fas fa-rotate-left"></i> <strong>Returns:</strong> ${s.returns}</div>
+                                <div class="seller-detail"><i class="fas fa-shield-halved"></i> <strong>Warranty:</strong> ${s.warranty}</div>
+                                <div class="seller-detail"><i class="fas fa-box"></i> <strong>Stock:</strong> ${s.stock}</div>
+                                <span class="click-hint">Click to purchase <i class="fas fa-arrow-right"></i></span>
                             </div>
                         `;
             }).join('');
 
             screen.innerHTML = `
                         <div class="screen-content">
-                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back</button>
                             <div class="brand-mark"></div>
                             <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Other places you can get it</h1>
                             <p class="microcopy">These sellers are worth considering if you're willing to trade one advantage for another.</p>
@@ -3263,7 +3501,7 @@
                             <div class="seller-grid">${cards}</div>
 
                             <div class="button-row">
-                                <button class="btn-secondary" onclick="window.goTo('recommendedSeller')">← Back to our pick</button>
+                                <button class="btn-secondary" onclick="window.goTo('recommendedSeller')"><i class="fas fa-arrow-left"></i> Back to our pick</button>
                             </div>
 
                             ${renderFooter()}
@@ -3302,16 +3540,16 @@
                 }
             }
 
-            var deliveryFeeDisplay = getDeliveryDisplay(seller);
+            var feeDisplay = getFeeDisplay(seller);
 
             var trustBadges = `
-                        <span class="trust-badge verified"><i class="fas fa-check-circle check"></i> Verified seller</span>
-                        <span class="trust-badge guarantee"><i class="fas fa-check-circle check"></i> Authenticity guaranteed</span>
+                        <span class="trust-badge verified"><i class="fas fa-check-circle"></i> Verified seller</span>
+                        <span class="trust-badge guarantee"><i class="fas fa-check-circle"></i> Authenticity guaranteed</span>
                     `;
 
             screen.innerHTML = `
                         <div class="screen-content">
-                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back</button>
                             <div class="brand-mark"></div>
                             <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Order Summary</h1>
                             <p class="microcopy">Review your selection before you proceed.</p>
@@ -3319,7 +3557,7 @@
                             <div class="final-card" style="border-color:var(--navy);">
                                 <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px;">
                                     <div style="width:60px;height:60px;display:flex;align-items:center;justify-content:center;background:#F1EEE9;border-radius:12px;flex-shrink:0;overflow:hidden;">
-                                        <img src="${p.image}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.innerHTML='${p.emoji}'">
+                                        <img src="${p.image}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.innerHTML='<i class="fas ${p.icon}" style="font-size:28px;color:#aaa;"></i>'">
                                     </div>
                                     <div style="text-align:left;">
                                         <div style="font-weight:700;color:var(--navy);font-size:18px;">${p.name}</div>
@@ -3342,7 +3580,11 @@
                                     </div>
                                     <div class="row">
                                         <span class="label">Delivery</span>
-                                        <span class="value">${deliveryText} · ${deliveryFeeDisplay}</span>
+                                        <span class="value">${deliveryText}</span>
+                                    </div>
+                                    <div class="row">
+                                        <span class="label">Fee</span>
+                                        <span class="value">${feeDisplay}</span>
                                     </div>
                                     <div class="row">
                                         <span class="label">Returns</span>
@@ -3359,7 +3601,7 @@
                                     ${state.location ? `<div class="row"><span class="label">Location</span><span class="value">${state.location}</span></div>` : ''}
                                 </div>
 
-                                <button class="btn-primary orange" style="width:100%;justify-content:center;margin-top:16px;" onclick="window.goTo('finalPurchase')">Get it →</button>
+                                <button class="btn-primary orange" style="width:100%;justify-content:center;margin-top:16px;" onclick="window.goTo('finalPurchase')">Get it <i class="fas fa-arrow-right"></i></button>
                             </div>
 
                             ${renderFooter()}
@@ -3393,23 +3635,23 @@
                 }
             }
 
-            var deliveryFeeDisplay = getDeliveryDisplay(seller);
+            var feeDisplay = getFeeDisplay(seller);
 
             var trustBadges = `
-                        <span class="trust-badge verified"><i class="fas fa-check-circle check"></i> Verified seller</span>
-                        <span class="trust-badge guarantee"><i class="fas fa-check-circle check"></i> Authenticity guaranteed</span>
-                        <span class="trust-badge secure"><i class="fas fa-check-circle check"></i> Secure transaction</span>
+                        <span class="trust-badge verified"><i class="fas fa-check-circle"></i> Verified seller</span>
+                        <span class="trust-badge guarantee"><i class="fas fa-check-circle"></i> Authenticity guaranteed</span>
+                        <span class="trust-badge secure"><i class="fas fa-check-circle"></i> Secure transaction</span>
                     `;
 
             screen.innerHTML = `
                         <div class="screen-content">
-                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back</button>
                             <div class="brand-mark"></div>
                             <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Ready to get it?</h1>
                             <p class="microcopy">Everything we've considered points here as the strongest option for you.</p>
 
                             <div class="final-card">
-                                <div class="pick-label">🏆 Our pick</div>
+                                <div class="pick-label"><i class="fas fa-trophy"></i> Our pick</div>
                                 <div class="pick-name">${seller.name}</div>
                                 <div class="marketplace-badge">on ${seller.marketplace}</div>
                                 <div class="pick-reason">${seller.name} gives you the strongest balance based on what you've told us.</div>
@@ -3420,7 +3662,7 @@
 
                                 <div style="display:flex;gap:16px;align-items:center;padding:12px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
                                     <div style="width:60px;height:60px;display:flex;align-items:center;justify-content:center;background:#F1EEE9;border-radius:12px;flex-shrink:0;overflow:hidden;">
-                                        <img src="${p.image}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.innerHTML='${p.emoji}'">
+                                        <img src="${p.image}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.innerHTML='<i class="fas ${p.icon}" style="font-size:28px;color:#aaa;"></i>'">
                                     </div>
                                     <div style="text-align:left;">
                                         <div style="font-weight:700;color:var(--navy);font-size:18px;">${p.name}</div>
@@ -3429,19 +3671,20 @@
                                 </div>
 
                                 <div class="detail-grid">
-                                    <div class="detail-item"><strong>Price:</strong> <span class="value">${seller.price}</span></div>
-                                    <div class="detail-item"><strong>Seller:</strong> <span class="value">${seller.name}</span></div>
-                                    <div class="detail-item"><strong>Marketplace:</strong> <span class="value">${seller.marketplace}</span></div>
-                                    <div class="detail-item"><strong>Rating:</strong> <span class="value">★ ${seller.rating}</span></div>
-                                    <div class="detail-item"><strong>📍 Location:</strong> <span class="value">${seller.location}</span></div>
-                                    <div class="detail-item"><strong>🚚 Delivery:</strong> <span class="value">${deliveryText} · ${deliveryFeeDisplay}</span></div>
-                                    <div class="detail-item"><strong>🔄 Returns:</strong> <span class="value">${seller.returns}</span></div>
-                                    <div class="detail-item"><strong>🛡️ Warranty:</strong> <span class="value">${seller.warranty}</span></div>
-                                    <div class="detail-item"><strong>📦 Stock:</strong> <span class="value">${seller.stock}</span></div>
-                                    ${state.location ? `<div class="detail-item"><strong>Your location:</strong> <span class="value">${state.location}</span></div>` : `<div class="detail-item"><strong>Delivery:</strong> <span class="value">Standard shipping</span></div>`}
+                                    <div class="detail-item"><i class="fas fa-tag"></i> <strong>Price:</strong> <span class="value">${seller.price}</span></div>
+                                    <div class="detail-item"><i class="fas fa-store"></i> <strong>Seller:</strong> <span class="value">${seller.name}</span></div>
+                                    <div class="detail-item"><i class="fas fa-shopping-cart"></i> <strong>Marketplace:</strong> <span class="value">${seller.marketplace}</span></div>
+                                    <div class="detail-item"><strong>Rating:</strong> <span class="value">${seller.rating}</span></div>
+                                    <div class="detail-item"><i class="fas fa-location-dot"></i> <strong>Location:</strong> <span class="value">${seller.location}</span></div>
+                                    <div class="detail-item"><i class="fas fa-truck"></i> <strong>Delivery:</strong> <span class="value">${deliveryText}</span></div>
+                                    <div class="detail-item"><i class="fas fa-money-bill-wave"></i> <strong>Fee:</strong> <span class="value">${feeDisplay}</span></div>
+                                    <div class="detail-item"><i class="fas fa-rotate-left"></i> <strong>Returns:</strong> <span class="value">${seller.returns}</span></div>
+                                    <div class="detail-item"><i class="fas fa-shield-halved"></i> <strong>Warranty:</strong> <span class="value">${seller.warranty}</span></div>
+                                    <div class="detail-item"><i class="fas fa-box"></i> <strong>Stock:</strong> <span class="value">${seller.stock}</span></div>
+                                    ${state.location ? `<div class="detail-item"><i class="fas fa-location-dot" style="color:var(--orange);"></i> <strong>Your location:</strong> <span class="value">${state.location}</span></div>` : `<div class="detail-item"><i class="fas fa-truck"></i> <strong>Delivery:</strong> <span class="value">Standard shipping</span></div>`}
                                 </div>
 
-                                <button class="btn-primary orange" onclick="alert('🎉 Redirecting to ${seller.name} on ${seller.marketplace} to complete your purchase...')">Make a purchase →</button>
+                                <button class="btn-primary orange" onclick="alert('🎉 Redirecting to ${seller.name} on ${seller.marketplace} to complete your purchase...')">Make a purchase <i class="fas fa-arrow-right"></i></button>
                             </div>
 
                             <div class="button-row" style="margin-top:12px;">
@@ -3459,7 +3702,7 @@
         function renderPasteUrl() {
             screen.innerHTML = `
                         <div class="screen-content">
-                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back</button>
                             <div class="brand-mark"></div>
                             <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Paste the product link</h1>
                             <p class="microcopy">Share the link to the product you're considering and we'll take a closer look.</p>
@@ -3497,13 +3740,13 @@
 
             screen.innerHTML = `
                         <div class="screen-content">
-                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back</button>
                             <div class="brand-mark"></div>
                             <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Taking a look.</h1>
                             <p class="microcopy">We're reading the page to work out exactly which product you're looking at.</p>
                             <div class="loading-states">${stateHtml}</div>
                             <div class="button-row" style="margin-top:32px;">
-                                <button class="btn-primary" onclick="window.goTo('productRecognition')">Show me →</button>
+                                <button class="btn-primary" onclick="window.goTo('productRecognition')">Show me <i class="fas fa-arrow-right"></i></button>
                             </div>
                             ${renderFooter()}
                         </div>
@@ -3511,18 +3754,22 @@
             animateLoading();
         }
 
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  20. UPLOAD IMAGE (No emoji)
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function renderUploadImage() {
             screen.innerHTML = `
                         <div class="screen-content">
-                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back</button>
                             <div class="brand-mark"></div>
                             <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Show us what you're considering.</h1>
                             <p class="microcopy">Upload a clear photo of the product and we'll see what we can identify.</p>
 
                             <div class="input-card dashed">
-                                <div class="icon-large">🖼️</div>
                                 <p class="label">Upload a clear photo of the product</p>
-                                <input type="file" accept="image/*" id="imageUpload" onchange="handleImageUpload(event)" style="max-width:100%;">
+                                <div class="file-input-wrapper">
+                                    <input type="file" accept="image/*" id="imageUpload" onchange="handleImageUpload(event)">
+                                </div>
                                 <div id="uploadPreview" class="upload-preview"></div>
                             </div>
 
@@ -3554,7 +3801,7 @@
         function renderImagePreview() {
             screen.innerHTML = `
                         <div class="screen-content">
-                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back</button>
                             <div class="brand-mark"></div>
                             <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Is this the image you want to use?</h1>
 
@@ -3581,13 +3828,13 @@
 
             screen.innerHTML = `
                         <div class="screen-content">
-                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back</button>
                             <div class="brand-mark"></div>
                             <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Taking a closer look.</h1>
                             <p class="microcopy">We're checking the image for the details that can help us identify the product.</p>
                             <div class="loading-states">${stateHtml}</div>
                             <div class="button-row" style="margin-top:32px;">
-                                <button class="btn-primary" onclick="window.goTo('productRecognition')">Show me →</button>
+                                <button class="btn-primary" onclick="window.goTo('productRecognition')">Show me <i class="fas fa-arrow-right"></i></button>
                             </div>
                             ${renderFooter()}
                         </div>
@@ -3595,19 +3842,23 @@
             animateLoading();
         }
 
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  21. SCAN CODE (No emoji, centered square)
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function renderScanCode() {
             screen.innerHTML = `
                         <div class="screen-content">
-                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back</button>
                             <div class="brand-mark"></div>
                             <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Scan the product code</h1>
                             <p class="microcopy">Place the barcode or QR code inside the frame and we'll use it to identify the product.</p>
 
-                            <div class="input-card dashed" style="padding:40px 30px;">
-                                <div class="icon-large">📷</div>
+                            <div class="input-card dashed">
                                 <p class="label">Place the code inside the frame.</p>
-                                <div style="width:200px;height:200px;margin:12px auto;border:2px dashed var(--line);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:64px;color:var(--muted);">◻</div>
-                                <input type="text" id="manualCodeInput" placeholder="Or enter code manually" value="${state.scannedCode}" style="width:100%;min-height:48px;padding:0 12px;border:1px solid var(--line);border-radius:12px;background:var(--white);font-size:14px;text-align:center;margin-top:12px;">
+                                <div class="scan-frame">
+                                    <div class="square-icon"></div>
+                                </div>
+                                <input type="text" id="manualCodeInput" placeholder="Or enter code manually" value="${state.scannedCode}" style="width:100%;min-height:48px;padding:0 16px;border:1px solid var(--line);border-radius:12px;background:var(--white);font-size:14px;text-align:center;margin-top:12px;outline:none;">
                             </div>
 
                             <div class="button-row">
@@ -3633,7 +3884,7 @@
         function renderCodeProcessing() {
             screen.innerHTML = `
                         <div class="screen-content">
-                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back</button>
                             <div class="brand-mark"></div>
                             <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Identifying the product.</h1>
                             <p class="microcopy">We're matching the code to the product it belongs to.</p>
@@ -3641,7 +3892,7 @@
                                 <div class="state active">Matching the code</div>
                             </div>
                             <div class="button-row" style="margin-top:32px;">
-                                <button class="btn-primary" onclick="window.goTo('productRecognition')">Show me →</button>
+                                <button class="btn-primary" onclick="window.goTo('productRecognition')">Show me <i class="fas fa-arrow-right"></i></button>
                             </div>
                             ${renderFooter()}
                         </div>
@@ -3653,7 +3904,7 @@
 
             screen.innerHTML = `
                         <div class="screen-content">
-                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back</button>
                             <div class="brand-mark"></div>
                             <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">We found this product.</h1>
                             <p class="microcopy">Here's what we believe you're looking at.</p>
@@ -3680,9 +3931,9 @@
         function renderProductConfirmation() {
             screen.innerHTML = `
                         <div class="screen-content">
-                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back</button>
                             <div class="brand-mark"></div>
-                            <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Is this the product you're looking at?</h1>
+                            <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Does this match what you're looking for?</h1>
                             <p class="microcopy">If we've got it right, we'll use this product as the starting point for the next step.</p>
 
                             <div class="button-row">
@@ -3698,7 +3949,7 @@
         function renderWrongProduct() {
             screen.innerHTML = `
                         <div class="screen-content">
-                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back</button>
                             <div class="brand-mark"></div>
                             <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Let's try that again.</h1>
                             <p class="microcopy">We may have identified the wrong product, so give us another image, link or code and we'll take another look.</p>
@@ -3713,12 +3964,12 @@
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        //  27. DECISION FORK
+        //  22. DECISION FORK
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function renderDecisionFork() {
             screen.innerHTML = `
                         <div class="screen-content">
-                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back</button>
                             <div class="brand-mark"></div>
                             <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">What would you like help with?</h1>
                             <p class="microcopy">You can either focus on finding the best place to buy this product or let us help you decide whether it's actually the right one for you.</p>
@@ -3740,7 +3991,7 @@
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        //  28. I KNOW WHAT I WANT
+        //  23. I KNOW WHAT I WANT
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function renderKnowWhatIWant() {
             var chips = PRIORITIES_BUY.map(function(p) {
@@ -3750,7 +4001,7 @@
 
             screen.innerHTML = `
                         <div class="screen-content">
-                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back</button>
                             <div class="brand-mark"></div>
                             <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">What matters when you buy it?</h1>
                             <p class="microcopy">Since you've already settled on the product, we'll focus on what makes one place to buy it better for you than another.</p>
@@ -3786,14 +4037,14 @@
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        //  29. KNOW SUMMARY
+        //  24. KNOW SUMMARY
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function renderKnowSummary() {
             var prioritiesText = state.selectedPriorities.length > 0 ? state.selectedPriorities.join(', ') : 'Not specified';
 
             screen.innerHTML = `
                         <div class="screen-content">
-                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back</button>
                             <div class="brand-mark"></div>
                             <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Here's what matters most.</h1>
                             <p class="microcopy">We'll use these priorities when we compare where you can get the product.</p>
@@ -3813,7 +4064,7 @@
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        //  30. KNOW ALTERNATIVES
+        //  25. KNOW ALTERNATIVES
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function renderKnowAlternatives() {
             var allProducts = [PRODUCTS.macbook, PRODUCTS.lenovo, PRODUCTS.hp];
@@ -3821,6 +4072,7 @@
             var cards = allProducts.map(function(p) {
                 var isFeatured = p.id === 'macbook';
                 var badgeClass = isFeatured ? '' : (p.id === 'lenovo' ? 'gold' : 'navy');
+                var badgeIcon = isFeatured ? '<i class="fas fa-trophy"></i>' : (p.id === 'lenovo' ? '<i class="fas fa-star"></i>' : '<i class="fas fa-arrows-spin"></i>');
                 var badgeText = isFeatured ? 'Our top pick' : (p.id === 'lenovo' ? 'Best value' : 'Versatile');
 
                 var ctaText = isFeatured ? 'Where to buy from' : 'See more details';
@@ -3829,9 +4081,9 @@
                 return `
                             <div class="product-card ${isFeatured ? 'featured' : ''}">
                                 <div class="product-image">
-                                    <img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='${p.emoji}'">
+                                    <img src="${p.image}" alt="${p.name}" onerror="this.style.display='none';this.parentElement.innerHTML='${getProductImageFallback(p)}'">
                                 </div>
-                                <div class="product-badge ${badgeClass}">${badgeText}</div>
+                                <div class="product-badge ${badgeClass}">${badgeIcon} ${badgeText}</div>
                                 <div class="product-info">
                                     <h3>${p.name}</h3>
                                     <div class="price">${p.price}</div>
@@ -3845,15 +4097,15 @@
 
             screen.innerHTML = `
                         <div class="screen-content">
-                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back</button>
                             <div class="brand-mark"></div>
                             <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Other options worth considering</h1>
-                            <p class="microcopy">Here are the other options worth considering. Click any to see where to get it.</p>
+                            <p class="microcopy">Take a look at these other options worth considering.</p>
 
                             <div class="product-grid">${cards}</div>
 
                             <div class="button-row">
-                                <button class="btn-secondary" onclick="window.goTo('knowSummary')">← Back to summary</button>
+                                <button class="btn-secondary" onclick="window.goTo('knowSummary')"><i class="fas fa-arrow-left"></i> Back to summary</button>
                             </div>
 
                             ${renderFooter()}
@@ -3862,7 +4114,7 @@
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        //  30b. KNOW PRODUCT DETAIL
+        //  25b. KNOW PRODUCT DETAIL
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function renderKnowProductDetail() {
             var productId = state.selectedProductId || 'lenovo';
@@ -3879,14 +4131,14 @@
 
             screen.innerHTML = `
                         <div class="screen-content">
-                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back</button>
                             <div class="brand-mark"></div>
                             <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">${p.name}</h1>
                             <p class="microcopy">Here's a closer look at what this option offers and what you'd be giving up.</p>
 
                             <div class="detail-product-card">
                                 <div class="product-image">
-                                    <img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='${p.emoji}'">
+                                    <img src="${p.image}" alt="${p.name}" onerror="this.style.display='none';this.parentElement.innerHTML='${getProductImageFallback(p)}'">
                                 </div>
                                 <div class="detail-body">
                                     <h3>${p.name}</h3>
@@ -3908,8 +4160,8 @@
                             </div>
 
                             <div class="button-row">
-                                <button class="btn-secondary" onclick="goBack()">← Back to summary</button>
-                                <button class="btn-primary orange" onclick="goToProductBestSeller('${p.id}')">Where to buy from →</button>
+                                <button class="btn-secondary" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back to summary</button>
+                                <button class="btn-primary orange" onclick="goToProductBestSeller('${p.id}')">Where to buy from <i class="fas fa-arrow-right"></i></button>
                             </div>
 
                             ${renderFooter()}
@@ -3923,18 +4175,18 @@
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        //  31-38. I'M STILL CONSIDERING
+        //  26-33. I'M STILL CONSIDERING
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         function renderStillConsidering() {
             screen.innerHTML = `
                         <div class="screen-content">
-                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back</button>
                             <div class="brand-mark"></div>
                             <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Let's make sure it's right for you.</h1>
                             <p class="microcopy">A product can look good on paper and still be the wrong fit, so let's see how well it matches what you actually need.</p>
 
                             <div class="button-row">
-                                <button class="btn-primary" onclick="window.goTo('consideringUseCase')">Continue →</button>
+                                <button class="btn-primary" onclick="window.goTo('consideringUseCase')">Continue <i class="fas fa-arrow-right"></i></button>
                             </div>
 
                             ${renderFooter()}
@@ -3952,7 +4204,7 @@
 
             screen.innerHTML = `
                         <div class="screen-content">
-                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back</button>
                             <div class="brand-mark"></div>
                             <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">What do you need it for?</h1>
                             <p class="microcopy">Tell us how you'll actually use it and we'll know what to prioritize.</p>
@@ -4019,7 +4271,7 @@
 
             screen.innerHTML = `
                         <div class="screen-content">
-                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back</button>
                             <div class="brand-mark"></div>
                             <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">What matters to you?</h1>
                             <p class="microcopy">Pick the things you want us to weigh most when helping you decide.</p>
@@ -4055,7 +4307,7 @@
 
             screen.innerHTML = `
                         <div class="screen-content">
-                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back</button>
                             <div class="brand-mark"></div>
                             <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">What's your budget?</h1>
                             <p class="microcopy">Tell us what you're comfortable spending, or choose that you don't have a fixed budget and we'll keep the decision focused on fit and value.</p>
@@ -4134,7 +4386,7 @@
 
             screen.innerHTML = `
                         <div class="screen-content">
-                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back</button>
                             <div class="brand-mark"></div>
                             <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Here's what we understand.</h1>
                             <p class="microcopy">We'll use this to work out whether the product you're considering is actually the best fit for you.</p>
@@ -4146,7 +4398,7 @@
                             </div>
 
                             <div class="button-row">
-                                <button class="btn-primary orange" onclick="window.goTo('consideringRecommendation')">Show me what fits →</button>
+                                <button class="btn-primary orange" onclick="window.goTo('consideringRecommendation')">Show me what fits <i class="fas fa-arrow-right"></i></button>
                             </div>
 
                             ${renderFooter()}
@@ -4159,15 +4411,15 @@
 
             screen.innerHTML = `
                         <div class="screen-content">
-                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back</button>
                             <div class="brand-mark"></div>
                             <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Here's where we'd land.</h1>
                             <p class="microcopy">We've compared the product you're considering with the alternatives against the things you've told us matter most.</p>
 
                             <div class="product-grid" style="max-width:480px;margin-left:auto;margin-right:auto;display:flex;justify-content:center;">
                                 <div class="product-card featured" style="width:100%;max-width:400px;">
-                                    <div class="product-image"><img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='${p.emoji}'"></div>
-                                    <div class="product-badge">Our top pick</div>
+                                    <div class="product-image"><img src="${p.image}" alt="${p.name}" onerror="this.style.display='none';this.parentElement.innerHTML='${getProductImageFallback(p)}'"></div>
+                                    <div class="product-badge"><i class="fas fa-trophy"></i> Our top pick</div>
                                     <div class="product-info">
                                         <h3>${p.name}</h3>
                                         <div class="price">${p.price}</div>
@@ -4179,7 +4431,7 @@
                             </div>
 
                             <div class="button-row">
-                                <button class="btn-primary orange" onclick="window.goTo('consideringTradeoffs')">See trade-offs →</button>
+                                <button class="btn-primary orange" onclick="window.goTo('consideringTradeoffs')">See trade-offs <i class="fas fa-arrow-right"></i></button>
                             </div>
 
                             ${renderFooter()}
@@ -4192,7 +4444,7 @@
 
             screen.innerHTML = `
                         <div class="screen-content">
-                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back</button>
                             <div class="brand-mark"></div>
                             <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">Before you decide</h1>
                             <p class="microcopy">Every option gives you something and asks you to give something up, so here's what we'd want you to know before choosing this one.</p>
@@ -4228,6 +4480,7 @@
             var cards = allProducts.map(function(p) {
                 var isFeatured = p.id === 'macbook';
                 var badgeClass = isFeatured ? '' : (p.id === 'lenovo' ? 'gold' : 'navy');
+                var badgeIcon = isFeatured ? '<i class="fas fa-trophy"></i>' : (p.id === 'lenovo' ? '<i class="fas fa-star"></i>' : '<i class="fas fa-arrows-spin"></i>');
                 var badgeText = isFeatured ? 'Our top pick' : (p.id === 'lenovo' ? 'Best value' : 'Versatile');
 
                 var ctaText = isFeatured ? 'Where to buy from' : 'See more details';
@@ -4236,9 +4489,9 @@
                 return `
                             <div class="product-card ${isFeatured ? 'featured' : ''}">
                                 <div class="product-image">
-                                    <img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='${p.emoji}'">
+                                    <img src="${p.image}" alt="${p.name}" onerror="this.style.display='none';this.parentElement.innerHTML='${getProductImageFallback(p)}'">
                                 </div>
-                                <div class="product-badge ${badgeClass}">${badgeText}</div>
+                                <div class="product-badge ${badgeClass}">${badgeIcon} ${badgeText}</div>
                                 <div class="product-info">
                                     <h3>${p.name}</h3>
                                     <div class="price">${p.price}</div>
@@ -4252,7 +4505,7 @@
 
             screen.innerHTML = `
                         <div class="screen-content">
-                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back</button>
                             <div class="brand-mark"></div>
                             <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">What else could work?</h1>
                             <p class="microcopy">These are the alternatives we'd keep on the table if you want to trade one priority for another.</p>
@@ -4260,7 +4513,7 @@
                             <div class="product-grid">${cards}</div>
 
                             <div class="button-row">
-                                <button class="btn-secondary" onclick="window.goTo('consideringTradeoffs')">← Back to trade-offs</button>
+                                <button class="btn-secondary" onclick="window.goTo('consideringTradeoffs')"><i class="fas fa-arrow-left"></i> Back to trade-offs</button>
                             </div>
 
                             ${renderFooter()}
@@ -4283,14 +4536,14 @@
 
             screen.innerHTML = `
                         <div class="screen-content">
-                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back</button>
                             <div class="brand-mark"></div>
                             <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">${p.name}</h1>
                             <p class="microcopy">Here's a closer look at what this option offers and what you'd be giving up.</p>
 
                             <div class="detail-product-card">
                                 <div class="product-image">
-                                    <img src="${p.image}" alt="${p.name}" onerror="this.parentElement.innerHTML='${p.emoji}'">
+                                    <img src="${p.image}" alt="${p.name}" onerror="this.style.display='none';this.parentElement.innerHTML='${getProductImageFallback(p)}'">
                                 </div>
                                 <div class="detail-body">
                                     <h3>${p.name}</h3>
@@ -4312,8 +4565,8 @@
                             </div>
 
                             <div class="button-row">
-                                <button class="btn-secondary" onclick="goBack()">← Back to summary</button>
-                                <button class="btn-primary orange" onclick="goToProductBestSeller('${p.id}')">Where to buy from →</button>
+                                <button class="btn-secondary" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back to summary</button>
+                                <button class="btn-primary orange" onclick="goToProductBestSeller('${p.id}')">Where to buy from <i class="fas fa-arrow-right"></i></button>
                             </div>
 
                             ${renderFooter()}
@@ -4332,7 +4585,7 @@
         function renderAbout() {
             screen.innerHTML = `
                         <div class="screen-content">
-                            <button class="back-button" onclick="goBack()">← Back</button>
+                            <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back</button>
                             <div class="brand-mark"></div>
                             <h1 style="font-size:clamp(32px,5vw,48px);letter-spacing:-2px;">About eBuya</h1>
 
